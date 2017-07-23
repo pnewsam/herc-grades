@@ -1,9 +1,20 @@
-# README
+# __Herc Grades__
+## __Description__
+An app that makes it easy for teachers to assign grades to their students!
 
-This README would normally document whatever steps are necessary to get the
+### Ruby Version: 2.4.0
+
+## __Dependencies__
+* _Views_: React
+* _Styling_: Bootstrap
+* _Database_: Postgres
+* _Testing_: RSpec
+
+
+
+
+<!-- This README would normally document whatever steps are necessary to get the
 application up and running.
-
-Things you may want to cover:
 
 * Ruby version
 
@@ -21,4 +32,4 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* ... -->
