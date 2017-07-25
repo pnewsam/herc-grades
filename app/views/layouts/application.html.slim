@@ -16,10 +16,19 @@ html
           a.navbar-item Link
           a.navbar-item Link
           a.navbar-item Link
-          div.navbar-item
-            div.field.is-grouped
+          .navbar-item
+            .field.is-grouped
               p.control
-                a.button.is-primary Log In
+                a.button.is-info Student Login
+              p.control
+                a.button.is-primary Teacher Login
 
     main
-      = yield
+      section.section
+        .container
+          = yield
+
+    footer.footer
+      .container.has-text-centered
+        .content
+          p &copy; Jurassic Initiatives 2017
