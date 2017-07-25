@@ -1,6 +1,6 @@
-class CreateSeatAssignments < ActiveRecord::Migration[5.1]
+class CreateSeats < ActiveRecord::Migration[5.1]
   def change
-    create_table :seat_assignments do |t|
+    create_table :seats do |t|
       t.integer :seat_number, null: false
 
       t.integer :section_id, null: false
