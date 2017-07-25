@@ -44,13 +44,16 @@ students = []
   students << Student.create(first_name: Faker::Name.first_name, middle_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
 end
 
+k = 0
+
 sections.each do |section|
 
-  i = 1
-  while i < 6
+  i = k + 1
+  while i < k + 6
     Assignment.create(date_assigned: Date.today, date_due: Date.tomorrow, assignment_model_id: i, section_id: section.id)
     i += 1
   end
+  k += 5
 
   seats = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].shuffle
   grades = ['A', 'B', 'C', 'D', 'F']
