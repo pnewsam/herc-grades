@@ -1,7 +1,9 @@
 section.section
   .container
     h1.title.is-1 Assignments
+    hr
     - @assignments.each do |assignment|
       h2.title.is-2 = assignment.assignment_model.name
       p Assigned #{assignment.date_assigned.strftime("%B %d, %Y")}
       p Due #{assignment.date_due.strftime("%B %d, %Y")}
+      hr
