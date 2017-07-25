@@ -4,13 +4,13 @@ An app that makes it easy for teachers to assign grades to their students!
 
 ### Ruby Version: 2.4.0
 
-## __Dependencies__
-* _Views_: React
-* _Styling_: Bootstrap
+## _Stack_
+<!-- * _Views_: React -->
+* _Styling_: Bulma
 * _Database_: Postgres
 * _Testing_: RSpec
 
-
+* _Other_: Faker
 
 
 <!-- This README would normally document whatever steps are necessary to get the
