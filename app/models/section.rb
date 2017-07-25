@@ -1,4 +1,4 @@
 class Section < ApplicationRecord
   belongs_to :course
-  belongs_to :teacher, through: course
+  has_one :teacher, through: :course
 end

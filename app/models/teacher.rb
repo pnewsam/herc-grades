@@ -5,6 +5,7 @@ class Teacher < ApplicationRecord
 
   has_many :courses
   has_many :sections, through: :courses
+  has_many :assignment_models, through: :courses
 
   def password
     @password ||= Password.new(password_hash)
