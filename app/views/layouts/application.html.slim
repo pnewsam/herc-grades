@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title HercGrades
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header
+      nav.navbar.navbar-default
+        .container
+          .navbar-header
+            a.navbar-brand[href="/"]Herc Grades
+          .navbar-collapse
+            ul.nav.navbar-nav
+              li
+                a Link
+              li
+                a Link
+              li
+                a Link
+            ul.nav.navbar-nav.navbar-nav-right
+              li
+                a Link
+              li
+                a Link
+              li
+                a Link
+
+    main.container = yield
