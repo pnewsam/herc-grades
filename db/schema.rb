@@ -15,25 +15,12 @@ ActiveRecord::Schema.define(version: 20170725020315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "assignment_grades", force: :cascade do |t|
-    t.string "grade"
-    t.integer "student_id"
-    t.integer "assignment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "assignment_models", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "course_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "assignments", force: :cascade do |t|
     t.datetime "date_assigned", null: false
     t.datetime "date_due"
-    t.integer "assignment_model_id", null: false
+    t.string "name", null: false
+    t.string "description"
+    t.integer "course_id", null: false
     t.integer "section_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -46,7 +33,15 @@ ActiveRecord::Schema.define(version: 20170725020315) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "seat_assignments", force: :cascade do |t|
+  create_table "grades", force: :cascade do |t|
+    t.string "grade"
+    t.integer "student_id"
+    t.integer "assignment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
     t.integer "seat_number", null: false
     t.integer "section_id", null: false
     t.integer "student_id", null: false
@@ -68,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170725020315) do
     t.string "first_name"
     t.string "middle_name"
     t.string "last_name"
+    t.integer "id_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

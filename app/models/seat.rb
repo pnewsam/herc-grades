@@ -1,4 +1,4 @@
-class SeatAssignment < ApplicationRecord
+class Seat < ApplicationRecord
   belongs_to :student
   belongs_to :section
 end

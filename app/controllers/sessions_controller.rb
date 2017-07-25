@@ -5,4 +5,6 @@ class SessionsController < ApplicationController
   end
   def destroy
   end
+  def dashboard
+  end
 end

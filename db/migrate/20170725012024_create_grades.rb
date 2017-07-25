@@ -1,6 +1,6 @@
-class CreateAssignmentGrades < ActiveRecord::Migration[5.1]
+class CreateGrades < ActiveRecord::Migration[5.1]
   def change
-    create_table :assignment_grades do |t|
+    create_table :grades do |t|
       t.string :grade, null: :false
 
       t.integer :student_id, null: :false
