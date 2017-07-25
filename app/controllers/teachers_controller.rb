@@ -4,7 +4,7 @@ class TeachersController < ApplicationController
   
   def create
     teacher = Teacher.new(teacher_params)
-    if teacher.save?
+    if teacher.save
       session[:teacher_id] = teacher.id
       redirect_to '/'
     else
@@ -13,10 +13,11 @@ class TeachersController < ApplicationController
   end
 
   def new
+    @teacher = Teacher.new
   end
   
   private
   def teacher_params
-    params.require(:teacher).permnit(:email,:password,:password_confirmation)
+    params.require(:teacher).permit(:email,:password,:password_confirmation)
   end
 end
