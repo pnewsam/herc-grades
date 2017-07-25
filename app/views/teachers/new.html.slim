@@ -3,12 +3,12 @@ section.section
     h1.title.is-1 Sign Up
     = form_tag('teachers', method: 'post') do
       .field
-        = label_tag :email, "Email", class: 'label'
-        = text_field_tag :email, '', class: 'input'
+        = label_tag teacher[:email], "Email", class: 'label'
+        = text_field_tag teacher[:email], :email, '', class: 'input'
       .field
-        = label_tag :password, "Password", class: 'label'
-        = password_field_tag :password, '', class: 'input'
+        = label_tag teacher[:password], "Password", class: 'label'
+        = password_field_tag teacher[:password], '', class: 'input'
       .field
-        = label_tag :password_confirmation, "Password", class: 'label'
-        = password_field_tag :password_confirmation, '', class: 'input'
+        = label_tag teacher[:password_confirmation], "Password", class: 'label'
+        = password_field_tag teacher[:password_confirmation], '', class: 'input'
       = submit_tag 'Submit', class: 'button is-primary'

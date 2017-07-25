@@ -3,6 +3,8 @@ require 'bcrypt'
 class Teacher < ApplicationRecord
   include BCrypt
 
+  has_secure_password
+
   has_many :courses
   has_many :sections, through: :courses
   has_many :assignment_models, through: :courses
