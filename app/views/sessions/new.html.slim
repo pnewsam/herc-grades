@@ -1,14 +1,18 @@
-.container
-  h2.title.is-2 Teacher Login
-  form
-    .field
-      label.label Email
-      input.input[type='input' placeholder='Type your email...']
-    .field
-      label.label Password
-      input.input[type='password' placeholder='Type your password...']
-    .field
-      input.input.button.is-primary[type='submit']
-  br
-  p Don't have an account?
-  a[href='signup'] Sign up here.
+section.section
+  .container
+    h1.title.is-1 Teacher Login
+    = form_tag '/login', method: 'post'
+      .field
+        p.control
+          = label_tag :email, 'Email', class: 'label'
+          = text_field_tag :email, nil, class: 'input'
+      .field
+        p.control
+          = label_tag :password, 'Password', class: 'label'
+          = password_field_tag :password, nil, class: 'input'
+      .field
+        p.control
+          = submit_tag 'Submit', class: 'button is-primary'
+    br
+    p Don't have an account?
+    a[href='signup'] Sign up here.
