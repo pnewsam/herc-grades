@@ -6,34 +6,13 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    header
-      nav.navbar
-        .navbar-brand
-          a.navbar-item[href="/"] Herc Grades
-        .navbar-menu
-        .navbar-start
-        .navbar-end
-          a.navbar-item Link
-          a.navbar-item Link
-          a.navbar-item Link
-          .navbar-item
-            .field.is-grouped
-              p.control
-                a.button.is-info Student Login
-              p.control
-                - if current_user
-                  span Logged in as 
-                  a[href="teachers/#{current_user.id}"] #{current_user.email}
-                  a.button.is-danger[href='logout'] Log Out
-                - else
-                  a.button.is-primary[href='login'] Teacher Login
+    p.notice.notification.is-info = notice
+    p.alert.notification.is-danger = alert
+    = render 'layouts/header'
 
     main
       section.section
         .container
           = yield
 
-    footer.footer
-      .container.has-text-centered
-        .content
-          p &copy; Jurassic Initiatives 2017
+    = render 'layouts/footer'

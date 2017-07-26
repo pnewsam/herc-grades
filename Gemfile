@@ -35,7 +35,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'slim-rails'
 gem "bulma-rails", "~> 0.4.3"
-gem 'faker'
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,6 +43,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'faker'
 end
 
 group :development do
