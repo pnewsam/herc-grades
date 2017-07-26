@@ -1,0 +1,31 @@
+header
+  nav.navbar
+    .navbar-brand
+      a.navbar-item[href="/"] Herc Grades
+    .navbar-menu
+    .navbar-start
+    .navbar-end
+      a.navbar-item Link
+      a.navbar-item Link
+      a.navbar-item Link
+      .navbar-item
+        .field.is-grouped
+          - if teacher_signed_in?        
+            p.control
+              span Logged in as 
+              a[href="/teachers/#{current_teacher.id}"] #{current_teacher.email}
+              = form_tag '/teachers/sign_out', method: 'delete'
+                .field
+                  = submit_tag 'Log Out', class: 'button is-danger'
+          - elsif student_signed_in?
+            p.control
+              span Logged in as 
+              a[href="/students/#{current_student.id}"] #{current_student.email}
+              = form_tag '/students/sign_out', method: 'delete'
+                .field
+                  = submit_tag 'Log Out', class: 'button is-danger'
+          - else
+            p.control
+              a.button.is-info[href='/students/sign_in'] Student Login
+            p.control
+              a.button.is-primary[href='/teachers/sign_in'] Teacher Login

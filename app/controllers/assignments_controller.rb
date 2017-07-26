@@ -1,6 +1,4 @@
-class AssignmentsController < ApplicationController
-  before_action :authorize
-  
+class AssignmentsController < ApplicationController  
   def index
     @assignments = Assignment.all
   end
