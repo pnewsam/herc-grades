@@ -24,8 +24,7 @@ html
                 - if current_user
                   span Logged in as 
                   a[href="teachers/#{current_user.id}"] #{current_user.email}
-                  = form_tag 'logout', method: 'delete'
-                  = submit_tag 'Log Out', class: 'button is-danger'
+                  a.button.is-danger[href='logout'] Log Out
                 - else
                   a.button.is-primary[href='login'] Teacher Login
 

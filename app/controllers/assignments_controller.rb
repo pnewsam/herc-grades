@@ -1,13 +1,18 @@
 class AssignmentsController < ApplicationController
+  before_action :authorize
+  
   def index
     @assignments = Assignment.all
   end
+
   def show
     @assignment = Assignment.find(params[:id])
   end
+
   def create
     assignment = Assignment.new(assignment_params)
   end
+  
   def new
   end
 
