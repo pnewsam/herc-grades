@@ -10,7 +10,7 @@ require 'faker'
 
 Teacher.create(email: "herc@email.com", password: "password")
 
-Course.create(name: "Biology",)
+course = Course.create(name: "Biology",)
 Course.create(name: "Chemistry")
 Course.create(name: "Computer Science")
 
@@ -20,10 +20,20 @@ sections << Section.create(period: 2, academic_year_start: 2017, academic_year_e
 sections << Section.create(period: 3, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 2, teacher_id: 1)
 sections << Section.create(period: 4, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 3, teacher_id: 1)
 
-# students = []
-# 80.times do
-#   students << Student.create(first_name: Faker::Name.first_name, middle_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-# end
+students = []
+20.times do
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  email = Faker::Internet.safe_email
+  password = 'password'
+  students << Student.create(first_name: first_name, last_name: last_name, email: email, password: password)
+end
+
+k = 1
+students.each do |student|
+  Seat.create(section_id: 1, student_id: student.id, seat_number: k)
+  k += 1
+end
 
 # sections.each do |section|
 

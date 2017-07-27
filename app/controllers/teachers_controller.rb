@@ -16,6 +16,11 @@ class TeachersController < ApplicationController
   def new
     @teacher = Teacher.new
   end
+
+  def dashboard
+    @sections = Section.where(teacher_id: current_teacher.id)
+    @ungraded_assignments = Assignment.all.select{ |assignment| !assignment.fully_graded? }
+  end
   
   private
   def teacher_params

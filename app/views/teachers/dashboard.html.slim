@@ -1,0 +1,30 @@
+h1.title.is-1 Teacher Dashboard
+
+.columns
+  .column
+    .card
+      .card-content
+        h2.title.is-2 Schedule
+        / h4.subtitle.is-4 Fall #{.academic_year_start} - Spring #{section.academic_year_end}
+        table.table.is-striped.is-bordered
+          thead
+            tr
+              th Period
+              th Course
+              th View
+          tbody
+          - @sections.each do |section|
+            tr
+              th #{section.period}
+              th #{section.course.name}
+              td: a[href="/sections/#{section.id}"] View Section
+
+  .column
+    .card
+      .card-content
+        h2.title.is-2 Assignments
+        a.button.is-primary[href='/assignments/new'] Create a New Assignment
+        ul
+        - @ungraded_assignments.each do |assignment|
+          li assignment.name
+            a.button.is-primary[href="#"] Grade This Assignment

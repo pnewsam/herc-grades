@@ -5,14 +5,7 @@ Rails.application.routes.draw do
   resources :assignments
   resources :sections, only: [:index, :show]
 
-  # get 'signup', to: 'teachers#new'
-  # post 'teachers', to: 'teachers#create'
+  get '/teachers/dashboard', to: 'teachers#dashboard'
 
-  get 'dashboard', to: 'sessions#dashboard'
-
-  # get 'login', to: 'sessions#new'
-  # post 'login', to: 'sessions#create'
-  # get 'logout', to: 'sessions#destroy'
-
-  root 'assignments#index'
+  root 'sections#index'
 end

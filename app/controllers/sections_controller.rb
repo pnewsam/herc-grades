@@ -7,6 +7,7 @@ class SectionsController < ApplicationController
 
   def show
     @section = Section.find(params[:id])
+    @seats = Seat.where(section_id: @section.id)
   end
   
 end
