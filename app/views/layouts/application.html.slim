@@ -6,8 +6,8 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    p.notice.notification.is-info = notice
-    p.alert.notification.is-danger = alert
+    p.notice = notice
+    p.alert = alert
     = render 'layouts/header'
 
     main
