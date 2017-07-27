@@ -1,15 +1,30 @@
 h1.title.is-1 Create a New Assignment
 
-.field
-  label.label Name
-  .control
-    input.input[type='text' placeholder='Type name here...' name='name']
-.field
-  label.label Date Assigned
-  .control
-    input.input[type='date' name='date_assigned']
-.field
-  label.label Date Due
-  .control
-    input.input[type='date' name='date_due']
+= form_for @assignment do |f|
+  .field
+    p.control
+      = f.label :name, 'Name', class: 'label'
+      = f.text_field :name, class: 'input'
 
+  .field.is-grouped
+    p.control.is-expanded
+      = f.label :date_assigned, 'Date Assigned', class: 'label'
+      = f.date_field :date_assigned, class: 'input'
+    p.control.is-expanded
+      = f.label :date_due, 'Date Due', class: 'label'
+      = f.date_field :date_due, class: 'input'
+
+  .field
+    p.control
+      = f.label :section_id, 'Section', class: 'label'
+      .select
+        = f.collection_select(:section_id, @sections, :id, :period_and_course_name)
+
+  .field
+    p.control
+      = f.label :description, 'Description', class: 'label'
+      = f.text_area :description, class: 'textarea'
+
+  .field
+    p.control
+      = f.submit 'Submit', class: 'button is-primary'

@@ -5,9 +5,9 @@ header
     .navbar-menu
     .navbar-start
     .navbar-end
-      a.navbar-item Profile
-      a.navbar-item Dashboard
       - if teacher_signed_in?        
+        a.navbar-item[href="/teachers/#{current_teacher.id}"] Profile
+        a.navbar-item[href='/teachers/dashboard'] Dashboard
         .navbar-item
           .field
             p.control
@@ -20,6 +20,8 @@ header
                 .field
                   = submit_tag 'Log Out', class: 'button is-danger'
       - elsif student_signed_in?
+        a.navbar-item[href="/students/#{current_student.id}"] Profile
+        a.navbar-item[href='/students/dashboard'] Dashboard
         .navbar-item
           .field
             p.control

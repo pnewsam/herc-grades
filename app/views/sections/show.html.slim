@@ -1,0 +1,15 @@
+h1.title.is-1 #{@section.course.name} Period #{@section.period}
+h4.subtitle.is-4 Fall #{@section.academic_year_start} - Spring #{@section.academic_year_end}
+
+.columns
+  .column
+    .card
+      .card-content
+        h2.subtitle.is-2 Students
+        ul
+        - @seats.each do |seat|
+          li: a[href='/students/1'] #{seat.student.full_name}
+  .column
+    .card
+      .card-content
+        h2.subtitle.is-2 Assignments

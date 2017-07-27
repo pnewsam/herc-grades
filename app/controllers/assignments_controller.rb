@@ -9,9 +9,16 @@ class AssignmentsController < ApplicationController
 
   def create
     assignment = Assignment.new(assignment_params)
+    if assignment.save
+      
+    else
+      redirect_to '/assignments/new'
+    end
   end
   
   def new
+    @assignment = Assignment.new
+    @sections = Section.where(teacher_id: current_teacher.id)
   end
 
 private

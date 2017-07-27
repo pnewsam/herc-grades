@@ -1,11 +1,13 @@
 class SectionsController < ApplicationController
-  before_action :authorize
+  before_action :authenticate_teacher!
   
   def index
-    @sections = Section.all
+    @sections = Section.where(teacher_id: current_teacher.id)
   end
 
   def show
     @section = Section.find(params[:id])
+    @seats = Seat.where(section_id: @section.id)
   end
+  
 end

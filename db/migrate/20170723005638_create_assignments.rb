@@ -5,8 +5,7 @@ class CreateAssignments < ActiveRecord::Migration[5.1]
       t.datetime :date_due
       t.string :name, null: false
       t.string :description
-
-      t.integer :course_id, null: false
+      
       t.integer :section_id, null: false
       
       t.timestamps

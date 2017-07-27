@@ -6,10 +6,16 @@ An app that makes it easy for teachers to assign grades to their students!
 
 ## _Stack_
 <!-- * _Views_: React -->
-* _Styling_: Bulma
-* _Database_: Postgres
-* _Testing_: RSpec
+#### __Front-End__
+* _CSS Framework_: Bulma
+* _Templating_: Slim
+* _Icons_: Font Awesome
 
+#### __Back-End__
+* _Database_: Postgres
+
+#### Development
+* _Testing_: RSpec
 * _Other_: Faker
 
 
