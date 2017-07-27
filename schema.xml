@@ -32,7 +32,7 @@
     <type label="SET" length="1" sql="SET" quote=""/>
     <type label="Bit" length="0" sql="bit" quote=""/>
   </group>
-</datatypes><table x="846" y="320" name="student">
+</datatypes><table x="877" y="298" name="student">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -52,7 +52,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="126" y="365" name="teachers">
+<table x="143" y="364" name="teachers">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -66,7 +66,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="321" y="266" name="sections">
+<table x="340" y="247" name="sections">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -85,6 +85,10 @@
 <row name="id_courses" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="courses" row="id" />
+</row>
+<row name="id_teachers" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="teachers" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -137,7 +141,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="613" y="341" name="seats">
+<table x="657" y="323" name="seats">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -163,10 +167,6 @@
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="id_teachers" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="teachers" row="id" />
-</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
