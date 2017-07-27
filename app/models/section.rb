@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
   belongs_to :course
-  has_one :teacher, through: :course
+  belongs_to :teacher
   has_many :seats
+  has_many :assignments
 end

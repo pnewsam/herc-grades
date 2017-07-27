@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20170726204350) do
 
   create_table "courses", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -55,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170726204350) do
     t.integer "academic_year_end", null: false
     t.string "semester", null: false
     t.integer "course_id", null: false
+    t.integer "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

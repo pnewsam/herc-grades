@@ -7,6 +7,7 @@ class CreateSections < ActiveRecord::Migration[5.1]
       t.string :semester, null: false
 
       t.integer :course_id, null: false
+      t.integer :teacher_id, null: false
 
       t.timestamps
     end

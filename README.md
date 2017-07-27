@@ -19,10 +19,6 @@ An app that makes it easy for teachers to assign grades to their students!
 * _Other_: Faker
 
 
-
-
-
-
 <!-- This README would normally document whatever steps are necessary to get the
 application up and running.
 
