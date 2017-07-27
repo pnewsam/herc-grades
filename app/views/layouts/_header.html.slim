@@ -5,27 +5,38 @@ header
     .navbar-menu
     .navbar-start
     .navbar-end
-      a.navbar-item Link
-      a.navbar-item Link
-      a.navbar-item Link
-      .navbar-item
-        .field.is-grouped
-          - if teacher_signed_in?        
+      a.navbar-item Profile
+      a.navbar-item Dashboard
+      - if teacher_signed_in?        
+        .navbar-item
+          .field
             p.control
               span Logged in as 
               a[href="/teachers/#{current_teacher.id}"] #{current_teacher.email}
+        .navbar-item
+          .field
+            p.control
               = form_tag '/teachers/sign_out', method: 'delete'
                 .field
                   = submit_tag 'Log Out', class: 'button is-danger'
-          - elsif student_signed_in?
+      - elsif student_signed_in?
+        .navbar-item
+          .field
             p.control
               span Logged in as 
               a[href="/students/#{current_student.id}"] #{current_student.email}
+        .navbar-item
+          .field
+            p.control
               = form_tag '/students/sign_out', method: 'delete'
                 .field
                   = submit_tag 'Log Out', class: 'button is-danger'
-          - else
+      - else
+        .navbar-item
+          .field
             p.control
               a.button.is-info[href='/students/sign_in'] Student Login
+        .navbar-item
+          .field
             p.control
               a.button.is-primary[href='/teachers/sign_in'] Teacher Login
