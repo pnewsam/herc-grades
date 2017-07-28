@@ -1,13 +1,15 @@
 require 'faker'
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Production and Development
+########################################
+Term.create(name: 'Fall')
+Term.create(name: 'Winter')
+Term.create(name: 'Spring')
+Term.create(name: 'Summer')
 
+
+# Development only:
+########################################
 Teacher.create(email: "herc@email.com", password: "password")
 
 course = Course.create(name: "Biology",)
@@ -15,10 +17,10 @@ Course.create(name: "Chemistry")
 Course.create(name: "Computer Science")
 
 sections = []
-sections << Section.create(period: 1, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 1, teacher_id: 1)
-sections << Section.create(period: 2, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 1, teacher_id: 1)
-sections << Section.create(period: 3, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 2, teacher_id: 1)
-sections << Section.create(period: 4, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 3, teacher_id: 1)
+sections << Section.create(period: 1, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 1, teacher_id: 1)
+sections << Section.create(period: 2, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 1, teacher_id: 1)
+sections << Section.create(period: 3, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 2, teacher_id: 1)
+sections << Section.create(period: 4, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 3, teacher_id: 1)
 
 students = []
 20.times do

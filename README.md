@@ -11,6 +11,9 @@ An app that makes it easy for teachers to assign grades to their students!
 * _Templating_: Slim
 * _Icons_: Font Awesome
 
+### __Misc__
+* _Authentication_: Devise
+
 #### __Back-End__
 * _Database_: Postgres
 

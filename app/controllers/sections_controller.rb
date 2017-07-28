@@ -9,5 +9,9 @@ class SectionsController < ApplicationController
     @section = Section.find(params[:id])
     @seats = Seat.where(section_id: @section.id)
   end
+
+  def roster
+
+  end
   
 end
