@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get '/teachers/dashboard', to: 'teachers#dashboard'
-
+  get '/teachers/onboarding', to: 'teachers#onboarding'
+  
   root 'sections#index'
 end

@@ -1,0 +1,50 @@
+h1.title.is-1 Welcome to Herc Grades!
+
+.card
+  .card-content
+
+    h2.title.is-2 Add Your Sections
+
+    = form_tag :sections
+
+      .field.is-grouped
+
+        .control
+          = label_tag :term_id, 'Term', class: 'label'
+          .control
+            .select
+              = select_tag :term_id, options_from_collection_for_select(@terms, :id, :name)
+    
+        .control
+          = label_tag :academic_year_start, 'Academic Year Start', class: 'label'
+          = number_field_tag :academic_year_start, current_year, class: 'input'
+    
+        .control
+          = label_tag :academic_year_start, 'Academic Year End', class: 'label'
+          = number_field_tag :academic_year_start, next_year, class: 'input'
+
+      .field.is-grouped
+
+        p.control
+          = label_tag :period, 'Period', class: 'label'
+          = number_field_tag :period, 1, class: 'input'
+        
+        .field
+          = label_tag :course_id, 'Course', class: 'label'
+          .control
+            .select
+              = select_tag :course_id, options_from_collection_for_select(@courses, :id, :name)
+
+      - 5.times do |i|
+
+        .field.is-grouped
+
+          p.control
+            = number_field_tag :period, i + 2, class: 'input'
+          
+          .field
+            .control
+              .select
+                = select_tag :course_id, options_from_collection_for_select(@courses, :id, :name)
+
+      = submit_tag 'Add All Sections', class: 'button is-primary'
