@@ -17,10 +17,10 @@ Course.create(name: "Chemistry")
 Course.create(name: "Computer Science")
 
 sections = []
-sections << Section.create(period: 1, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 1, teacher_id: 1)
-sections << Section.create(period: 2, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 1, teacher_id: 1)
-sections << Section.create(period: 3, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 2, teacher_id: 1)
-sections << Section.create(period: 4, academic_year_start: 2017, academic_year_end: 2018, semester: "Fall", course_id: 3, teacher_id: 1)
+sections << Section.create(period: 1, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 1, teacher_id: 1)
+sections << Section.create(period: 2, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 1, teacher_id: 1)
+sections << Section.create(period: 3, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 2, teacher_id: 1)
+sections << Section.create(period: 4, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 3, teacher_id: 1)
 
 students = []
 20.times do

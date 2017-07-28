@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726204350) do
+ActiveRecord::Schema.define(version: 20170728034008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170726204350) do
     t.integer "period", null: false
     t.integer "academic_year_start", null: false
     t.integer "academic_year_end", null: false
-    t.string "semester", null: false
+    t.string "term_id", null: false
     t.integer "course_id", null: false
     t.integer "teacher_id", null: false
     t.datetime "created_at", null: false
@@ -94,6 +94,12 @@ ActiveRecord::Schema.define(version: 20170726204350) do
     t.inet "last_sign_in_ip"
     t.index ["email"], name: "index_teachers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
+  end
+
+  create_table "terms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
