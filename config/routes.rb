@@ -4,12 +4,14 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :assignments
   resources :sections, only: [:index, :show] do
-    # get '/roster', to: '#roster'
     resources :seats, only: [:index]
   end
 
-  get '/teachers/dashboard', to: 'teachers#dashboard'
-  get '/teachers/onboarding', to: 'teachers#onboarding'
+  resource :teacher do
+    resource :onboard, only: [:new, :create]
+  end
+
+  get '/teacher/dashboard', to: 'teacher#dashboard'
   
   root 'sections#index'
 end
