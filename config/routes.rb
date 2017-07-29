@@ -10,12 +10,12 @@ Rails.application.routes.draw do
   end
 
   resource :profile, only: [:show, :edit, :update]
-  
+
   get '/dashboard', to: 'dashboards#show'
 
   # resource :teacher do
   #   resource :onboard, only: [:new, :create]
   # end
   
-  root 'dashboards#index'
+  root 'dashboards#show'
 end
