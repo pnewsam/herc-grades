@@ -1,0 +1,34 @@
+h1.title.is-1 Add a New Section
+
+= form_for @section do |f|
+
+  = f.number_field :teacher_id, {value: current_teacher.id, type: 'hidden'}
+
+  .field.is-grouped
+    .control
+      = f.label :term_id, 'Term', class: 'label'
+      .control
+        .select
+          = f.select :term_id, options_from_collection_for_select(@terms, :id, :name)
+
+    .control
+      = f.label :academic_year_start, 'Academic Year Start', class: 'label'
+      = f.number_field :academic_year_start, {value: current_year, class: 'input'}
+
+    .control
+      = f.label :academic_year_end, 'Academic Year End', class: 'label'
+      = f.number_field :academic_year_end, {value: next_year, class: 'input'}
+
+  .field.is-grouped
+
+    p.control
+      = f.label :period, 'Period', class: 'label'
+      = f.number_field :period, {class: 'input'}
+    
+    .field
+      = f.label :course_id, 'Course', class: 'label'
+      .control
+        .select
+          = f.select :course_id, options_from_collection_for_select(@courses, :id, :name)
+  
+  = f.submit 'Add Section', class: 'button is-primary'

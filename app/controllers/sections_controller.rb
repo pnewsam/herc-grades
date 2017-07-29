@@ -2,7 +2,8 @@ class SectionsController < ApplicationController
   before_action :authenticate_teacher!
   
   def index
-    @sections = Section.where(teacher_id: current_teacher.id)
+    @sections = []
+    # @sections = Section.where(teacher_id: current_teacher.id) || []
   end
 
   def show
@@ -11,11 +12,22 @@ class SectionsController < ApplicationController
   end
 
   def create
-
+    puts section_params
+    section = Section.new(section_params)
+    if section.save
+      redirect_to '/teachers/dashboard'
+    else
+      redirect_to '/sections/new'
+    end
   end
 
   def new
     @section = Section.new
+    @terms = Term.all
+    @courses = Course.all
   end
   
+  def section_params
+    params.require(:section).permit(:term_id, :course_id, :academic_year_start, :academic_year_end, :period, :teacher_id)
+  end
 end
