@@ -9,10 +9,13 @@ Rails.application.routes.draw do
     resources :seats, only: [:index]
   end
 
-  get '/teachers/dashboard', to: 'teachers#dashboard'
-  resource :teacher do
-    resource :onboard, only: [:new, :create]
-  end
+  resource :profile, only: [:show, :edit, :update]
   
-  root 'teachers#dashboard'
+  get '/dashboard', to: 'dashboards#show'
+
+  # resource :teacher do
+  #   resource :onboard, only: [:new, :create]
+  # end
+  
+  root 'dashboards#index'
 end

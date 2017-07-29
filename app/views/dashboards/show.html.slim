@@ -18,9 +18,10 @@ h1.title.is-1 Teacher Dashboard
                   th #{section.period}
                   th #{section.course.name}
                   td: a[href="/sections/#{section.id}"] View Section
+          = link_to 'Add Another Section', new_section_path, class: 'button is-primary'
         - else
           h3.title.is-3 You have no sections.
-          a.button.is-primary[href='/sections/new'] Add a Section
+          = link_to 'Add Another Section', new_section_path, class: 'button is-primary'
 
   .column
     .card
