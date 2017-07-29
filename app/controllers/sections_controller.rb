@@ -10,8 +10,12 @@ class SectionsController < ApplicationController
     @seats = Seat.where(section_id: @section.id)
   end
 
-  def roster
+  def create
 
+  end
+
+  def new
+    @section = Section.new
   end
   
 end
