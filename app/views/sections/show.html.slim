@@ -1,6 +1,17 @@
-h1.title.is-1 #{@section.course.name} Period #{@section.period}
-h4.subtitle.is-4 Fall #{@section.academic_year_start} - Spring #{@section.academic_year_end}
 
+.level
+  .level-left
+    .level-item
+      .field
+        .control
+          h1.title.is-1 #{@section.course.name} Period #{@section.period}
+        .control
+          h4.subtitle.is-4 Fall #{@section.academic_year_start} - Spring #{@section.academic_year_end}
+  .level-right
+    .level-item
+      a.button.is-info[href="#{edit_section_path}"] Edit this Section
+    .level-item
+      = button_to 'Delete this Section', @section, { method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' }
 .columns
   .column
     .card
@@ -13,3 +24,5 @@ h4.subtitle.is-4 Fall #{@section.academic_year_start} - Spring #{@section.academ
     .card
       .card-content
         h2.subtitle.is-2 Assignments
+
+= link_to 'Back to Dashboard', teachers_dashboard_path, class: 'button is-primary'

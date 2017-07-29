@@ -27,6 +27,27 @@ class SectionsController < ApplicationController
     @courses = Course.all
   end
   
+  def edit
+    @section = Section.find(params[:id])
+    @terms = Term.all
+    @courses = Course.all
+  end
+
+  def update
+    @section = Section.find(params[:id])
+    if @section.update(section_params)
+      redirect_to section_path
+    else
+      redirect_to edit_section_path
+    end
+  end
+
+  def destroy
+    section = Section.find(params[:id])
+    section.destroy
+    redirect_to teachers_dashboard_path
+  end
+
   def section_params
     params.require(:section).permit(:term_id, :course_id, :academic_year_start, :academic_year_end, :period, :teacher_id)
   end
