@@ -6,8 +6,8 @@ header
     .navbar-start
     .navbar-end
       - if teacher_signed_in?        
-        a.navbar-item[href="/teachers/#{current_teacher.id}"] Profile
-        a.navbar-item[href='/teachers/dashboard'] Dashboard
+        a.navbar-item[href="/profile"] Profile
+        a.navbar-item[href='/dashboard'] Dashboard
         .navbar-item
           .field
             p.control
