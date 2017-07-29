@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   end
 
   resource :teacher do
-    resource :onboard, only: [:new, :create]
+    # resource :onboard, only: [:new, :create]
   end
 
-  get '/teacher/dashboard', to: 'teacher#dashboard'
+  get '/teachers/dashboard', to: 'teachers#dashboard'
   
   root 'sections#index'
 end
