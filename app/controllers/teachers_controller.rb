@@ -18,7 +18,7 @@ class TeachersController < ApplicationController
   end
 
   def dashboard
-    @sections = Section.where(teacher_id: current_teacher.id)
+    @sections = Section.where(teacher_id: current_teacher.id).order(:period)
     @ungraded_assignments = Assignment.all.select{ |assignment| !assignment.fully_graded? }
   end
   

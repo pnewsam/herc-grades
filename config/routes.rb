@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :assignments
   
-  resources :sections, only: [:index, :show, :new, :create] do
+  resources :sections do
     resources :seats, only: [:index]
   end
 
