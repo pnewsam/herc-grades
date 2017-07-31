@@ -14,15 +14,20 @@ ul
     = @assignment.description
 
 br
-h2.title.is-2 Grades
-table
+.level
+  .level-left
+    h2.title.is-2 Grades
+  .level-right
+    a.button.is-primary[href='#'] Edit Grades
+
+table.table
   thead
     tr
       th Student
       th Grade
   tbody
-    tr
-      - @assignment.grades.each do |grade|
+    - @assignment.grades.each do |grade|
+      tr
         td = grade.student.full_name
         - if grade.grade
           td = grade.grade
