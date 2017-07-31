@@ -6,11 +6,9 @@ all_data = SmarterCSV.process('db/student_info.csv')
 # {:remove_unmapped_keys => true, :skip_lines  => 1,
 # :key_mapping => { :last_name => :student, :id_number => :sis_user_id}
 # })
-# Note: we are ignoring the first index because it's a header row. To-Do: remove headers.
 
-# Test case for one student:
+# Note: we are ignoring the first index because it's a header row. To-Do: remove headers.
 all_data.shift(1)
-all_data.map { |student_hash| student_hash_prep(student_hash)}
 
 def student_hash_prep(student_hash_item)
   mary = student_hash_item
@@ -38,6 +36,12 @@ def student_hash_prep(student_hash_item)
   mary.delete :"labs,_projects,_quizzes_and_exams._final_score"
   mary.delete :final_score
   mary[:password] = mary[:id_number] # Note: May need to be changed by user.
-  mary[:email] = "TBD@example.com" # Note: Dummy data. We need not null for the database.
-  puts mary
+  mary[:email] = "#{mary[:id_number]}@example.com" # Note: Dummy data. We need not null for the database.
+
+  temp = Student.new(mary)
+  if temp.save
+    puts "Success! for #{mary[:last_name]}"
+  end
 end
+
+all_data.map { |student_hash| student_hash_prep(student_hash)}
