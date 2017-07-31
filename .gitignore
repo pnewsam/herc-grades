@@ -17,3 +17,7 @@
 /yarn-error.log
 
 .byebug_history
+
+# Keep the seed data local:
+
+/db/student_info.csv
