@@ -2,7 +2,7 @@
 ## __Description__
 An app that makes it easy for teachers to assign grades to their students!
 
-### Ruby Version: 2.4.0
+### Ruby Version: 2.4.1
 
 ## _Stack_
 <!-- * _Views_: React -->
@@ -16,6 +16,7 @@ An app that makes it easy for teachers to assign grades to their students!
 
 #### __Back-End__
 * _Database_: Postgres
+* _CSV Parsing_: SmarterCSV
 
 #### Development
 * _Testing_: RSpec
