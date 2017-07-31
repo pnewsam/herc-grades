@@ -4,6 +4,7 @@ class Assignment < ApplicationRecord
   has_many :grades
 
   def fully_graded?
+    return false if self.section.empty?
     self.grades.length == self.section.seats.length
   end
 

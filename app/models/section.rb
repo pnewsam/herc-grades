@@ -12,4 +12,8 @@ class Section < ApplicationRecord
   def period_and_course_name
     self.period.to_s + ' - ' + self.course.name
   end
+
+  def empty?
+    !self.seats.any?
+  end
 end
