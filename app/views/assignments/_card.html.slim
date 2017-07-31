@@ -1,6 +1,5 @@
 .card-content
   h2.title.is-2 Assignments
-  h1 Nested is #{nested}
   - if nested
     = link_to "Create an Assignment", new_section_assignment_path(params[:id]), class: 'button is-primary'
   - else
