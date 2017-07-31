@@ -26,13 +26,7 @@ h1.title.is-1 Teacher Dashboard
 
   .tile.is-parent
     .tile.is-child.card
-      .card-content
-        h2.title.is-2 Assignments
-        a.button.is-primary[href='/assignments/new'] Create a New Assignment
-        ul
-        - @ungraded_assignments.each do |assignment|
-          li assignment.name
-            a.button.is-primary[href="#"] Grade This Assignment
+      = render partial: '/assignments/card', locals: {nested: false}
 
 .tile.is-ancestor
 

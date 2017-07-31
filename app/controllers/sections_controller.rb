@@ -9,6 +9,7 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find(params[:id])
     @seats = Seat.where(section_id: @section.id)
+    @ungraded_assignments = Assignment.all.select{ |assignment| !assignment.fully_graded? }
   end
 
   def create

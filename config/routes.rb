@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   resources :sections do
     resources :seats, only: [:index, :new, :create]
+    resources :assignments, only: [:new, :create]
   end
 
   resources :students do

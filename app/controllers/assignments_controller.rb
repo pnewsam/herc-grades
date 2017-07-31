@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
   def create
     assignment = Assignment.new(assignment_params)
     if assignment.save
-      
+      Assignment.all.select{ |assignment| !assignment.fully_graded? }
     else
       redirect_to '/assignments/new'
     end
