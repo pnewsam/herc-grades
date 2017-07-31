@@ -1,8 +1,12 @@
 h1.title.is-1 = @assignment.name
-p Date Assigned: #{@assignment.date_due.strftime("%B %d, %Y")}
-p Date Due: #{@assignment.date_due.strftime("%B %d, %Y")}
-
-h1.title.is-1 Assigned Sections
-
+ul
+  li
+    strong Date Assigned: 
+    = @assignment.date_assigned.strftime("%B %d, %Y")
+  li
+    strong Date Due: 
+    = @assignment.date_due.strftime("%B %d, %Y")
 br
-a[href='/'] Back to Assignments
+p = @assignment.description
+br
+= link_to 'Back to Dashboard', root_path, class: 'button is-primary'

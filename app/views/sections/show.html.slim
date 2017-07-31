@@ -1,4 +1,3 @@
-
 .level
   .level-left
     .level-item
@@ -17,12 +16,15 @@
     .card
       .card-content
         h2.subtitle.is-2 Students
-        ul
-        - @seats.each do |seat|
-          li: a[href='/students/1'] #{seat.student.full_name}
+        - if @seats.any?
+          ul
+          - @seats.each do |seat|
+            li: a[href='/students/1'] #{seat.student.full_name}
+        - else
+          h4.title.is-4 You have no students in your section! Would you like to add some?
+        / = link_to 'Add a Student', new_section_seat_path, class: 'button is-primary'
   .column
     .card
-      .card-content
-        h2.subtitle.is-2 Assignments
+      = render partial: 'assignments/card', locals: {nested: true}
 
-= link_to 'Back to Dashboard', teachers_dashboard_path, class: 'button is-primary'
+= link_to 'Back to Dashboard', root_path, class: 'button is-primary'

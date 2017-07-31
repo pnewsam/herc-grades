@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
   def create
     assignment = Assignment.new(assignment_params)
     if assignment.save
-      
+      redirect_to "/assignments/#{assignment.id}"
     else
       redirect_to '/assignments/new'
     end
@@ -23,6 +23,6 @@ class AssignmentsController < ApplicationController
 
 private
   def assignment_params
-    params.require('assignment').permit('name','date_assigned','date_due')
+    params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id)
   end
 end

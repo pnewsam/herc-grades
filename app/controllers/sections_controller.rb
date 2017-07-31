@@ -9,13 +9,14 @@ class SectionsController < ApplicationController
   def show
     @section = Section.find(params[:id])
     @seats = Seat.where(section_id: @section.id)
+    @ungraded_assignments = Assignment.all.select{ |assignment| !assignment.fully_graded? }
   end
 
   def create
     puts section_params
     section = Section.new(section_params)
     if section.save
-      redirect_to '/teachers/dashboard'
+      redirect_to root_path
     else
       redirect_to '/sections/new'
     end
@@ -45,7 +46,7 @@ class SectionsController < ApplicationController
   def destroy
     section = Section.find(params[:id])
     section.destroy
-    redirect_to teachers_dashboard_path
+    redirect_to root_path
   end
 
   def section_params
