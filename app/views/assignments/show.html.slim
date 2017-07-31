@@ -9,12 +9,26 @@ ul
   li
     strong Date Due: 
     = @assignment.date_due.strftime("%B %d, %Y")
-br
-p
-  strong Description
-  = @assignment.description
+  li
+    strong Date Due: 
+    = @assignment.description
 
+br
 h2.title.is-2 Grades
+table
+  thead
+    tr
+      th Student
+      th Grade
+  tbody
+    tr
+      - @assignment.grades.each do |grade|
+        td = grade.student.full_name
+        - if grade.grade
+          td = grade.grade
+        - else
+          td N/A
+
 
 br
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'

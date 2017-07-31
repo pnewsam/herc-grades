@@ -1,4 +1,5 @@
 require 'faker'
+require 'smarter_csv'
 
 # Production and Development
 # ########################################
@@ -12,9 +13,9 @@ Term.create(name: 'Summer')
 # ########################################
 Teacher.create(email: "herc@email.com", password: "password")
 
-course = Course.create(name: "Biology",)
-Course.create(name: "Chemistry")
-Course.create(name: "Computer Science")
+# course = Course.create(name: "Biology",)
+# Course.create(name: "Chemistry")
+# Course.create(name: "Computer Science")
 #
 # sections = []
 # sections << Section.create(period: 1, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 1, teacher_id: 1)
@@ -82,7 +83,14 @@ all_data = SmarterCSV.process('db/student_info.csv')
 # Note: we are ignoring the first index because it's a header row. To-Do: remove headers.
 all_data.shift(1)
 
-def student_hash_prep(student_hash_item)
+def create_section(course_id)
+  Section.create(teacher_id: 1, period: 1, academic_year_start: DateTime.now.year, academic_year_end: (DateTime.now.year + 1), course_id: course_id, term_id: 1)
+end
+
+course = Course.create(name: all_data.first[:section])
+section = create_section(course.id)
+
+def student_hash_prep(student_hash_item, section_id, seat_number)
   mary = student_hash_item
 
   # Checking for last name, whether one or more names:
@@ -111,11 +119,20 @@ def student_hash_prep(student_hash_item)
   mary[:email] = "#{mary[:id_number]}@example.com" # Note: Dummy data. We need not null for the database.
 
   temp = Student.new(mary)
+
   if temp.save
     puts "Success! for #{mary[:last_name]}"
   end
+
+  Seat.create(student_id: temp.id, section_id: section_id, seat_number: seat_number)
 end
 
-all_data.map { |student_hash| student_hash_prep(student_hash)}
+i = 0
+all_data.map do |student_hash|
+  student_hash_prep(student_hash, section.id, i)
+  i = i + 1
+end
+
+
 
 # end

@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170728034008) do
     t.integer "period", null: false
     t.integer "academic_year_start", null: false
     t.integer "academic_year_end", null: false
-    t.string "term_id", null: false
+    t.integer "term_id", null: false
     t.integer "course_id", null: false
     t.integer "teacher_id", null: false
     t.datetime "created_at", null: false
