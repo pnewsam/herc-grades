@@ -1,8 +1,9 @@
 h1.title.is-1 Teacher Dashboard
 
-.columns
-  .column
-    .card
+.tile.is-ancestor
+
+  .tile.is-parent
+    .tile.is-child.card
       .card-content
         h2.title.is-2 Schedule
         - if @sections.any?
@@ -23,8 +24,30 @@ h1.title.is-1 Teacher Dashboard
           h3.title.is-3 You have no sections.
           = link_to 'Add Another Section', new_section_path, class: 'button is-primary'
 
-  .column
-    .card
+  .tile.is-parent
+    .tile.is-child.card
+      .card-content
+        h2.title.is-2 Assignments
+        a.button.is-primary[href='/assignments/new'] Create a New Assignment
+        ul
+        - @ungraded_assignments.each do |assignment|
+          li assignment.name
+            a.button.is-primary[href="#"] Grade This Assignment
+
+.tile.is-ancestor
+
+  .tile.is-parent
+    .tile.is-child.card
+      .card-content
+        h2.title.is-2 Students
+        ul
+        - @ungraded_assignments.each do |assignment|
+          li assignment.name
+            a.button.is-primary[href="#"] Grade This Assignment
+        / = link_to 'Add a New Student', new_student_path, class: 'button is-primary'
+
+  .tile.is-parent
+    .tile.is-child.card
       .card-content
         h2.title.is-2 Assignments
         a.button.is-primary[href='/assignments/new'] Create a New Assignment

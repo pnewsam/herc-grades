@@ -15,7 +15,7 @@ class SectionsController < ApplicationController
     puts section_params
     section = Section.new(section_params)
     if section.save
-      redirect_to '/teachers/dashboard'
+      redirect_to root_path
     else
       redirect_to '/sections/new'
     end
@@ -45,7 +45,7 @@ class SectionsController < ApplicationController
   def destroy
     section = Section.find(params[:id])
     section.destroy
-    redirect_to teachers_dashboard_path
+    redirect_to root_path
   end
 
   def section_params

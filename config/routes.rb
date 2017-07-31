@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   resources :assignments
   
   resources :sections do
-    resources :seats, only: [:index]
+    resources :seats, only: [:index, :new, :create]
+  end
+
+  resources :students do
+    
   end
 
   resource :profile, only: [:show, :edit, :update]
