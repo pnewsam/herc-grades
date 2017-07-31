@@ -6,13 +6,17 @@ header
     .navbar-start
     .navbar-end
       - if teacher_signed_in?        
-        a.navbar-item[href="/profile"] Profile
-        a.navbar-item[href='/dashboard'] Dashboard
+        a.navbar-item[href='/dashboard']
+          .field
+            p.control
+              span.icon
+                i.fa.fa-tachometer[aria-hidden="true"]
+              span  Dashboard
         .navbar-item
           .field
             p.control
               span Logged in as 
-              a[href="/teachers/#{current_teacher.id}"] #{current_teacher.email}
+              a[href="/profile"] #{current_teacher.email}
         .navbar-item
           .field
             p.control
@@ -20,7 +24,6 @@ header
                 .field
                   = submit_tag 'Log Out', class: 'button is-danger'
       - elsif student_signed_in?
-        a.navbar-item[href="/students/#{current_student.id}"] Profile
         a.navbar-item[href='/students/dashboard'] Dashboard
         .navbar-item
           .field

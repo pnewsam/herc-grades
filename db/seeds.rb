@@ -2,19 +2,19 @@ require 'faker'
 
 # Production and Development
 # ########################################
-# Term.create(name: 'Fall')
-# Term.create(name: 'Winter')
-# Term.create(name: 'Spring')
-# Term.create(name: 'Summer')
+Term.create(name: 'Fall')
+Term.create(name: 'Winter')
+Term.create(name: 'Spring')
+Term.create(name: 'Summer')
 #
 #
 # # Development only:
 # ########################################
-# Teacher.create(email: "herc@email.com", password: "password")
-#
-# course = Course.create(name: "Biology",)
-# Course.create(name: "Chemistry")
-# Course.create(name: "Computer Science")
+Teacher.create(email: "herc@email.com", password: "password")
+
+course = Course.create(name: "Biology",)
+Course.create(name: "Chemistry")
+Course.create(name: "Computer Science")
 #
 # sections = []
 # sections << Section.create(period: 1, academic_year_start: 2017, academic_year_end: 2018, term_id: 1, course_id: 1, teacher_id: 1)

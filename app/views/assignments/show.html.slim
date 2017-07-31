@@ -1,12 +1,20 @@
 h1.title.is-1 = @assignment.name
 ul
   li
+    strong Section: 
+    span #{@assignment.section.course.name}, Period #{@assignment.section.period}
+  li
     strong Date Assigned: 
     = @assignment.date_assigned.strftime("%B %d, %Y")
   li
     strong Date Due: 
     = @assignment.date_due.strftime("%B %d, %Y")
 br
-p = @assignment.description
+p
+  strong Description
+  = @assignment.description
+
+h2.title.is-2 Grades
+
 br
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'
