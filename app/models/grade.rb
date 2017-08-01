@@ -3,7 +3,7 @@ class Grade < ApplicationRecord
   belongs_to :student
 
   def graded?
-    !self.grade.nil?
+    self.grade != ""
   end
 
 end
