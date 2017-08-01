@@ -8,13 +8,19 @@
       - else
         .level-item
           = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary is-outlined'
+      .level-item
+        = link_to "View All Assignments", assignments_path, class: 'button is-primary is-outlined'
   ul
-    - @ungraded_assignments.each do |assignment|
+    - @assignments.each do |assignment|
       li
         .level
           .level-left
             .level-item
               h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
+          .level-right
+            .level-item
+              = assignment.status
+
             
 
           / .level-right

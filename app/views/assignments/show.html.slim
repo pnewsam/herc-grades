@@ -1,17 +1,23 @@
 h1.title.is-1 = @assignment.name
-ul
-  li
-    strong Section: 
-    span #{@assignment.section.course.name}, Period #{@assignment.section.period}
-  li
-    strong Date Assigned: 
-    = @assignment.date_assigned.strftime("%B %d, %Y")
-  li
-    strong Date Due: 
-    = @assignment.date_due.strftime("%B %d, %Y")
-  li
-    strong Date Due: 
-    = @assignment.description
+.level
+  .level-left
+    .level-item
+      ul
+        li
+          strong Section: 
+          span #{@assignment.section.course.name}, Period #{@assignment.section.period}
+        li
+          strong Date Assigned: 
+          = @assignment.date_assigned.strftime("%B %d, %Y")
+        li
+          strong Date Due: 
+          = @assignment.date_due.strftime("%B %d, %Y")
+        li
+          strong Date Due: 
+          = @assignment.description
+  .level-right
+    .level-item
+      = button_to "Delete Assignment", @assignment, { method: 'delete', class: 'button is-danger', data: { confirm: 'Are you sure?' } }
 
 br
 

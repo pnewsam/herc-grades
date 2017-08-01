@@ -1,0 +1,20 @@
+h1.title.is-1 #{@student.full_name}
+
+table.table.is-bordered.is-striped
+  thead
+    tr
+      th: strong Assignment
+      th: strong Grade
+  - if @grades
+    tbody
+      - @grades.each do |grade|
+        tr
+          td = grade.assignment.name
+          - if grade.graded?
+            td = grade.grade
+          - else
+            td
+              span.tag.is-info.is-medium Not Yet Graded 
+  - else
+    tbody
+      td This student has no grades.
