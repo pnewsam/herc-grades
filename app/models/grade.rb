@@ -5,4 +5,5 @@ class Grade < ApplicationRecord
   def graded?
     !self.grade.nil?
   end
+
 end

@@ -14,26 +14,19 @@ ul
     = @assignment.description
 
 br
-.level
-  .level-left
-    h2.title.is-2 Grades
-  .level-right
-    a.button.is-primary[href='#'] Edit Grades
 
-table.table
-  thead
-    tr
-      th Student
-      th Grade
-  tbody
-    - @assignment.grades.each do |grade|
-      tr
-        td = grade.student.full_name
-        - if grade.grade
-          td = grade.grade
-        - else
-          td N/A
+.box
+  h2.title.is-2 Grades
 
+  = form_for @assignment, url: assignment_grade_path(@assignment.id) do |f|
+    = f.fields_for :grades do |g|
+      .field.is-grouped.box.is-marginless
+        .control.is-expanded
+          p #{g.object.student.last_name}, #{g.object.student.first_name}
+        .control
+          = g.text_field :grade, class: 'input'
+    br
+    = f.submit 'Update Grades', class: 'button is-primary'
 
 br
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'
