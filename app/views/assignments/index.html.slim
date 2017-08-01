@@ -8,3 +8,5 @@ hr
   p Assigned #{assignment.date_assigned.strftime("%B %d, %Y")}
   p Due #{assignment.date_due.strftime("%B %d, %Y")}
   hr
+
+= link_to 'Back to Dashboard', root_path, class: 'button is-primary'
