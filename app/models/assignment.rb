@@ -5,7 +5,7 @@ class Assignment < ApplicationRecord
 
   accepts_nested_attributes_for :grades
 
-  after_save :create_grades
+  after_create :create_grades
   after_destroy :destroy_grades
 
   def fully_graded?
