@@ -20,9 +20,17 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new
     @sections = Section.where(teacher_id: current_teacher.id)
   end
+  
+  def grade
+    @assignment = Assignment.find(params[:assignment_id])
+    assignment_params[:grades_attributes].values.each do |grade|
+      @assignment.grades.find(grade[:id]).update(grade: grade[:grade])
+    end
+    redirect_to root_path
+  end
 
 private
   def assignment_params
-    params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id)
+    params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id, grades_attributes: [:grade, :id])
   end
 end
