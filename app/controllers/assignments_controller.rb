@@ -21,13 +21,24 @@ class AssignmentsController < ApplicationController
     @sections = Section.where(teacher_id: current_teacher.id)
   end
 
+  def edit
+    @assignment = Assignment.find(params[:id])
+    @sections = Section.where(teacher_id: current_teacher.id)
+  end
+
+  def update
+    @assignment = Assignment.find(params[:id])
+    if @assignment.update(assignment_params)
+      redirect_to assignment_path(@assignment)
+    end
+  end
+
   def destroy
     assignment = Assignment.find(params[:id])
     if assignment.delete
       redirect_to root_path
     end
   end
-
   
   def grade
     @assignment = Assignment.find(params[:assignment_id])
