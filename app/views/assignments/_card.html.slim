@@ -9,7 +9,7 @@
         .level-item
           = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary is-outlined'
       .level-item
-        = link_to "View All Assignments"
+        = link_to "View All Assignments", assignments_path, class: 'button is-primary is-outlined'
   ul
     - @assignments.each do |assignment|
       li

@@ -32,12 +32,7 @@ h1.title.is-1 Teacher Dashboard
 
   .tile.is-parent
     .tile.is-child.card
-      .card-content
-        h2.title.is-2 Students
-        ul
-        - Student.all.each do |student|
-          li = student.full_name
-        / = link_to 'Add a New Student', new_student_path, class: 'button is-primary'
+      = render partial: '/students/card'
 
   .tile.is-parent
     .tile.is-child.card
