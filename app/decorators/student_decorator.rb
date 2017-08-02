@@ -1,4 +1,4 @@
-class SectionDecorator < ApplicationDecorator
+class StudentDecorator < ApplicationDecorator
   delegate_all
 
   # Define presentation-specific methods here. Helpers are accessed through
@@ -9,17 +9,8 @@ class SectionDecorator < ApplicationDecorator
   #       object.created_at.strftime("%a %m/%d/%y")
   #     end
   #   end
-  
-  def period_and_course_name
-    object.period.to_s + ' - ' + object.course.name
-  end
 
-  def render_seats
-    str = "<div class='room'>"
-    object.seats.each do |seat|
-      str += seat.render
-    end
-    p str.concat("</div>").html_safe
+  def full_name
+    first_name.to_s + ' ' + middle_name.to_s + ' ' + last_name.to_s
   end
-
 end

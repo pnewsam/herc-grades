@@ -8,7 +8,5 @@ class Student < ApplicationRecord
   has_many :seats
   has_many :sections, through: :seats
 
-  def full_name
-    first_name.to_s + ' ' + middle_name.to_s + ' ' + last_name.to_s
-  end
+
 end
