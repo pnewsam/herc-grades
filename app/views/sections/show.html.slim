@@ -12,12 +12,15 @@
     .level-item
       = button_to 'Delete this Section', @section, { method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' }
 .columns
-  .column
+  .column.is-8
     .card
       .card-content
         h2.subtitle.is-2 Classroom
-        - @seats.each do |seat|
-          p = seat.seat_number
+        = @section.render_seats
+        / - @seats.each do |seat|
+        /   = seat.render
+        / - @seats.each do |seat|
+          
         / h2.subtitle.is-2 Students
         / - if @seats.any?
         /   ul
@@ -26,7 +29,7 @@
         / - else
         /   h4.title.is-4 You have no students in your section! Would you like to add some?
         / = link_to 'Add a Student', new_section_seat_path, class: 'button is-primary'
-  .column
+  .column.is-4
     .card
       = render partial: 'assignments/card', locals: {nested: true}
 
