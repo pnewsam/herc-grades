@@ -1,15 +1,18 @@
 .card-content
   h2.title.is-2 Assignments
-  .level
-    .level-left
-      - if nested
-        .level-item
-          = link_to "Create an Assignment", new_section_assignment_path(params[:id]), class: 'button is-primary is-outlined'
-      - else
-        .level-item
-          = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary is-outlined'
+  - if nested
+    .level
+      .level-item
+        = link_to "Create an Assignment", new_section_assignment_path(params[:id]), class: 'button is-primary is-outlined'
       .level-item
         = link_to "View All Assignments", assignments_path, class: 'button is-primary is-outlined'
+  - else
+    .level
+      .level-left
+        .level-item
+          = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary is-outlined'
+        .level-item
+          = link_to "View All Assignments", assignments_path, class: 'button is-primary is-outlined'
   ul
     - @assignments.each do |assignment|
       li
@@ -20,10 +23,3 @@
           .level-right
             .level-item
               = assignment.status_tag
-
-            
-
-          / .level-right
-          /   .level-item
-          /     a[href="#"] Grade
-        

@@ -11,26 +11,23 @@
       a.button.is-info[href="#{edit_section_path}"] Edit this Section
     .level-item
       = button_to 'Delete this Section', @section, { method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' }
-.columns
-  .column.is-8
-    .card
+.tile.is-ancestor
+  .tile.is-parent.is-8
+    .tile.is-child.card
       .card-content
         h2.subtitle.is-2 Classroom
         = @section.render_seats
-        / - @seats.each do |seat|
-        /   = seat.render
-        / - @seats.each do |seat|
-          
-        / h2.subtitle.is-2 Students
-        / - if @seats.any?
-        /   ul
-        /   - @seats.each do |seat|
-        /     li: a[href='/students/1'] #{seat.student.full_name}
-        / - else
-        /   h4.title.is-4 You have no students in your section! Would you like to add some?
-        / = link_to 'Add a Student', new_section_seat_path, class: 'button is-primary'
-  .column.is-4
-    .card
-      = render partial: 'assignments/card', locals: {nested: true}
+  .tile.is-parent.is-4
+    .tile.is-child.card
+      = render partial: '/assignments/card', locals: { nested: true }
+        / h2.subtitle.is-2 Assignments
+        / - @assignments.each do |assignment|
+        /   .level
+        /     .level-left
+        /       .level-item
+        /         h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
+        /     .level-right
+        /       .level-item
+        /         = assignment.status_tag
 
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'
