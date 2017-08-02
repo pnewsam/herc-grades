@@ -16,7 +16,9 @@
     .card
       .card-content
         h2.subtitle.is-2 Classroom
-        = @section.generate_seating_chart
+        = @section.render_seats
+        / - @seats.each do |seat|
+        /   = seat.render
         / - @seats.each do |seat|
           
         / h2.subtitle.is-2 Students

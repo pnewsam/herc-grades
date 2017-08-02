@@ -33,4 +33,12 @@ class SectionDecorator < ApplicationDecorator
     rows.join("").html_safe
   end
 
+  def render_seats
+    str = "<div class='room'>"
+    object.seats.each do |seat|
+      str += seat.render
+    end
+    p str.concat("</div>").html_safe
+  end
+
 end

@@ -8,7 +8,7 @@ class SectionsController < ApplicationController
 
   def show
     @section = Section.find(params[:id]).decorate
-    @seats = Seat.where(section_id: @section.id)
+    @seats = Seat.where(section_id: @section.id).decorate
     @assignments = Assignment.where(section_id: @section.id)
     @ungraded_assignments = @assignments.select{ |assignment| !assignment.fully_graded? }
   end
