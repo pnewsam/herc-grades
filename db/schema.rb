@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170801212228) do
   create_table "seats", force: :cascade do |t|
     t.integer "seat_number", null: false
     t.integer "section_id", null: false
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "row_number"
