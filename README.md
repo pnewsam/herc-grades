@@ -15,6 +15,7 @@ An app that makes it easy for teachers to assign grades to their students!
 * _Authentication_: Devise
 
 #### __Back-End__
+* _Decorators_: Draper
 * _Database_: Postgres
 * _CSV Parsing_: SmarterCSV
 
