@@ -32,7 +32,7 @@ private
 
   def prepare_student_hash(record)
     student = {}
-    full_name = record[:student].split(/,[\s+]/).reverse
+    full_name = record[:student].split(/[\s+]/).map{|n|n.capitalize}.join(' ').split(/,[\s+]/).reverse
     student = parse_name(student, full_name)
     student[:id_number] = record[:sis_user_id]
     student[:password] = student[:id_number]
