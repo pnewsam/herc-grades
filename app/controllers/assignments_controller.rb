@@ -18,7 +18,7 @@ class AssignmentsController < ApplicationController
   
   def new
     @assignment = Assignment.new
-    @sections = Section.where(teacher_id: current_teacher.id)
+    @sections = Section.where(teacher_id: current_teacher.id).decorate
   end
 
   def edit

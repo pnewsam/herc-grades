@@ -23,9 +23,10 @@
   height: 75px;
   width: 75px;
   margin: 10px;
-  span {
-    font-size: .7em;
-    font-weight: bolder;
-    line-height: .1em;
+  text-align: center;
+  display: table;
+  .name {
+    display: table-cell;
+    vertical-align: middle;
   }
 }
