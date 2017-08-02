@@ -16,8 +16,9 @@
     .card
       .card-content
         h2.subtitle.is-2 Classroom
+        = @section.grid
         - @seats.each do |seat|
-          p = seat.seat_number
+          
         / h2.subtitle.is-2 Students
         / - if @seats.any?
         /   ul
