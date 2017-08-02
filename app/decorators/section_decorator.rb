@@ -18,4 +18,19 @@ class SectionDecorator < ApplicationDecorator
     object.period.to_s + ' - ' + object.course.name
   end
 
+  def generate_seating_chart
+    rows = []
+
+    object.number_of_rows.times do |i|
+      str = "<div class='seatrow' style='background-color: black; padding: 5px; display: flex; justify-content: space-around;'>"
+      object.number_of_columns.times do |j|
+        str += "<div class='seat' style='background-color: yellow; height: 50px; width: 50px;'></div>"
+      end
+      str += "</div>"
+      rows << str
+    end
+
+    rows.join("").html_safe
+  end
+
 end
