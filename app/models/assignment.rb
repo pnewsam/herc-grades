@@ -1,6 +1,7 @@
 class Assignment < ApplicationRecord
   belongs_to :section
   has_one :course, through: :section
+  has_one :teacher, through: :section
   has_many :grades, -> { order(:id) }
 
   accepts_nested_attributes_for :grades

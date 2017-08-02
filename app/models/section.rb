@@ -4,6 +4,7 @@ class Section < ApplicationRecord
   belongs_to :term
   has_many :seats
   has_many :assignments
+  has_many :students, through: :seats
 
   def course_name
     self.course.name
