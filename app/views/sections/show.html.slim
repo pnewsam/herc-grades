@@ -15,13 +15,16 @@
   .column
     .card
       .card-content
-        h2.subtitle.is-2 Students
-        - if @seats.any?
-          ul
-          - @seats.each do |seat|
-            li: a[href='/students/1'] #{seat.student.full_name}
-        - else
-          h4.title.is-4 You have no students in your section! Would you like to add some?
+        h2.subtitle.is-2 Classroom
+        - @seats.each do |seat|
+          p = seat.seat_number
+        / h2.subtitle.is-2 Students
+        / - if @seats.any?
+        /   ul
+        /   - @seats.each do |seat|
+        /     li: a[href='/students/1'] #{seat.student.full_name}
+        / - else
+        /   h4.title.is-4 You have no students in your section! Would you like to add some?
         / = link_to 'Add a Student', new_section_seat_path, class: 'button is-primary'
   .column
     .card

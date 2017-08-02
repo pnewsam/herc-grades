@@ -7,8 +7,8 @@ Term.create(name: 'Fall')
 Term.create(name: 'Winter')
 Term.create(name: 'Spring')
 Term.create(name: 'Summer')
-#
-#
+
+
 # # Development only:
 # ########################################
 Teacher.create(email: "herc@email.com", password: "password")
