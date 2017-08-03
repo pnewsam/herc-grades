@@ -92,6 +92,8 @@ private
       @section.update(number_of_rows: 5, number_of_columns: 7)
     when number_of_seats.between?(36,42)
       @section.update(number_of_rows: 6, number_of_columns: 7)
+    when number_of_seats.between?(43,48)
+      @section.update(number_of_rows: 6, number_of_columns: 8)
     end
   end
 end
