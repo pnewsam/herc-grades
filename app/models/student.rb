@@ -7,8 +7,6 @@ class Student < ApplicationRecord
   has_many :assignments, through: :grades
   has_many :seats
   has_many :sections, through: :seats
+  has_many :teachers, through: :sections
 
-  def full_name
-    first_name.to_s + ' ' + middle_name.to_s + ' ' + last_name.to_s
-  end
 end

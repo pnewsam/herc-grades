@@ -2,6 +2,8 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@import "section_seats";
+
 // Devise Flash Messages
 .notice, .alert {
   @extend .has-text-centered;
@@ -10,23 +12,3 @@
 }
 .notice { background-color: $info; }
 .alert { background-color: $danger; }
-
-.room {
-  display: flex;
-  flex-direction: column;
-}
-.row {
-  display: flex;
-  justify-content: space-between;
-}
-.seat {
-  height: 75px;
-  width: 75px;
-  margin: 10px;
-  text-align: center;
-  display: table;
-  .name {
-    display: table-cell;
-    vertical-align: middle;
-  }
-}

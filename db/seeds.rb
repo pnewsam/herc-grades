@@ -14,6 +14,7 @@ teacher = Teacher.create(email: "herc@email.com", password: "password")
 course = Course.create(name: "General Science")
 section = Section.create(period: 1, academic_year_start: 2017, academic_year_end: 2018, term_id: term.id, course_id: course.id, teacher_id: teacher.id)
 
+
 # sections.each do |section|
 
 #   if section.course.id == 1

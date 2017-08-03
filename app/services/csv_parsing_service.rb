@@ -26,7 +26,9 @@ private
   def create_students
     @data.map do |record|
       student_hash = prepare_student_hash(record)
-      @students << Student.create(student_hash)
+      s = Student.create(student_hash)
+      puts "Created #{s.first_name} #{s.last_name}"
+      @students << s
     end
   end
 
@@ -59,10 +61,12 @@ private
 
   def initialize_seats
     seats = []
+    count = 0
     @section.number_of_rows.times do |i|
       @section.number_of_columns.times do |j|
-        break if i + j == @section.number_of_seats
+        break if count == @section.number_of_seats
         seats << Seat.create(row_number: i, column_number: j, section_id: @section.id, student_id: 1, seat_number: 1)
+        count += 1
       end
     end
     return seats
