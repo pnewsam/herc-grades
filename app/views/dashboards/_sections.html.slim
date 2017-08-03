@@ -1,0 +1,20 @@
+  .card-content
+    h2.title.is-2 = link_to 'Sections', sections_path
+    - if @sections.any?
+      table.table.is-striped.is-bordered
+        thead
+          tr
+            th Period
+            th Course
+            th View
+        tbody
+          - @sections.each do |section|
+            tr
+              th #{section.period}
+              th #{section.course.name}
+              td: a[href="/sections/#{section.id}"] View Section
+    - else
+      p.notification.has-text-centered You have no sections.
+
+    .has-text-centered
+      = link_to 'Add Another Section', new_section_path, class: 'button is-primary'
