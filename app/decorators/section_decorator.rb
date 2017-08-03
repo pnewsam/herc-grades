@@ -11,7 +11,7 @@ class SectionDecorator < ApplicationDecorator
   #   end
   
   def period_and_course_name
-    object.period.to_s + ' - ' + object.course.name
+    object.course.name + ' Period ' + object.period.to_s
   end
 
   def render_seats
