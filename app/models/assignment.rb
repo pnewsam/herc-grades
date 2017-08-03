@@ -18,26 +18,6 @@ class Assignment < ApplicationRecord
     self.grades.any?{|grade| grade.graded?}
   end
 
-  def status_tag
-    if self.fully_graded?
-      return "<span class='tag is-success'>Graded</span>".html_safe
-    elsif self.partially_graded?
-      return "<span class='tag is-warning'>Partially Graded</span>".html_safe
-    else
-      return "<span class='tag is-danger'>Ungraded</span>".html_safe
-    end
-  end
-
-  def status_tag_large
-    if self.fully_graded?
-      return "<span class='tag is-success is-large'>Graded</span>".html_safe
-    elsif self.partially_graded?
-      return "<span class='tag is-warning is-large'>Partially Graded</span>".html_safe
-    else
-      return "<span class='tag is-danger is-large'>Ungraded</span>".html_safe
-    end
-  end
-
   private
   def create_grades
     self.section.seats.each do |seat|
