@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  # before_action :authenticate_student!
+  before_action :authenticate_teacher!
 
   def show
     @student = Student.find(params[:id]).decorate
