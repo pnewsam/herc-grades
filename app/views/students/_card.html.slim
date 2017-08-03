@@ -1,7 +1,5 @@
 .card-content
-  h2.title.is-2 Students
+  h2.title.is-2 = link_to 'Students', students_path
   ul
   - @students.each do |student|
     li = link_to student.full_name, student_path(student)
-    /  = student.full_name
-  / = link_to 'Add a New Student', new_student_path, class: 'button is-primary'
