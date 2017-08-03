@@ -1,6 +1,6 @@
 h1.title.is-1 Edit Your Assignment
 
-= form_for @assignment do |f|
+= form_for assignment do |f|
   .field
     p.control
       = f.label :name, 'Name', class: 'label'
@@ -19,7 +19,7 @@ h1.title.is-1 Edit Your Assignment
       p.control
         = f.label :section_id, 'Section', class: 'label'
         .select
-          = f.collection_select(:section_id, @sections, :id, :period_and_course_name)
+          = f.collection_select(:section_id, sections, :id, :period_and_course_name)
     - else
       p.control
         = f.number_field :section_id, {type: 'hidden', value: current_section.id}
@@ -34,4 +34,4 @@ h1.title.is-1 Edit Your Assignment
       = f.submit 'Submit', class: 'button is-primary'
 
 br
-= link_to 'Back to Assignment', assignment_path(@assignment), class: 'button is-primary'
+= link_to 'Back to Assignment', assignment_path(assignment), class: 'button is-primary'

@@ -1,6 +1,6 @@
 h1.title.is-1 Create a New Assignment
 
-= form_for @assignment do |f|
+= form_for new_assignment do |f|
   .field
     p.control
       = f.label :name, 'Name', class: 'label'
@@ -19,10 +19,10 @@ h1.title.is-1 Create a New Assignment
       p.control
         = f.label :section_id, 'Section', class: 'label'
         .select
-          = f.collection_select(:section_id, @sections, :id, :period_and_course_name)
+          = f.collection_select(:section_id, sections, :id, :period_and_course_name)
     - else
       p.control
-        = f.number_field :section_id, {type: 'hidden', value: current_section.id}
+        = f.number_field :section_id, {type: 'hidden', value: section.id}
 
   .field
     p.control

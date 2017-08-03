@@ -21,7 +21,4 @@
 
 
   .has-text-centered
-    - if nested
-      = link_to "Create an Assignment", new_section_assignment_path(params[:id]), class: 'button is-primary'      
-    - else
-      = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary'
+    = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary'
