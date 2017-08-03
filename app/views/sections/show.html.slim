@@ -14,9 +14,7 @@
 .tile.is-ancestor
   .tile.is-parent.is-8
     .tile.is-child.card
-      .card-content
-        h2.subtitle.is-2 Classroom
-        = @section.render_seats
+      = render partial: 'sections/classroom'
   .tile.is-parent.is-4
     .tile.is-child.card
       .card-content
@@ -32,6 +30,7 @@
                   .level-right
                     .level-item
                       = assignment.status_tag
+          br
         - else
           p.notification.has-text-centered This section has no assignments.
           
