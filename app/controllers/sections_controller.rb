@@ -2,8 +2,7 @@ class SectionsController < ApplicationController
   before_action :authenticate_teacher!
   
   def index
-    @sections = []
-    # @sections = Section.where(teacher_id: current_teacher.id) || []
+    @sections = Section.where(teacher_id: current_teacher.id)
   end
 
   def show

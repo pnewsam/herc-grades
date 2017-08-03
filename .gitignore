@@ -20,4 +20,4 @@
 
 # Keep the seed data local:
 
-/db/student_info.csv
+/db/*.csv

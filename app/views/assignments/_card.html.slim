@@ -1,25 +1,27 @@
 .card-content
-  h2.title.is-2 Assignments
-  - if nested
-    .level
-      .level-item
-        = link_to "Create an Assignment", new_section_assignment_path(params[:id]), class: 'button is-primary is-outlined'
-      .level-item
-        = link_to "View All Assignments", assignments_path, class: 'button is-primary is-outlined'
-  - else
-    .level
-      .level-left
-        .level-item
-          = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary is-outlined'
-        .level-item
-          = link_to "View All Assignments", assignments_path, class: 'button is-primary is-outlined'
-  ul
-    - @assignments.each do |assignment|
-      li
-        .level
-          .level-left
-            .level-item
-              h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
-          .level-right
-            .level-item
-              = assignment.status_tag
+  h2.title.is-2 = link_to "Assignments", assignments_path
+
+  - @sections.each do |section|
+    h3.title.is-3 = section.period_and_course_name
+    hr
+    - if section.assignments.any?
+      ul
+        - section.assignments.each do |assignment|
+          li
+            .level
+              .level-left
+                .level-item
+                  h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
+              .level-right
+                .level-item
+                  = assignment.status_tag
+        br
+    - else
+      p.notification.has-text-centered This section has no assignments.
+
+
+  .has-text-centered
+    - if nested
+      = link_to "Create an Assignment", new_section_assignment_path(params[:id]), class: 'button is-primary'      
+    - else
+      = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary'

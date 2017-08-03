@@ -3,7 +3,7 @@
     .level-item
       .field
         .control
-          h1.title.is-1 #{@section.course.name} Period #{@section.period}
+          h1.title.is-1 = @section.period_and_course_name
         .control
           h4.subtitle.is-4 Fall #{@section.academic_year_start} - Spring #{@section.academic_year_end}
   .level-right
@@ -14,20 +14,27 @@
 .tile.is-ancestor
   .tile.is-parent.is-8
     .tile.is-child.card
-      .card-content
-        h2.subtitle.is-2 Classroom
-        = @section.render_seats
+      = render partial: 'sections/classroom'
   .tile.is-parent.is-4
     .tile.is-child.card
-      = render partial: '/assignments/card', locals: { nested: true }
-        / h2.subtitle.is-2 Assignments
-        / - @assignments.each do |assignment|
-        /   .level
-        /     .level-left
-        /       .level-item
-        /         h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
-        /     .level-right
-        /       .level-item
-        /         = assignment.status_tag
+      .card-content
+        h2.title.is-2 Assignments
+        - if @section.assignments.any?
+          ul
+            - @section.assignments.each do |assignment|
+              li
+                .level
+                  .level-left
+                    .level-item
+                      h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
+                  .level-right
+                    .level-item
+                      = assignment.status_tag
+          br
+        - else
+          p.notification.has-text-centered This section has no assignments.
+          
+        .has-text-centered
+          = link_to "Create an Assignment", new_assignment_path, class: 'button is-primary'
 
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'
