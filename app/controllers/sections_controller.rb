@@ -59,7 +59,7 @@ private
   helper_method :seats
 
   def assignments
-    @assignments ||= section.assignments
+    @assignments ||= section.assignments.decorate
   end
   helper_method :assignments
 

@@ -5,7 +5,7 @@ class Teacher < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :courses
-  has_many :sections
+  has_many :sections, -> { order(:period) }
   has_many :assignments, through: :sections
   has_many :seats, through: :sections
   has_many :students, through: :seats

@@ -5,39 +5,11 @@ h1.title.is-1 Teacher Dashboard
   .tile.is-vertical
     .tile.is-parent
       .tile.is-child.card
-        .card-content
-          h2.title.is-2 = link_to 'Sections', sections_path
-          - if @sections.any?
-            table.table.is-striped.is-bordered
-              thead
-                tr
-                  th Period
-                  th Course
-                  th View
-              tbody
-                - @sections.each do |section|
-                  tr
-                    th #{section.period}
-                    th #{section.course.name}
-                    td: a[href="/sections/#{section.id}"] View Section
-          - else
-            p.notification.has-text-centered You have no sections.
-    
-          .has-text-centered
-            = link_to 'Add Another Section', new_section_path, class: 'button is-primary'
-
+        = render partial: '/dashboards/sections'
     .tile.is-parent
       .tile.is-child.card
-        = render partial: '/students/card'
+        = render partial: '/dashboards/students'
 
   .tile.is-parent
     .tile.is-child.card
-      = render partial: '/assignments/card', locals: {nested: false}
-
-/ .tile.is-ancestor
-
-
-
-/   .tile.is-parent
-/     .tile.is-child.card
-/       = render partial: '/assignments/card', locals: {nested: false}
+      = render partial: '/dashboards/assignments'

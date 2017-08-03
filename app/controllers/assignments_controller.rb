@@ -42,8 +42,9 @@ class AssignmentsController < ApplicationController
   end
 
 private
+
   def assignments
-    @assignments ||= current_teacher.assignments
+    @assignments ||= current_teacher.assignments.decorate
   end
   helper_method :assignments
 
@@ -54,21 +55,22 @@ private
 
   def assignment
     if params[:assignment_id]
-      @assignment ||= assignments.find(params[:assignment_id])
+      @assignment ||= current_teacher.assignments.find(params[:assignment_id]).decorate
     elsif params[:id]
-      @assignment ||= assignments.find(params[:id])
+      @assignment ||= current_teacher.assignments.find(params[:id]).decorate
     end
   end
   helper_method :assignment
 
   def sections
-    @sections ||= current_teacher.sections.decorate
+    @sections ||= current_teacher.sections
   end
   helper_method :sections
 
   def section
     @section ||= sections.find(params[:section_id])
   end
+  helper_method :section
 
   def assignment_params
     params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id, grades_attributes: [:grade, :id])
