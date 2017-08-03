@@ -14,4 +14,8 @@ class Section < ApplicationRecord
     !self.seats.any?
   end
 
+  def ungraded_assignments
+    self.assignments.select{ |assignment| !assignment.fully_graded? }
+  end
+
 end

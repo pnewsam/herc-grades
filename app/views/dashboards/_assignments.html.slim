@@ -6,7 +6,7 @@
     hr
     - if section.assignments.any?
       ul
-        - section.assignments.each do |assignment|
+        - section.assignments.decorate.each do |assignment|
           li
             .level
               .level-left
