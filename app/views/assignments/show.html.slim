@@ -3,32 +3,32 @@
     .level-item
       .columns
         .column
-          h1.title.is-1 = @assignment.name
+          h1.title.is-1 = assignment.name
           hr.is-fullwidth
           ul
             li
               strong Section: 
-              span #{@assignment.section.course.name}, Period #{@assignment.section.period}
+              span #{assignment.section.course.name}, Period #{assignment.section.period}
             li
               strong Date Assigned: 
-              = @assignment.date_assigned.strftime("%B %d, %Y")
+              = assignment.date_assigned.strftime("%B %d, %Y")
             li
               strong Date Due: 
-              = @assignment.date_due.strftime("%B %d, %Y")
+              = assignment.date_due.strftime("%B %d, %Y")
             li
               strong Date Due: 
-              = @assignment.description
+              = assignment.description
   .level-right
     .level-item
       .columns
         .column.box
-          h3.title.is-3.has-text-centered Status: #{@assignment.status_tag_large}
+          h3.title.is-3.has-text-centered Status: #{assignment.status_tag_large}
           br
           .field.is-grouped
             .control
-              = link_to 'Edit Assignment', edit_assignment_path(@assignment), class: 'button is-info'
+              = link_to 'Edit Assignment', edit_assignment_path(assignment), class: 'button is-info'
             .control
-              = button_to "Delete Assignment", @assignment, { method: 'delete', class: 'button is-danger', data: { confirm: 'Are you sure?' } }
+              = button_to "Delete Assignment", assignment, { method: 'delete', class: 'button is-danger', data: { confirm: 'Are you sure?' } }
       
 
 br
@@ -36,7 +36,7 @@ br
 .box
   h2.title.is-2 Grades
 
-  = form_for @assignment, url: assignment_grade_path(@assignment.id) do |f|
+  = form_for assignment, url: assignment_grade_path(assignment.id) do |f|
     = f.fields_for :grades do |g|
       .field.is-grouped.box.is-marginless
         .control.is-expanded

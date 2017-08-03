@@ -1,6 +1,6 @@
 h1.title.is-1 Edit this Section
 
-= form_for @section, method: 'put' do |f|
+= form_for section, method: 'put' do |f|
 
   = f.number_field :teacher_id, {value: current_teacher.id, type: 'hidden'}
 
@@ -9,27 +9,27 @@ h1.title.is-1 Edit this Section
       = f.label :term_id, 'Term', class: 'label'
       .control
         .select
-          = f.select :term_id, options_from_collection_for_select(@terms, :id, :name, @section.term_id)
+          = f.select :term_id, options_from_collection_for_select(terms, :id, :name, section.term_id)
 
     .control
       = f.label :academic_year_start, 'Academic Year Start', class: 'label'
-      = f.number_field :academic_year_start, {value: @section.academic_year_start, class: 'input'}
+      = f.number_field :academic_year_start, {value: section.academic_year_start, class: 'input'}
 
     .control
       = f.label :academic_year_end, 'Academic Year End', class: 'label'
-      = f.number_field :academic_year_end, {value: @section.academic_year_end, class: 'input'}
+      = f.number_field :academic_year_end, {value: section.academic_year_end, class: 'input'}
 
   .field.is-grouped
 
     p.control
       = f.label :period, 'Period', class: 'label'
-      = f.number_field :period, {value: @section.period, class: 'input'}
+      = f.number_field :period, {value: section.period, class: 'input'}
     
     .field
       = f.label :course_id, 'Course', class: 'label'
       .control
         .select
-          = f.select :course_id, options_from_collection_for_select(@courses, :id, :name, @section.course_id)
+          = f.select :course_id, options_from_collection_for_select(courses, :id, :name, section.course_id)
   
   = f.submit 'Edit Section', class: 'button is-info'
 

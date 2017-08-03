@@ -1,15 +1,17 @@
-h1.title.is-1 Your Schedule
-/ h4.subtitle.is-4 Fall #{.academic_year_start} - Spring #{section.academic_year_end}
+h1.title.is-1 Sections
 
-table.table.is-striped.is-bordered
-  thead
-    tr
-      th Period
-      th Course
-      th View
-  tbody
-  - @sections.each do |section|
-    tr
-      th #{section.period}
-      th #{section.course.name}
-      td: a[href="/sections/#{section.id}"] View Section
+= sections.each do |section|
+  / = render partial: ''
+
+/ table.table.is-striped.is-bordered
+/   thead
+/     tr
+/       th Period
+/       th Course
+/       th View
+/   tbody
+/   - @sections.each do |section|
+/     tr
+/       th #{section.period}
+/       th #{section.course.name}
+/       td: a[href="/sections/#{section.id}"] View Section

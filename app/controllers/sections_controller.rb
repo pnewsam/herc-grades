@@ -2,41 +2,29 @@ class SectionsController < ApplicationController
   before_action :authenticate_teacher!
   
   def index
-    @sections = Section.where(teacher_id: current_teacher.id)
   end
 
   def show
-    @section = Section.find(params[:id]).decorate
-    @seats = Seat.where(section_id: @section.id).decorate
-    @assignments = Assignment.where(section_id: @section.id)
-    @ungraded_assignments = @assignments.select{ |assignment| !assignment.fully_graded? }
+    @ungraded_assignments = assignments.select{ |assignment| !assignment.fully_graded? }
   end
 
   def create
-    puts section_params
     section = Section.new(section_params)
     if section.save
       redirect_to root_path
     else
-      redirect_to '/sections/new'
+      redirect_to new_section_path
     end
   end
 
   def new
-    @section = Section.new
-    @terms = Term.all
-    @courses = Course.all
   end
   
   def edit
-    @section = Section.find(params[:id])
-    @terms = Term.all
-    @courses = Course.all
   end
 
   def update
-    @section = Section.find(params[:id])
-    if @section.update(section_params)
+    if section.update(section_params)
       redirect_to section_path
     else
       redirect_to edit_section_path
@@ -44,10 +32,36 @@ class SectionsController < ApplicationController
   end
 
   def destroy
-    section = Section.find(params[:id])
-    section.destroy
-    redirect_to root_path
+    if section.destroy
+      redirect_to root_path
+    end
   end
+
+private
+  def sections
+    @sections ||= current_teacher.sections
+  end
+  helper_method :sections
+
+  def section
+    @section ||= sections.find(params[:id]).decorate
+  end
+  helper_method :section
+
+  def new_section
+    @section = Section.new
+  end
+  helper_method :new_section
+
+  def seats
+    @seats ||= section.seats.decorate
+  end
+  helper_method :seats
+
+  def assignments
+    @assignments ||= section.assignments
+  end
+  helper_method :assignments
 
   def section_params
     params.require(:section).permit(:term_id, :course_id, :academic_year_start, :academic_year_end, :period, :teacher_id)
