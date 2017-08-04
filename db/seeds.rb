@@ -8,9 +8,12 @@ Term.create(name: 'Winter')
 Term.create(name: 'Spring')
 Term.create(name: 'Summer')
 
+School.create(name: 'No School')
+chula_vista = School.create(name: 'Chula Vista Middle School')
+
 # # Development only:
 # ########################################
-herc = Teacher.create(email: "herc@email.com", password: "password")
+herc = Teacher.create(email: "herc@email.com", password: "password", school_id: chula_vista.id)
 
 gensci = Course.create(name: "General Science")
 gensci_accel = Course.create(name: "General Science Accelerated")
