@@ -7,6 +7,7 @@ class CsvParsingService
   def initialize(filename, section)
     @data = process_data(filename)
     @section = section
+    @school = @section.school
     @students = []
   end
 
@@ -26,7 +27,8 @@ private
   def create_students
     @data.map do |record|
       student_hash = prepare_student_hash(record)
-      s = Student.find_by(id_number: student_hash[:id_number])
+      student_hash[:school_id] = @school.id
+      s = @school.students.find_by(id_number: student_hash[:id_number])
       if s
         @students << s
         puts "#{s.first_name} #{s.last_name} NOT CREATED, but added to class."
