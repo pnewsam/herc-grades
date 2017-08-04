@@ -4,6 +4,8 @@ class Teacher < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :school
+  
   has_many :courses
   has_many :sections, -> { order(:period) }
   has_many :assignments, -> { order(:date_due) }, through: :sections

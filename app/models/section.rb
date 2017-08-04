@@ -5,6 +5,7 @@ class Section < ApplicationRecord
   has_many :seats, -> { order(:id) }
   has_many :assignments
   has_many :students, through: :seats
+  has_one :school, through: :teacher
 
   def course_name
     self.course.name
