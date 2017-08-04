@@ -29,22 +29,24 @@
               = link_to 'Edit Assignment', edit_assignment_path(assignment), class: 'button is-info'
             .control
               = button_to "Delete Assignment", assignment, { method: 'delete', class: 'button is-danger', data: { confirm: 'Are you sure?' } }
-      
-
+    
 br
 
 .box
   h2.title.is-2 Grades
-
-  = form_for assignment, url: assignment_grade_path(assignment.id) do |f|
-    = f.fields_for :grades do |g|
-      .field.is-grouped.box.is-marginless
-        .control.is-expanded
-          p #{g.object.student.last_name}, #{g.object.student.first_name}
-        .control
-          = g.text_field :grade, class: 'input'
-    br
-    = f.submit 'Update Grades', class: 'button is-primary'
+  table.table.is-bordered.is-fullwidth.grades
+    thead
+      tr
+        th: strong Student
+        th: strong Grade
+    tbody
+      = form_for assignment, url: assignment_grade_path(assignment.id) do |f|
+        = f.fields_for :grades do |g|
+          tr
+            td #{g.object.student.last_name}, #{g.object.student.first_name}
+            td = g.text_field :grade, class: 'input'
+        tr
+          td[colspan='2' class='form-submit'] = f.submit 'Update Grades', class: 'button is-primary is-large'
 
 br
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'

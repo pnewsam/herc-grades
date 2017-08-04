@@ -3,6 +3,7 @@
 @import "font-awesome";
 
 @import "section_seats";
+@import "assignment_grades";
 
 // Devise Flash Messages
 .notice, .alert {
@@ -12,3 +13,4 @@
 }
 .notice { background-color: $info; }
 .alert { background-color: $danger; }
+
