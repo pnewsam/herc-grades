@@ -25,6 +25,7 @@ class AssignmentsController < ApplicationController
   def update
     if assignment.update(assignment_params)
       redirect_to assignment_path(assignment)
+      flash[:notice] = 'Assignment successfully updated!'
     end
   end
 
@@ -63,7 +64,7 @@ private
   helper_method :assignment
 
   def sections
-    @sections ||= current_teacher.sections
+    @sections ||= current_teacher.sections.decorate
   end
   helper_method :sections
 

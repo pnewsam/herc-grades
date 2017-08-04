@@ -26,6 +26,7 @@ class SectionsController < ApplicationController
   def update
     if section.update(section_params)
       redirect_to section_path
+      flash[:notice] = 'Section successfully updated!'
     else
       redirect_to edit_section_path
     end

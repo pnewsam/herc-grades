@@ -5,16 +5,17 @@
     table.table.assignments
       col
       col[width='50']
-      thead
+      tbody
         tr
           td[colspan='2']: h3.title.is-3 = section.period_and_course_name
-      - if section.assignments.any?
-        - section.assignments.decorate.each do |assignment|
+        - if section.assignments.any?
+          - section.assignments.decorate.each do |assignment|
+            tr
+              td: h5.title.is-5 = link_to assignment.name, assignment_path(assignment)
+              td.status = assignment.status_tag
+        - else
           tr
-            td: h5.title.is-5 = link_to assignment.name, assignment_path(assignment)
-            td.status = assignment.status_tag
-      - else
-        p.notification.has-text-centered This section has no assignments.
+            td[colspan='2']: p.notification.has-text-centered This section has no assignments.
 
 
   .has-text-centered

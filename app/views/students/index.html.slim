@@ -1,0 +1,19 @@
+h1.title.is-1 Students
+table.table
+  thead
+    tr
+      th Last Name
+      th First Name
+      th ID Number
+      th Section
+      th View
+  tbody
+    - students.each do |student|
+        tr
+          td = student.last_name
+          td = student.first_name
+          td = student.id_number
+          td
+            - student.sections.decorate.each do |section|
+              p = section.period_and_course_name
+          td = link_to 'View Student', student_path(student)

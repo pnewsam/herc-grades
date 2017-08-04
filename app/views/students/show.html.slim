@@ -1,13 +1,23 @@
-h1.title.is-1 #{@student.full_name}
+.level
+  .level-left
+    .level-item
+      .field
+        .control
+          h1.title.is-1 = student.full_name
+  .level-right
+    .level-item
+      = link_to 'Edit this Student', edit_student_path, class: 'button is-info'
+    .level-item
+      = button_to 'Delete this Student', student, { method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' }
 
 table.table.is-bordered.is-striped
   thead
     tr
       th: strong Assignment
       th: strong Grade
-  - if @grades
+  - if grades
     tbody
-      - @grades.each do |grade|
+      - grades.each do |grade|
         tr
           td = grade.assignment.name
           - if grade.graded?
@@ -18,3 +28,5 @@ table.table.is-bordered.is-striped
   - else
     tbody
       td This student has no grades.
+
+= link_to 'Back', :back, class: 'button is-primary'

@@ -1,8 +1,15 @@
-h1.title.is-1 Sections
+.level
+  .level-left
+    .level-item
+      h1.title.is-1 Sections
+  .level-right
+    .level-item
+      = link_to 'Add a New Section', new_section_path, class: 'button is-primary'
 
-= sections.each do |section|
+- sections.each do |section|
   .card
     .card-content
-      h2.title.is-2 #{section.period_and_course_name}
+      h2.title.is-2 = link_to section.period_and_course_name, section_path(section)
+      - puts section.render_seats
       = section.render_seats
   br

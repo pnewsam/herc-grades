@@ -8,6 +8,6 @@ class Teacher < ApplicationRecord
   has_many :sections, -> { order(:period) }
   has_many :assignments, -> { order(:date_due) }, through: :sections
   has_many :seats, through: :sections
-  has_many :students, through: :seats
+  has_many :students, -> { order(:last_name) }, through: :seats
 
 end
