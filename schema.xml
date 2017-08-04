@@ -137,7 +137,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1118" y="228" name="grades">
+<table x="1146" y="48" name="grades">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -145,13 +145,13 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="assignments" row="id" />
 </row>
-<row name="id_students" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="students" row="id" />
-</row>
 <row name="id_grade_values" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="grade_values" row="id" />
+</row>
+<row name="id_students" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="students" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -204,7 +204,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="621" y="621" name="schools">
+<table x="753" y="618" name="schools">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -215,7 +215,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="560" y="479" name="catalogs">
+<table x="573" y="478" name="catalogs">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -231,7 +231,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="778" y="236" name="grading_schemes">
+<table x="806" y="281" name="grading_schemes">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -242,7 +242,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1021" y="60" name="grade_values">
+<table x="879" y="124" name="grade_values">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
