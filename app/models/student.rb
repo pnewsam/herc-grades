@@ -10,5 +10,6 @@ class Student < ApplicationRecord
   has_many :seats
   has_many :sections, through: :seats
   has_many :teachers, through: :sections
+  has_many :grade_values, through: :grades
   
 end
