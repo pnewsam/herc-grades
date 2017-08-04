@@ -14,3 +14,11 @@
 .notice { background-color: $info; }
 .alert { background-color: $danger; }
 
+.table.assignments {
+  tr:hover {
+    background-color: #fff;
+  }
+  .status {
+    text-align: right;
+  }
+}

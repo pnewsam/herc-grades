@@ -2,22 +2,19 @@
   h2.title.is-2 = link_to "Assignments", assignments_path
 
   - @sections.each do |section|
-    h3.title.is-3 = section.period_and_course_name
-    hr
-    - if section.assignments.any?
-      ul
+    table.table.assignments
+      col
+      col[width='50']
+      thead
+        tr
+          td[colspan='2']: h3.title.is-3 = section.period_and_course_name
+      - if section.assignments.any?
         - section.assignments.decorate.each do |assignment|
-          li
-            .level
-              .level-left
-                .level-item
-                  h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
-              .level-right
-                .level-item
-                  = assignment.status_tag
-        br
-    - else
-      p.notification.has-text-centered This section has no assignments.
+          tr
+            td: h5.title.is-5 = link_to assignment.name, assignment_path(assignment)
+            td.status = assignment.status_tag
+      - else
+        p.notification.has-text-centered This section has no assignments.
 
 
   .has-text-centered
