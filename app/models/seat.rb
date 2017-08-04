@@ -7,7 +7,7 @@ class Seat < ApplicationRecord
     if self.column_number == 0
       seat.prepend("<div class='row'>")
     end
-    if self.column_number == self.section.number_of_columns - 1 || self.seat_number == self.section.number_of_seats - 1
+    if self.column_number == self.section.number_of_columns - 1 || (self.column_number != self.section.number_of_columns - 1 && self.seat_number == self.section.number_of_seats - 1)
       seat.concat("</div>")
     end
     seat.html_safe
