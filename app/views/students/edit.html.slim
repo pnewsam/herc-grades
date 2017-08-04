@@ -1,0 +1,32 @@
+h1.title.is-1 Edit this Student
+
+= form_for student, method: 'put' do |f|
+
+  = f.number_field :teacher_id, {value: current_teacher.id, type: 'hidden'}
+
+  .field.is-grouped
+    .control.is-expanded
+      = f.label :first_name, 'First', class: 'label'
+      = f.text_field :first_name, {value: student.first_name, class: 'input'}
+    .control.is-expanded
+      = f.label :middle_name, 'Middle', class: 'label'
+      = f.text_field :middle_name, {value: student.middle_name, class: 'input'}
+    .control.is-expanded
+      = f.label :last_name, 'Last', class: 'label'
+      = f.text_field :last_name, {value: student.last_name, class: 'input'}
+
+  .field
+    .control
+      = f.label :id_number, 'ID Number', class: 'label'
+      = f.number_field :id_number, {value: student.id_number, class: 'input'}
+
+  .field
+    .control
+      = f.label :email, 'Email', class: 'label'
+      = f.text_field :email, {value: student.email, class: 'input'}
+  
+  = f.submit 'Edit student', class: 'button is-info'
+
+br
+
+= link_to 'Back to Student', student_path, class: 'button is-primary'
