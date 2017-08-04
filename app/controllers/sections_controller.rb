@@ -24,11 +24,18 @@ class SectionsController < ApplicationController
   end
 
   def update
-    if section.update(section_params)
-      redirect_to section_path
-      flash[:notice] = 'Section successfully updated!'
+    if section_params[:file]
+      parser = CsvParsingService.new(section_params[:file].tempfile, section)
+      if parser.run
+        redirect_to section_path(section)
+      end
     else
-      redirect_to edit_section_path
+      if section.update(section_params)
+        redirect_to section_path
+        flash[:notice] = 'Section successfully updated!'
+      else
+        redirect_to edit_section_path
+      end
     end
   end
 
@@ -65,6 +72,6 @@ private
   helper_method :assignments
 
   def section_params
-    params.require(:section).permit(:term_id, :course_id, :academic_year_start, :academic_year_end, :period, :teacher_id)
+    params.require(:section).permit(:term_id, :course_id, :academic_year_start, :academic_year_end, :period, :teacher_id, :file)
   end
 end
