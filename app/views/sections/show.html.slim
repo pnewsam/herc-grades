@@ -21,7 +21,7 @@
         - else
             .has-text-centered
               p.notification This section has no students.
-              = link_to 'Add Students to Section', section_seats_path(section), class: 'button is-primary'
+              = link_to 'Add Students to Section', new_section_student_path(section), class: 'button is-primary'
   .tile.is-parent.is-4
     .tile.is-child.card
       .card-content
@@ -37,7 +37,7 @@
           br
         - else
           p.notification.has-text-centered This section has no assignments.
-          
+
         .has-text-centered
           = link_to "Create an Assignment", new_section_assignment_path(section), class: 'button is-primary'
 
