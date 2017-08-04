@@ -10,16 +10,9 @@ Rails.application.routes.draw do
   resources :sections do
     resources :seats, only: [:index, :new, :create]
     resources :assignments, only: [:new, :create]
-
-    # Testing out nesting this resource so we can attach section ID to student creation.
-    resources :students do
-    end
   end
 
-  # Check:
-  resources :students do
-
-  end
+  resources :students
 
   resource :profile, only: [:show, :edit, :update]
 
