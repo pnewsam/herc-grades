@@ -69,11 +69,11 @@ private
   helper_method :sections
 
   def section
-    @section ||= sections.find(params[:section_id])
+    @section ||= current_teacher.sections.find(params[:section_id]).decorate
   end
   helper_method :section
 
   def assignment_params
-    params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id, grades_attributes: [:grade_value_id, :id])
+    params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id, :grading_scheme_id, grades_attributes: [:grade_value_id, :id])
   end
 end

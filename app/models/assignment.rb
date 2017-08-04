@@ -23,7 +23,7 @@ class Assignment < ApplicationRecord
   private
   def create_grades
     self.section.seats.each do |seat|
-      Grade.create(student_id: seat.student_id, assignment_id: self.id, grade_value_id: 1)
+      Grade.create(student_id: seat.student_id, assignment_id: self.id, grade_value_id: self.grade_values.first.id)
     end
   end
 
