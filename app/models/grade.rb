@@ -5,7 +5,6 @@ class Grade < ApplicationRecord
   has_one :grading_scheme, through: :grade_value
 
   def graded?
-    self.grade != ""
+    self.grade_value.name != 'Ungraded'
   end
-
 end

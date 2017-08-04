@@ -16,19 +16,23 @@ lg = GradingScheme.create(name: 'Letter Grade')
 lgplus = GradingScheme.create(name: 'Letter Grade with +-')
 percentage = GradingScheme.create(name: 'Percentage')
 
+GradeValue.create(name: 'Ungraded', grading_scheme_id: fpn.id)
 GradeValue.create(name: 'Full Credit', grading_scheme_id: fpn.id)
 GradeValue.create(name: 'Partial Credit', grading_scheme_id: fpn.id)
 GradeValue.create(name: 'No Credit', grading_scheme_id: fpn.id)
 
+GradeValue.create(name: 'Ungraded', grading_scheme_id: cn.id)
 GradeValue.create(name: 'Credit', grading_scheme_id: cn.id)
 GradeValue.create(name: 'No Credit', grading_scheme_id: cn.id)
 
+GradeValue.create(name: 'Ungraded', grading_scheme_id: lg.id)
 GradeValue.create(name: 'A', grading_scheme_id: lg.id)
 GradeValue.create(name: 'B', grading_scheme_id: lg.id)
 GradeValue.create(name: 'C', grading_scheme_id: lg.id)
 GradeValue.create(name: 'D', grading_scheme_id: lg.id)
 GradeValue.create(name: 'F', grading_scheme_id: lg.id)
 
+GradeValue.create(name: 'Ungraded', grading_scheme_id: lgplus.id)
 GradeValue.create(name: 'A+', grading_scheme_id: lgplus.id)
 GradeValue.create(name: 'A', grading_scheme_id: lgplus.id)
 GradeValue.create(name: 'A-', grading_scheme_id: lgplus.id)
@@ -43,6 +47,7 @@ GradeValue.create(name: 'D', grading_scheme_id: lgplus.id)
 GradeValue.create(name: 'D-', grading_scheme_id: lgplus.id)
 GradeValue.create(name: 'F', grading_scheme_id: lgplus.id)
 
+GradeValue.create(name: 'Ungraded', grading_scheme_id: percentage.id)
 101.times do |i|
   GradeValue.create(name: i.to_s, value: i, grading_scheme_id: percentage.id)
 end

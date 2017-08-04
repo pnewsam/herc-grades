@@ -15,9 +15,16 @@ h1.title.is-1 Create a New Assignment
       = f.date_field :date_due, { class: 'input', value: tomorrow }
 
   .field
+    .control
+      = f.label :grading_scheme_id, 'Grading Scheme', class: 'label'
+      .select
+        = f.select :grading_scheme_id, options_from_collection_for_select(all_grading_schemes, :id, :name)
+
+  .field
     - if !params[:section_id]
       p.control
         = f.label :section_id, 'Section', class: 'label'
+      .control
         .select
           = f.collection_select(:section_id, sections, :id, :period_and_course_name)
     - else
