@@ -21,10 +21,10 @@ h1.title.is-1 Edit this Section
 
   .field.is-grouped
 
-    p.control
+    .control
       = f.label :period, 'Period', class: 'label'
       = f.number_field :period, {value: section.period, class: 'input'}
-    
+
     .field
       = f.label :course_id, 'Course', class: 'label'
       .control
