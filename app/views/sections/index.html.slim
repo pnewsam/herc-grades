@@ -1,17 +1,8 @@
 h1.title.is-1 Sections
 
 = sections.each do |section|
-  / = render partial: ''
-
-/ table.table.is-striped.is-bordered
-/   thead
-/     tr
-/       th Period
-/       th Course
-/       th View
-/   tbody
-/   - @sections.each do |section|
-/     tr
-/       th #{section.period}
-/       th #{section.course.name}
-/       td: a[href="/sections/#{section.id}"] View Section
+  .card
+    .card-content
+      h2.title.is-2 #{section.period_and_course_name}
+      = section.render_seats
+  br

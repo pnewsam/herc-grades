@@ -1,13 +1,29 @@
-h1.title.is-1 Your Assignments
 .level
-  a.button.is-primary[href="assignments/new"] Create a New Assignment
-hr
-- assignments.each do |assignment|
-  h2.title.is-2
-    a[href="assignments/#{assignment.id}"] = assignment.name
-  p Assigned #{assignment.date_assigned.strftime("%B %d, %Y")}
-  p Due #{assignment.date_due.strftime("%B %d, %Y")}
-  p Status #{assignment.status_tag}
-  hr
+  .level-left
+    .level-item
+      .field
+        .control
+          h1.title.is-1 Assignments
+  .level-right
+    .level-item
+      a.button.is-primary[href="assignments/new"] Create a New Assignment
+
+table.table.assignments
+  col
+  col
+  col
+  col[width='50']
+  thead
+    tr
+      th Name
+      th Date Assigned
+      th Date Due
+      th Status
+  - assignments.each do |assignment|
+    tr
+      td: h5.title.is-5 = link_to assignment.name, assignment_path(assignment)
+      td = assignment.date_assigned.strftime("%B %d, %Y")
+      td = assignment.date_due.strftime("%B %d, %Y")
+      td.status = assignment.status_tag
 
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'
