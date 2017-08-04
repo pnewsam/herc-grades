@@ -5,7 +5,7 @@ class Grade < ApplicationRecord
   has_one :grading_scheme, through: :grade_value
 
   def graded?
-    self.grade != ""
+    self.created_at != self.updated_at
   end
 
 end

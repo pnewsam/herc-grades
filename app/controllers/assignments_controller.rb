@@ -37,7 +37,7 @@ class AssignmentsController < ApplicationController
   
   def grade
     assignment_params[:grades_attributes].values.each do |grade|
-      assignment.grades.find(grade[:id]).update(grade: grade[:grade])
+      assignment.grades.find(grade[:id]).update(grade_value_id: grade[:grade_value_id])
     end
     redirect_to root_path
   end
@@ -74,6 +74,6 @@ private
   helper_method :section
 
   def assignment_params
-    params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id, grades_attributes: [:grade, :id])
+    params.require('assignment').permit(:name, :date_assigned, :date_due, :description, :section_id, grades_attributes: [:grade_value_id, :id])
   end
 end

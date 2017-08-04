@@ -50,7 +50,9 @@ br
         = f.fields_for :grades do |g|
           tr
             td #{g.object.student.last_name}, #{g.object.student.first_name}
-            td = g.text_field :grade, class: 'input'
+            td.control
+              .select.is-fullwidth
+                = g.select :grade_value_id, options_from_collection_for_select(assignment.grade_values, :id, :name)
         tr
           td[colspan='2' class='form-submit'] = f.submit 'Update Grades', class: 'button is-primary is-large'
 
