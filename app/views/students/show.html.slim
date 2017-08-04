@@ -15,18 +15,20 @@ table.table.is-bordered.is-striped
     tr
       th: strong Assignment
       th: strong Grade
-  - if grades
+  - if student.has_grades?
     tbody
       - grades.each do |grade|
         tr
           td = grade.assignment.name
           - if grade.graded?
-            td = grade.grade
+            td = grade.grade_value.name
           - else
             td
-              span.tag.is-info.is-medium Not Yet Graded 
+              span.tag.is-info.is-medium Not Yet Graded
   - else
     tbody
-      td This student has no grades.
+      tr
+        td[colspan='2']
+          p.notification.has-text-centered This student has no grades.
 
 = link_to 'Back', :back, class: 'button is-primary'

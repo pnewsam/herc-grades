@@ -12,4 +12,7 @@ class Student < ApplicationRecord
   has_many :teachers, through: :sections
   has_many :grade_values, through: :grades
   
+  def has_grades?
+    self.grade_values.where.not(name: 'Ungraded').length > 0
+  end
 end
