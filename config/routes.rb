@@ -16,13 +16,13 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :students do
-  #
-  # end
+  # Check:
+  resources :students do
+
+  end
 
   resource :profile, only: [:show, :edit, :update]
 
   get '/dashboard', to: 'dashboards#show'
-
   root 'dashboards#show'
 end
