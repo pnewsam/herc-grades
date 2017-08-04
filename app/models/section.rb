@@ -2,7 +2,7 @@ class Section < ApplicationRecord
   belongs_to :course
   belongs_to :teacher
   belongs_to :term
-  has_many :seats
+  has_many :seats, -> { order(:id) }
   has_many :assignments
   has_many :students, through: :seats
 
