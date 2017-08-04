@@ -19,7 +19,6 @@ class SectionDecorator < ApplicationDecorator
     object.seats.each do |seat|
       str += seat.render
     end
-    p str.concat("</div>").html_safe
+    str.concat("</div>").html_safe
   end
-
 end
