@@ -20,16 +20,13 @@
       .card-content
         h2.title.is-2 Assignments
         - if assignments.any?
-          ul
+          table.table.assignments
+            col
+            col[width='50']
             - assignments.each do |assignment|
-              li
-                .level
-                  .level-left
-                    .level-item
-                      h4.title.is-4 = link_to assignment.name, assignment_path(assignment)
-                  .level-right
-                    .level-item
-                      = assignment.status_tag
+              tr
+                td: h5.title.is-5 = link_to assignment.name, assignment_path(assignment)
+                td.status = assignment.status_tag
           br
         - else
           p.notification.has-text-centered This section has no assignments.

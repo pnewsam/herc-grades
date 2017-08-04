@@ -1,0 +1,14 @@
+.table.grades {
+  margin-bottom: 0;
+  td {
+    vertical-align: middle;
+    &.form-submit {
+      &:hover {
+        background-color: #fff;
+      }
+      border: none;
+      text-align: center;
+      padding-top: 20px;
+    }
+  }
+}
