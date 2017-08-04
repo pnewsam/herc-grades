@@ -9,7 +9,7 @@
         tr
           td[colspan='2']: h3.title.is-3 = section.period_and_course_name
         - if section.assignments.any?
-          - section.assignments.each do |assignment|
+          - section.assignments.decorate.each do |assignment|
             tr
               td: h5.title.is-5 = link_to assignment.name, assignment_path(assignment)
               td.status = assignment.status_tag

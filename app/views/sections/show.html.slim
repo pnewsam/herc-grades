@@ -15,7 +15,13 @@
   .tile.is-parent.is-8
     .tile.is-child.card
       .card-content
-        = section.render_seats
+        h2.title.is-2 Classroom
+        - if seats.any?
+          = section.render_seats
+        - else
+            .has-text-centered
+              p.notification This section has no students.
+              = link_to 'Add Students to Section', section_seats_path(section), class: 'button is-primary'
   .tile.is-parent.is-4
     .tile.is-child.card
       .card-content
