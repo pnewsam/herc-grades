@@ -6,19 +6,23 @@ Rails.application.routes.draw do
   resources :assignments do
     patch 'grade', to: :grade
   end
-  
+
   resources :sections do
     resources :seats, only: [:index, :new, :create]
     resources :assignments, only: [:new, :create]
+
+    # Testing out nesting this resource so we can attach section ID to student creation.
+    resources :students do
+    end
   end
 
-  resources :students do
-    
-  end
+  # resources :students do
+  #
+  # end
 
   resource :profile, only: [:show, :edit, :update]
 
   get '/dashboard', to: 'dashboards#show'
-  
+
   root 'dashboards#show'
 end
