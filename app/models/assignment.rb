@@ -3,6 +3,8 @@ class Assignment < ApplicationRecord
   has_one :course, through: :section
   has_one :teacher, through: :section
   has_many :grades, -> { order(:id) }
+  belongs_to :grading_scheme
+  has_many :grade_values, through: :grading_scheme
 
   accepts_nested_attributes_for :grades
 
@@ -21,7 +23,7 @@ class Assignment < ApplicationRecord
   private
   def create_grades
     self.section.seats.each do |seat|
-      Grade.create(grade: '', student_id: seat.student_id, assignment_id: self.id)
+      Grade.create(student_id: seat.student_id, assignment_id: self.id, grade_value_id: 1)
     end
   end
 
