@@ -3,7 +3,7 @@ class Seat < ApplicationRecord
   belongs_to :section
 
   def render
-    seat = "<div class='seat box is-paddingless has-text-centered'><p class='name is-5'>#{self.student.first_name}<p></div>"
+    seat = "<div class='seat box is-paddingless has-text-centered'><p class='name'>#{self.student.first_name}<p></div>"
     if self.column_number == 0
       seat.prepend("<div class='row'>")
     end

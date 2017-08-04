@@ -39,12 +39,12 @@ class SectionsController < ApplicationController
 
 private
   def sections
-    @sections ||= current_teacher.sections
+    @sections ||= current_teacher.sections.decorate
   end
   helper_method :sections
 
   def section
-    @section ||= sections.find(params[:id]).decorate
+    @section ||= current_teacher.sections.find(params[:id]).decorate
   end
   helper_method :section
 
