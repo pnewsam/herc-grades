@@ -38,13 +38,13 @@ br
       h2.title.is-2 Grades
     .level-right
       .level-item
-        .field.is-grouped
+        .field.is-grouped#grade-multifill
           .control.select
-            select#autofill-select
+            select
               - assignment.grade_values.each do |gv|
                 option[value="#{gv.id}"] = gv.name
           .control
-            button#autofill-button.button.is-primary Set Default Grade
+            button.button.is-primary Set Default Grade
 
   = form_for assignment, url: assignment_grade_path(assignment.id) do |f|
     table.table.is-bordered.is-fullwidth.grades
