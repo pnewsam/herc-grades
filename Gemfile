@@ -39,6 +39,7 @@ gem 'devise'
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'smarter_csv' # New.
 gem 'draper', '3.0.0'
+gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
