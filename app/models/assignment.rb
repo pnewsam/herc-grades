@@ -6,6 +6,8 @@ class Assignment < ApplicationRecord
   belongs_to :grading_scheme
   has_many :grade_values, through: :grading_scheme
 
+  validates :date_assigned, :date_due, :name, :section_id, :grading_scheme_id, presence: true
+
   accepts_nested_attributes_for :grades
 
   after_create :create_grades

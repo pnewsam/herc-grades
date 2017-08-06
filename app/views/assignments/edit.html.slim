@@ -1,6 +1,13 @@
 h1.title.is-1 Edit Your Assignment
 
 = form_for assignment do |f|
+  .field 
+    .control
+      - if assignment.errors.any?
+        ul.notification.is-danger
+          - assignment.errors.full_messages.each do |m|
+            li = m
+
   .field
     p.control
       = f.label :name, 'Name', class: 'label'

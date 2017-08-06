@@ -8,15 +8,16 @@ class AssignmentsController < ApplicationController
   end
 
   def create
-    assignment = Assignment.new(assignment_params)
-    if assignment.save
-      redirect_to assignment_path(assignment)
+    @assignment = Assignment.new(assignment_params)
+    if @assignment.save
+      redirect_to assignment_path(@assignment)
     else
-      redirect_to new_assignment_path
+      render :new
     end
   end
   
   def new
+    @assignment = Assignment.new
   end
 
   def edit
@@ -26,6 +27,8 @@ class AssignmentsController < ApplicationController
     if assignment.update(assignment_params)
       redirect_to assignment_path(assignment)
       flash[:notice] = 'Assignment successfully updated!'
+    else
+      render :edit
     end
   end
 
@@ -48,11 +51,6 @@ private
     @assignments ||= current_teacher.assignments.decorate
   end
   helper_method :assignments
-
-  def new_assignment
-    @assignment = Assignment.new
-  end
-  helper_method :new_assignment
 
   def assignment
     if params[:assignment_id]
