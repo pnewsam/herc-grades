@@ -12,7 +12,7 @@ class AssignmentsController < ApplicationController
     if @assignment.save
       redirect_to assignment_path(@assignment)
     else
-      render new_assignment_path
+      render :new
     end
   end
   
@@ -27,6 +27,8 @@ class AssignmentsController < ApplicationController
     if assignment.update(assignment_params)
       redirect_to assignment_path(assignment)
       flash[:notice] = 'Assignment successfully updated!'
+    else
+      render :edit
     end
   end
 
