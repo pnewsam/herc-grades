@@ -9,15 +9,17 @@ class SectionsController < ApplicationController
   end
 
   def create
-    section = Section.new(section_params)
-    if section.save
+    @section = Section.new(section_params)
+    if @section.save
       redirect_to root_path
+      flash[:notice] = 'Section successfully created!'
     else
-      redirect_to new_section_path
+      render :new
     end
   end
 
   def new
+    @section = Section.new
   end
   
   def edit
@@ -34,7 +36,7 @@ class SectionsController < ApplicationController
         redirect_to section_path
         flash[:notice] = 'Section successfully updated!'
       else
-        redirect_to edit_section_path
+        render :edit
       end
     end
   end
@@ -55,11 +57,6 @@ private
     @section ||= current_teacher.sections.find(params[:id]).decorate
   end
   helper_method :section
-
-  def new_section
-    @section = Section.new
-  end
-  helper_method :new_section
 
   def seats
     @seats ||= section.seats.decorate

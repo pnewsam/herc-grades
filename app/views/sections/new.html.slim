@@ -1,6 +1,13 @@
 h1.title.is-1 Add a New Section
 
-= form_for new_section do |f|
+= form_for @section do |f|
+
+  .field 
+    .control
+      - if @section.errors.any?
+        ul.notification.is-danger
+          - @section.errors.full_messages.each do |m|
+            li = m
 
   = f.number_field :teacher_id, {value: current_teacher.id, type: 'hidden'}
 

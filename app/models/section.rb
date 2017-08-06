@@ -7,6 +7,8 @@ class Section < ApplicationRecord
   has_many :students, through: :seats
   has_one :school, through: :teacher
 
+  validates :period, :term_id, :course_id, :academic_year_start, :academic_year_end, presence: true
+
   def course_name
     self.course.name
   end
