@@ -1,6 +1,12 @@
 h1.title.is-1 Create a New Assignment
 
-= form_for new_assignment do |f|
+= form_for @assignment do |f|
+  .field 
+    .control
+      - if @assignment.errors.any?
+        ul.notification.is-danger
+          - @assignment.errors.full_messages.each do |m|
+            li = m
   .field
     p.control
       = f.label :name, 'Name', class: 'label'
