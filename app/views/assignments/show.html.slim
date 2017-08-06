@@ -1,34 +1,33 @@
+
 .level
   .level-left
     .level-item
-      .columns
-        .column
+      / hr.is-fullwidth
+      ul
+        li
           h1.title.is-1 = assignment.name
-          hr.is-fullwidth
-          ul
-            li
-              strong Section: 
-              span #{assignment.section.course.name}, Period #{assignment.section.period}
-            li
-              strong Date Assigned: 
-              = assignment.date_assigned.strftime("%B %d, %Y")
-            li
-              strong Date Due: 
-              = assignment.date_due.strftime("%B %d, %Y")
-            li
-              strong Date Due: 
-              = assignment.description
+        li: hr
+        li
+          strong Section: 
+          span #{assignment.section.course.name}, Period #{assignment.section.period}
+        li
+          strong Date Assigned: 
+          = assignment.date_assigned.strftime("%B %d, %Y")
+        li
+          strong Date Due: 
+          = assignment.date_due.strftime("%B %d, %Y")
+        li.mw-500
+          strong Description: 
+          = assignment.description
   .level-right
-    .level-item
-      .columns
-        .column.box
-          h3.title.is-3.has-text-centered Status: #{assignment.status_tag_large}
-          br
-          .field.is-grouped
-            .control
-              = link_to 'Edit Assignment', edit_assignment_path(assignment), class: 'button is-info'
-            .control
-              = button_to "Delete Assignment", assignment, { method: 'delete', class: 'button is-danger', data: { confirm: 'Are you sure?' } }
+    .box
+      h3.title.is-3.has-text-centered Status: #{assignment.status_tag_large}
+      / br
+      .field.is-grouped
+        .control
+          = link_to 'Edit Assignment', edit_assignment_path(assignment), class: 'button is-info'
+        .control
+          = button_to "Delete Assignment", assignment, { method: 'delete', class: 'button is-danger', data: { confirm: 'Are you sure?' } }
     
 br
 
