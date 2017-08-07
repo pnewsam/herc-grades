@@ -2,6 +2,13 @@ h1.title.is-1 Edit this Section
 
 = form_for section, method: 'put' do |f|
 
+  .field 
+    .control
+      - if section.errors.any?
+        ul.notification.is-danger
+          - section.errors.full_messages.each do |m|
+            li = m
+
   = f.number_field :teacher_id, {value: current_teacher.id, type: 'hidden'}
 
   .field.is-grouped

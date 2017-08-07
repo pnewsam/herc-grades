@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :assignments, only: [:new, :create]
   end
 
+  get '/students/search', to: 'students#search'
   resources :students
 
   resource :profile, only: [:show, :edit, :update]
