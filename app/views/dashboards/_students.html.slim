@@ -2,13 +2,16 @@
   h2.title.is-2 = link_to 'Students', students_path
 
   = form_tag("/search", method: "get") do
-    .field.is-grouped
-      .control.is-expanded
-        = text_field_tag :students , nil, class: 'input'
+    .field
       .control
-        = submit_tag "Search", class: 'button is-primary'
+        = label_tag :student_search, 'Search for Students', class: 'label'
+      .control.is-expanded
+        = text_field_tag :student_search , nil, class: 'input'
 
   br
+
+  .box#results
+
 
   ul
   - @students.each do |student|

@@ -23,6 +23,17 @@ class StudentsController < ApplicationController
     end
   end
 
+  def search
+    s = Student.search_by_name(student_search_params[:student_search])
+    # puts s
+    respond_to do |format|
+      format.json { render :json => s }
+    end
+    # if request.xhr?
+    #   puts Student.search_by_name(student_search_params[:student_search])
+    # end
+  end
+
 private
   def students
     @students ||= current_teacher.students.decorate
@@ -45,5 +56,9 @@ private
 
   def student_params
     params.require(:student).permit(:first_name, :middle_name, :last_name, :id_number, :email)
+  end
+
+  def student_search_params
+    params.permit(:student_search)
   end
 end

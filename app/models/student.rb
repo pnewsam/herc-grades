@@ -12,6 +12,9 @@ class Student < ApplicationRecord
   has_many :teachers, through: :sections
   has_many :grade_values, through: :grades
   
+  include PgSearch
+  pg_search_scope :search_by_name, :against => [:first_name, :last_name]
+
   def has_grades?
     self.grade_values.where.not(name: 'Ungraded').length > 0
   end
