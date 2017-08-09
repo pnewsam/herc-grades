@@ -20,11 +20,9 @@ An app that makes it easy for teachers to assign grades to their students!
 * _DB Search_: Pg Search
 * _CSV Parsing_: SmarterCSV
 
-
 #### Development
 * _Testing_: RSpec
 * _Other_: Faker
-
 
 <!-- This README would normally document whatever steps are necessary to get the
 application up and running.
