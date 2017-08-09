@@ -2,46 +2,57 @@ header
   nav.navbar
     .navbar-brand
       a.navbar-item[href="/"] Herc Grades
+      .navbar-burger
+        span
+        span
+        span
     .navbar-menu
-    .navbar-start
-    .navbar-end
-      - if teacher_signed_in?        
-        a.navbar-item[href='/dashboard']
-          .field
-            p.control
-              span.icon
-                i.fa.fa-tachometer[aria-hidden="true"]
-              span  Dashboard
-        .navbar-item
-          .field
-            p.control
-              span Logged in as 
-              a[href="/profile"] #{current_teacher.email}
-        .navbar-item
-          .field
-            p.control
-              = form_tag '/teachers/sign_out', method: 'delete'
-                .field
-                  = submit_tag 'Log Out', class: 'button is-danger'
-      - elsif student_signed_in?
-        a.navbar-item[href='/students/dashboard'] Dashboard
-        .navbar-item
-          .field
-            p.control
-              span Logged in as 
-              a[href="/students/#{current_student.id}"] #{current_student.email}
-        .navbar-item
-          .field
-            p.control
-              = form_tag '/students/sign_out', method: 'delete'
-                .field
-                  = submit_tag 'Log Out', class: 'button is-danger'
-      - else
-        .navbar-item
-          .field
-            p.control
-              a.button.is-info[href='/students/sign_in'] Student Login
-        .navbar-item
-          .field
-            p.control
-              a.button.is-primary[href='/teachers/sign_in'] Teacher Login
+      .navbar-start
+      .navbar-end
+        / .navbar-item.has-dropdown
+        /   a.navbar-link Dropdown
+        /   .navbar-dropdown
+        /     a.navbar-item[href='#'] Dropdown Link
+        /     a.navbar-item[href='#'] Dropdown Link
+        /     a.navbar-item[href='#'] Dropdown Link
+        - if teacher_signed_in?
+          a.navbar-item[href='/dashboard']
+            .field
+              p.control
+                span.icon
+                  i.fa.fa-tachometer[aria-hidden="true"]
+                span  Dashboard
+          .navbar-item
+            .field
+              p.control
+                span Logged in as 
+                a[href="/profile"] #{current_teacher.email}
+          .navbar-item
+            .field
+              p.control
+                = form_tag '/teachers/sign_out', method: 'delete'
+                  .field
+                    = submit_tag 'Log Out', class: 'button is-danger'
+        - elsif student_signed_in?
+          a.navbar-item[href='/students/dashboard'] Dashboard
+          .navbar-item
+            .field
+              p.control
+                span Logged in as 
+                a[href="/students/#{current_student.id}"] #{current_student.email}
+          .navbar-item
+            .field
+              p.control
+                = form_tag '/students/sign_out', method: 'delete'
+                  .field
+                    = submit_tag 'Log Out', class: 'button is-danger'
+        - else
+          .navbar-item
+            .field
+              p.control
+                a.button.is-info[href='/students/sign_in'] Student Login
+          .navbar-item
+            .field
+              p.control
+                a.button.is-primary[href='/teachers/sign_in'] Teacher Login
+
