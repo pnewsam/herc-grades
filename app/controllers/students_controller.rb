@@ -25,13 +25,9 @@ class StudentsController < ApplicationController
 
   def search
     s = Student.search_by_name(student_search_params[:student_search])
-    # puts s
     respond_to do |format|
       format.json { render :json => s }
     end
-    # if request.xhr?
-    #   puts Student.search_by_name(student_search_params[:student_search])
-    # end
   end
 
 private
