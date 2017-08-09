@@ -1,36 +1,28 @@
 $(document).on('turbolinks:load', function() {
 
   $('#student_search').on('focusin',function(e){
-    console.log('focusin!')
-    var s = new StudentSearch($(this));
+    var ss = new StudentSearch($(this));
   });
 
 })
 
 
-function StudentSearch(el) {
+function StudentSearch(searchBar) {
 
-  this.el = el;
-  this.bindEvent(el);
-  this.prevVal = el.val();
-  this.currentVal;
+  this.searchBar = searchBar;
+  this.bindEvent(searchBar);
 
 }
 
-StudentSearch.prototype.bindEvent = function(){
-  console.log('bind event!')
-  var that = this
-  this.el.on('keyup paste change', function(e){
-    data = $(this).serialize();
-    // if (that.prevVal !== that.currentVal) {
-      that.search(data);
-      // that.prevVal = that.currentVal;
-    // }
+StudentSearch.prototype.bindEvent = function(searchBar){
+  var that = this;
+  searchBar.on('keyup paste change', function(){
+    query = $(this).serialize();
+    that.requestSearch(query);
   });
 }
 
-StudentSearch.prototype.search = function(query){
-  console.log('search!')
+StudentSearch.prototype.requestSearch = function(query){
   var that = this;
   $.ajax({
     url: '/students/search',
@@ -43,20 +35,19 @@ StudentSearch.prototype.search = function(query){
   })
 };
 
-StudentSearch.prototype.renderResponse = function(response){
-  var results = $('#results')
-  var str = '<ul>'
-  for (let i = 0; i < response.length; i++) {
-    str += this.constructLi(response[i]);
+StudentSearch.prototype.renderResponse = function(studentObjects){
+  var results = $('#results');
+  var ul = '<ul>';
+  for (let i = 0; i < studentObjects.length; i++) {
+    ul += this.constructLi(studentObjects[i]);
   };
-  results.html(str.concat('</ul>'));
+  ul += '</ul>';
+  results.html(ul);
 };
 
 StudentSearch.prototype.constructLi = function(studentObject){
-  var str = "<li><a href='/students/"
-  str += (studentObject.id + "'>")
-  str += (studentObject.first_name + ' ' + studentObject.last_name);
-  str += "</a></li>"
-  console.log(str);
-  return str;
+  var li = `<li><a href='/students/${studentObject.id}'>`;
+  li += `${studentObject.first_name} ${studentObject.last_name}`;
+  li += '</a></li>';
+  return li;
 }

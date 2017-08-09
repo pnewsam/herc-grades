@@ -3,17 +3,10 @@
 
   = form_tag("/search", method: "get") do
     .field
-      .control
-        = label_tag :student_search, 'Search for Students', class: 'label'
       .control.is-expanded
-        = text_field_tag :student_search , nil, class: 'input'
+        = text_field_tag :student_search , nil, { placeholder: 'Search for students by name...', class: 'input' }
 
   br
 
-  .box#results
-
-
-  ul
-  - @students.each do |student|
-    li = link_to student.full_name, student_path(student)
-
+  .field
+    #results
