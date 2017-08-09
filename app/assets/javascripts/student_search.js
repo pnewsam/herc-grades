@@ -1,17 +1,14 @@
 $(document).on('turbolinks:load', function() {
 
   $('#student_search').on('focusin',function(e){
-    var ss = new StudentSearch($(this));
+    var studentSearch = new StudentSearch($(this));
   });
 
 })
 
-
 function StudentSearch(searchBar) {
-
   this.searchBar = searchBar;
   this.bindEvent(searchBar);
-
 }
 
 StudentSearch.prototype.bindEvent = function(searchBar){
