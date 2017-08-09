@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resource :profile, only: [:show, :edit, :update]
 
+  get '/home', to: 'landing#index'
+
   get '/dashboard', to: 'dashboards#show'
   root 'dashboards#show'
 end

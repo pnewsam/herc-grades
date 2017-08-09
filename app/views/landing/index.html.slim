@@ -1,0 +1,67 @@
+doctype html
+html
+  head
+    title HercGrades
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = render 'layouts/header'
+
+    main
+      section.hero.is-primary.is-large.is-bold
+        .hero-body
+          .container.has-text-centered
+            h1.title.is-1 Herc Grades
+            h2.subtitle.is-2 An easier way to keep track of grades for daily assignments.
+
+      section.section
+        .container
+          h1.title.is-1 Why Herc Grades?
+          .columns
+            .column
+              h3.title.is-3: i Simplify your grading process
+              p Don't let those assignments pile up - log assignments and assign grades to your students with just a few taps. You can use a custom seating chart, or grade alphabetically.
+            .column
+              h3.title.is-3: i Keep students and parents updated
+              p Students and parents can log in to see their grades as soon as you've assigned them. Parents can keep tabs on their kids, and students can hold themselves accountable.
+            .column
+              h3.title.is-3: i Use your current workflow
+              p Herc Grades is just a gradebook - but it integrates seamlessly with Canvas. Keep your grades in one place, then sync up with Canvas at the touch of a button. 
+
+      section.section
+        .container
+          h1.title.is-1 Features
+          .tile.is-ancestor
+            .tile.is-vertical.is-parent
+
+              .tile.is-child
+                article.tile.box
+                  .content
+                    h4.title.is-4 Lorem ipsum dolor sit amet.
+                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, ratione?
+                article.tile.box
+                  .content
+                    h4.title.is-4 Lorem ipsum dolor sit amet.
+                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, ratione?
+
+            .tile.is-vertical.is-parent
+            
+              .tile.is-child
+                article.tile.box
+                  .content
+                    h4.title.is-4 Lorem ipsum dolor sit amet.
+                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, ratione?
+                article.tile.box
+                  .content
+                    h4.title.is-4 Lorem ipsum dolor sit amet.
+                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, ratione?
+
+      section.section
+        .container
+          .columns
+            .column
+            .column
+            .column
+
+  = render 'layouts/footer'
