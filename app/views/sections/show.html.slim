@@ -16,19 +16,20 @@
     .tile.is-child.card
       .card-content
         h2.title.is-2 Classroom
-        - if seats.any?
-          = section.render_seats
-        - else
-            p.notification.has-text-centered This section has no students.
-            .box.has-text-centered
-              h4.title.is-4 Upload your Class List
-              = form_for section, method: "patch" do |f|
-                .field
-                  = f.label :file, 'Choose File', class: 'button is-warning'
-                  .control
-                    = f.file_field :file, class: 'veiled'
-                .field
-                  = f.submit 'Upload', class: 'button is-info'
+        .seating-chart_container
+        / - if seats.any?
+        /   = section.render_seats
+        / - else
+        /     p.notification.has-text-centered This section has no students.
+        /     .box.has-text-centered
+        /       h4.title.is-4 Upload your Class List
+        /       = form_for section, method: "patch" do |f|
+        /         .field
+        /           = f.label :file, 'Choose File', class: 'button is-warning'
+        /           .control
+        /             = f.file_field :file, class: 'veiled'
+        /         .field
+        /           = f.submit 'Upload', class: 'button is-info'
   .tile.is-parent.is-4
     .tile.is-child.card
       .card-content
