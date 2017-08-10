@@ -1,10 +1,11 @@
 $(document).on("turbolinks:load", function(){
 
-  var section = new Section($(".seating-chart_container"))
-
-  $(window).resize(function(){
-    section.renderSeats();
-  });
+  if (window.location.pathname.indexOf("sections") > 0) {
+    var section = new Section($(".seating-chart_container"))
+    $(window).resize(function(){
+      section.renderSeats();
+    });
+  } 
 
 });
 
