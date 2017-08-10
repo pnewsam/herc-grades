@@ -1,61 +1,68 @@
 $(document).on("turbolinks:load", function(){
 
-  seatingChartContainer = $('.seating-chart_container');
-  if (seatingChartContainer) {
-    var seatingChart = new SeatingChart(seatingChartContainer);
-  }
+  var section = new Section($(".seating-chart_container"))
+
+  $(window).resize(function(){
+    section.renderSeats();
+  });
 
 });
 
-var SeatingChart = function(container) {
-  this.seats;
-  this.students;
-  this.section;
-  this.fetchSeats();
-  
-  this.seatSide;
-  this.container = container;
-  this.containerWidth = container.width();
-};
+class Section {
 
-SeatingChart.prototype.calculateSeatSide = function(numberOfColumns, containerWidth) {
-  this.seatSide = (containerWidth / numberOfColumns)
-};
+  constructor(container) {
+    this.section, this.students, this.seats;
+    this.dataCollected = false;
+    this.fetchData();
+    
+    this.containerWidth, this.seatSide;
+    this.container = container;
+  }
 
-SeatingChart.prototype.fetchSeats = function() {
-  var action = window.location.pathname + '/seats';
-  var that = this;
-  $.ajax({
-    url: action,
-    method: 'GET',
-    dataType: 'json'
-  })
-  .done(function(response){
-    console.log(response)
-    that.seats = response.seats;
-    that.students = response.students;
-    that.section = response.section;
-    that.calculateSeatSide(that.section.number_of_columns,that.containerWidth);
-    that.renderSeats();
-  });
-};
+  fetchData() {
+    var action, that;
+    action = window.location.pathname + '/seats';
+    that = this;
+    $.ajax({
+      url: action,
+      method: 'GET',
+      dataType: 'json'
+    })
+    .done(function(response) {
+      that.section = response.section;
+      that.students = response.students;
+      that.seats = response.seats;
+      that.dataCollected = true;
+      that.renderSeats();
+    });
+  }
 
-SeatingChart.prototype.renderSeats = function() {
-  for (let i = 0; i < this.seats.length; i++) {
-    seat = this.seats[i]
-    // console.log(seat)
-    studentName = this.students.filter(function(student){return student.id === seat.student_id})[0].first_name;
-    // console.log(student)
-    this.container.append(this.renderSeat(seat, studentName));
-  };
-};
+  updateSizing() {
+    let cW = this.container.width();
+    let sS = cW / this.section.number_of_columns;
+    this.containerWidth = cW;
+    this.seatSide = sS;
+    this.container.height(sS * this.section.number_of_rows);
+  }
 
-SeatingChart.prototype.renderSeat = function(seat,student) {
-  var xDistance = (seat.column_number * this.seatSide).toString() + 'px'
-  var yDistance = (seat.row_number * this.seatSide).toString() + 'px'
-  return(`
-    <div class="seat" style='width:${this.seatSide}px; height:${this.seatSide}px; position: absolute; transform: translateY(${yDistance}) translateX(${xDistance});'>
-    <p class="name">${studentName}</p>
-    </div>
-  `);
+  renderSeats() {
+    this.container.empty();
+    this.updateSizing();
+    for (let i = 0; i < this.seats.length; i++) {
+      let seat = this.seats[i];
+      let studentName = this.students.filter(function(student){ return student.id === seat.student_id })[0].first_name;
+      this.container.append(this.renderSeat(seat, studentName));
+    };
+  }
+
+  renderSeat(seat,studentName) {
+    let x = (seat.column_number * this.seatSide).toString() + 'px';
+    let y = (seat.row_number * this.seatSide).toString() + 'px';
+    return(`
+      <div class="seat" style='width:${this.seatSide}px; height:${this.seatSide}px; position: absolute; transform: translateY(${y}) translateX(${x});'>
+      <p class="name">${studentName}</p>
+      </div>
+    `);
+  }
+
 }
