@@ -9,15 +9,17 @@
 }
 
 .seat {
-  // height: 75px;
-  // width: 75px;
-  background-color: grey;
-  // font-size: .7em;
   text-align: center;
   display: table;
   .name {
-  //   display: none;
+    display: table-cell;
+    color: white;
+    background-color: $info;
     vertical-align: middle;
+    font-size: .7em;
+    @media screen and (min-width: 1200px) {
+      font-size: 1em
+    }
   }
 }
 
