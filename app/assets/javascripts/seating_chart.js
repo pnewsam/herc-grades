@@ -37,7 +37,6 @@ class Section {
 
   updateSizing() {
     let cW = this.container.width();
-    console.log(cW);
     let sS = (cW / this.section.number_of_columns) - 10;
     this.containerWidth = cW;
     this.seatSide = sS;
