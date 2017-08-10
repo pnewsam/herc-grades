@@ -32,7 +32,9 @@ class Section {
       that.section = response.section;
       that.students = response.students;
       that.seats = response.seats;
-      that.renderSeats();
+      if (response.seats.length > 0) {
+        that.renderSeats();
+      }
     });
   }
 
