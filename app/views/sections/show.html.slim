@@ -28,12 +28,16 @@
           .box.has-text-centered
             h4.title.is-4 Upload your Class List
             = form_for section, method: "patch" do |f|
-              .field
-                = f.label :file, 'Choose File', class: 'button is-warning'
-                .control
-                  = f.file_field :file, class: 'veiled'
-              .field
-                = f.submit 'Upload', class: 'button is-info'
+              .file.is-boxed.has-name[style='left: 50%;']
+                = f.label :file, 'Choose File', class: 'file-label'
+                  = f.file_field :file, class: 'file-input'
+                  span.file-cta
+                    span.file-icon
+                      i.fa.fa-upload
+                    span.file-label Choose a file…  
+                  span.file-name Your file here
+              br
+              = f.submit 'Upload', class: 'button is-info'
   .tile.is-parent.is-4
     .tile.is-child.card
       .card-content.seating-chart__side-panel--assignments
