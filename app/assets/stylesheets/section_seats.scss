@@ -8,10 +8,15 @@
   justify-content: space-between;
 }
 
-.seat {
-  text-align: center;
-  display: table;
-  .name {
+.seating-chart__place {
+  position: absolute; 
+  // width: 100px;
+  border: solid 3px $grey-lighter;
+  .seating-chart__seat {
+    text-align: center;
+    display: table;
+  }
+  .seating-chart__name {
     display: table-cell;
     color: white;
     background-color: $info;
@@ -23,26 +28,31 @@
   }
 }
 
-// @media screen and (min-width: 1200px) {
-//   .seat {
-//     height: 75px;
-//     width: 75px;
-//     margin: 10px;
-//     font-size: 1em;
-//     .name {
-//       display: table-cell;
-//     }
-//   }
-// }
+.seating-chart__side-panel--edit-seating {
+  .seating-chart__roster-student {
+    border-radius: 0px;
+    margin: 5px;
+  }
+  .seating-chart__placeholder {
+    user-select: none;
+    // position: absolute;
+    cursor: default;
+    z-index: 1;
+  }
+  .seating-chart__name {
+    display: block;
+    width: inherit;
+    background-color: $info;
+    color: white;
+    position: absolute;
+    z-index: 2;
+  }
+}
 
-// @media screen and (min-width: 520px) and (max-width: 1199px) {
-//   .seat {
-//     height: 50px;
-//     width: 50px;
-//     margin: 5px;
-//     font-size: .7em;
-//     .name {
-//       display: table-cell;
-//     }
-//   }
-// }
+.draggable {
+  cursor: pointer;
+}
+
+
+
+

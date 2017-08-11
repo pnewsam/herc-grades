@@ -8,31 +8,35 @@
           h4.subtitle.is-4 Fall #{section.academic_year_start} - Spring #{section.academic_year_end}
   .level-right
     .level-item
-      a.button.is-info[href="#{edit_section_path}"] Edit this Section
+      a.button.is-info[href="#{edit_section_path}"] Edit Section Details
     .level-item
       = button_to 'Delete this Section', section, { method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' }
 .tile.is-ancestor
   .tile.is-parent.is-8
     .tile.is-child.card
       .card-content
-        h2.title.is-2 Classroom
+        .level
+          .level-left
+            .level-item
+              h2.title.is-2 Classroom
+          .level-right
+            .level-item
+              button.button.is-warning.seating-chart__edit-button Modify Seating Chart
         .seating-chart_container
-        / - if seats.any?
-        /   = section.render_seats
-        / - else
-        /     p.notification.has-text-centered This section has no students.
-        /     .box.has-text-centered
-        /       h4.title.is-4 Upload your Class List
-        /       = form_for section, method: "patch" do |f|
-        /         .field
-        /           = f.label :file, 'Choose File', class: 'button is-warning'
-        /           .control
-        /             = f.file_field :file, class: 'veiled'
-        /         .field
-        /           = f.submit 'Upload', class: 'button is-info'
+        - if seats.none?
+          p.notification.has-text-centered This section has no students.
+          .box.has-text-centered
+            h4.title.is-4 Upload your Class List
+            = form_for section, method: "patch" do |f|
+              .field
+                = f.label :file, 'Choose File', class: 'button is-warning'
+                .control
+                  = f.file_field :file, class: 'veiled'
+              .field
+                = f.submit 'Upload', class: 'button is-info'
   .tile.is-parent.is-4
     .tile.is-child.card
-      .card-content
+      .card-content.seating-chart__side-panel--assignments
         h2.title.is-2 Assignments
         - if assignments.any?
           table.table.assignments
@@ -48,5 +52,9 @@
 
         .has-text-centered
           = link_to "Create an Assignment", new_section_assignment_path(section), class: 'button is-primary'
+      .card-content.seating-chart__side-panel--edit-seating.hide
+        h2.title.is-2 Change Seating
+        .seating-chart__roster
+        
 
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'

@@ -2,6 +2,10 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@import "jquery-ui/core";
+@import "jquery-ui/datepicker";
+@import "jquery-ui/theme";
+
 @import "csv_upload";
 @import "section_seats";
 @import "assignment_grades";
@@ -26,4 +30,8 @@
 
 .mw-500 {
   max-width: 500px;
+}
+
+.hide {
+  display: none;
 }

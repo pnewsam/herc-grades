@@ -40,6 +40,7 @@ gem 'font-awesome-sass', '~> 4.7.0'
 gem 'smarter_csv' # New.
 gem 'draper', '3.0.0'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'pg_search'
 
 group :development, :test do
