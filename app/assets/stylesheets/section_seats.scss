@@ -8,10 +8,15 @@
   justify-content: space-between;
 }
 
-.seat {
-  text-align: center;
-  display: table;
-  .name {
+.seating-chart__place {
+  position: absolute; 
+  // width: 100px;
+  border: solid 3px $grey-lighter;
+  .seating-chart__seat {
+    text-align: center;
+    display: table;
+  }
+  .seating-chart__name {
     display: table-cell;
     color: white;
     background-color: $info;
@@ -22,3 +27,32 @@
     }
   }
 }
+
+.seating-chart__side-panel--edit-seating {
+  .seating-chart__roster-student {
+    border-radius: 0px;
+    margin: 5px;
+  }
+  .seating-chart__placeholder {
+    user-select: none;
+    // position: absolute;
+    cursor: default;
+    z-index: 1;
+  }
+  .seating-chart__name {
+    display: block;
+    width: inherit;
+    background-color: $info;
+    color: white;
+    position: absolute;
+    z-index: 2;
+  }
+}
+
+.draggable {
+  cursor: pointer;
+}
+
+
+
+
