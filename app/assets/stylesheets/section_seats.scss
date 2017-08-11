@@ -8,6 +8,13 @@
   justify-content: space-between;
 }
 
+.seating-chart__container {
+  .file {
+    margin: 0 auto;
+    width: 200px;
+  }
+}
+
 .seating-chart__place {
   position: absolute; 
   // width: 100px;
