@@ -1,34 +1,3 @@
-// BEM
-// B .seating-chart
-// E .seating-chart__seat
-// E .seating-chart__student
-// E .seating-chart__remove-student
-// E .seating-chart__edit-button
-
-// B .student-roster
-// E .student-roster__record
-// E .student-roster__placeholder
-// E .student-roster__student
-
-// B .assignment-list
-
-
-// fetchData()
-// assignComponents()
-// renderSeats()
-// bindEvents()
-
-// seatStudents()
-// resizeChart()
-// toggleEditable()
-// swapSidePanel()
-// addDeleteToSeatedStudents()
-
-// makeDroppable()
-// makeDraggable()
-// handleDrop()
-// handleDragover()
-
 $(document).on("turbolinks:load", function(){
 
   if (window.location.pathname.indexOf("sections") > 0) {
@@ -120,7 +89,6 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     for (let i = 0; i < seats.length; i++) {
       let seat = seats[i];
       $seatingChart.append(renderSeat(seat));
-      translateSeat(seat, seatSideLength);
       findAndAppendStudent(seat);
     }
     resizeChart();
@@ -136,16 +104,28 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     collectNodes();
     for (let i = 0; i < $seatNodes.length; i++) {
       let seatNode = $($seatNodes[i]);
-      let seat = seats[seatNode.attr("id").replace("seat-","") - 1];
+      let seat = findSeatByNode(seatNode);
       resizeEl(seatNode,seatSideLength);
       translateSeat(seat,seatSideLength);
     }
     for (let j = 0; j < $studentNodes.length; j++) {
       let studentNode = $($studentNodes[j]);
-      let student = students[studentNode.attr("id").replace("student-","") - 1];
+      let student = findStudentByNode(studentNode)
       resizeEl(studentNode,seatSideLength);
       studentNode.text(`${responsiveStudentName(student, seatingChartWidth)}`);
     }
+  }
+
+  function findSeatByNode(seatNode) {
+    let seatId = Number(seatNode.attr("id").replace("seat-",""));
+    let seat = seats.filter(function(seat){ return seat.id == seatId; })[0];
+    return seat;
+  }
+
+  function findStudentByNode(studentNode) {
+    let studentId = Number(studentNode.attr("id").replace("student-",""));
+    let student = students.filter(function(student){ return student.id === studentId; })[0];
+    return student;
   }
 
   function translateSeat(seat, seatSideLength) {
@@ -188,12 +168,12 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     else { return ( student.first_name ); }
   }
 
-  function makeDroppable(el) {
-    el.attr("ondrop","handleDrop(e)").attr("ondragover","handleDragover(e)");
+  function makeDroppable(els) {
+    els.attr("ondrop","handleDrop(e)").attr("ondragover","handleDragover(e)");
   }
 
-  function makeDraggable(el) {
-    el.attr("draggable","true").attr("ondragstart","handleDragstart(e)");
+  function makeDraggable(els) {
+    els.attr("draggable","true").attr("ondragstart","handleDragstart(e)");
   }
 
   function renderDelete() {
@@ -203,6 +183,7 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
   function bindDeletes() {
     $(".seating-chart__remove-student").on("click", function(e){
       let student = $(this).next().attr("style","")
+      makeDraggable(student);
       $($studentRoster).append(student);
       $(this).remove();
     });
@@ -215,7 +196,6 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
       $(`#seat-${seatId}`).append($(unseatedStudents[i]));
     }
   }
-
 
   function handleDrop(e) {
     studentId = e.dataTransfer.originalEvent.getData("text")
