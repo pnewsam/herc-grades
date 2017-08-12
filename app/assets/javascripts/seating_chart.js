@@ -1,13 +1,10 @@
 $(document).on("turbolinks:load", function(){
 
   if (window.location.pathname.indexOf("sections") > 0) {
-
     var section = new Section($(".seating-chart"), $(".student-roster"), $(".assignment-list"))
-    
     $(window).resize(function(){
       section.resizeChart();
-    });
-    
+    });    
   }
 
 });
@@ -31,7 +28,7 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
       dataType: 'json'
     })
     .done(function(response) {
-      assignModels(response);
+      parseData(response);
       renderSeatingChart();
     });
   }
@@ -42,7 +39,7 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     $editButton = $seatingChart.parent().find(".seating-chart__edit-button");
   }
 
-  function assignModels(response) {
+  function parseData(response) {
     section = response.section;
     students = response.students;
     seats = response.seats;
@@ -50,6 +47,10 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
 
   function bindEvents() {
     $editButton.on("click", function(event){ toggleEditable(); });
+    // $(".student-roster").find(".seating-chart__student").on("dragstart",function(event){
+    //   event.dataTransfer.originalEvent.setData("text",e.target.id);
+    // }
+    // $()
   }
 
   function updateSizing() {
@@ -111,7 +112,6 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     for (let j = 0; j < $studentNodes.length; j++) {
       let studentNode = $($studentNodes[j]);
       let student = findStudentByNode(studentNode)
-      resizeEl(studentNode,seatSideLength);
       studentNode.text(`${responsiveStudentName(student, seatingChartWidth)}`);
     }
   }
@@ -168,22 +168,16 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     else { return ( student.first_name ); }
   }
 
-  function makeDroppable(els) {
-    els.attr("ondrop","handleDrop(e)").attr("ondragover","handleDragover(e)");
-  }
-
-  function makeDraggable(els) {
-    els.attr("draggable","true").attr("ondragstart","handleDragstart(e)");
-  }
-
   function renderDelete() {
     return (`<a class="seating-chart__remove-student delete"></a>`);
   }
 
   function bindDeletes() {
-    $(".seating-chart__remove-student").on("click", function(e){
-      let student = $(this).next().attr("style","")
+    $(".seating-chart").on("click", ".seating-chart__remove-student", function(e){
+      let student = $(this).next().attr("style","");
+      let seat = $(this).parent(".seating-chart__seat");
       makeDraggable(student);
+      makeDroppable(seat);
       $($studentRoster).append(student);
       $(this).remove();
     });
@@ -197,18 +191,35 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     }
   }
 
-  function handleDrop(e) {
-    studentId = e.dataTransfer.originalEvent.getData("text")
-    e.target.append($(`#${studentId}`));
+  function makeDroppable(els) {
+    els.on("drop",function(event){
+      handleDrop(event);
+    });
+    els.on("dragover",function(event){
+      handleDragover(event);
+    })
   }
 
+  function makeDraggable(els) {
+    els.attr("draggable","true")
+    els.on("dragstart",function(event){
+      console.log(event)
+      handleDragstart(event);
+    });
+  }
+  
   function handleDragover(e) {
     e.preventDefault();
   }
 
   function handleDragstart(e) {
-    e.preventDefault();
-    e.dataTransfer.setData("text",e.target.id);
+    e.originalEvent.dataTransfer.setData("text",e.target.id);
+  }
+
+  function handleDrop(e) {
+    student = e.originalEvent.dataTransfer.getData("text")
+    $(e.target).append($(`#${student}`)).prepend(`<a class="seating-chart__remove-student delete"></a>`);
+
   }
 
   return ({
@@ -216,3 +227,7 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
   });
 
 };
+
+
+
+
