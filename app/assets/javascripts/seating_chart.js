@@ -81,7 +81,6 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
 
   function bindEvents() {
     $editButton.on("click", function(event){ toggleEditable(); });
-    console.log($editButton)
   }
 
   function updateSizing() {
@@ -97,14 +96,14 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
   }
 
   function toggleEditable() {
-    console.log('button!')
-    if (isEditable) {
+    if (isEditable && confirm("Are you sure? Your edits won't be saved.")) {
       isEditable = false;
       $assignmentList.removeClass("hide");
       $studentRoster.addClass("hide");
       for (let i = 0; i < $seatNodes.length; i++) {
         $($seatNodes[i]).find(".seating-chart__remove-student").remove();
       }
+      reseatStudents();
     }
     else {
       isEditable = true;
@@ -209,9 +208,14 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     });
   }
 
-  // function prepareDragAndDrop() {
-  //   $($seatingChart).find()
-  // }
+  function reseatStudents() {
+    let unseatedStudents = $($studentRoster).find(".seating-chart__student");
+    for (let i = 0; i < unseatedStudents.length; i++) {
+      seatId = seats.filter(function(seat){ return seat.student_id == $(unseatedStudents[i]).attr("id").replace("student-",""); })[0].id;
+      $(`#seat-${seatId}`).append($(unseatedStudents[i]));
+    }
+  }
+
 
   function handleDrop(e) {
     studentId = e.dataTransfer.originalEvent.getData("text")
