@@ -68,7 +68,7 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
   }
 
   function collectNodes() {
-    $studentNodes = $(".seating-chart__student");
+    $studentNodes = $(".seating-chart").find(".seating-chart__student");
     $seatNodes = $(".seating-chart__seat");
     $editButton = $seatingChart.parent().find(".seating-chart__edit-button");
   }
@@ -113,6 +113,7 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
       for (let i = 0; i < $seatNodes.length; i++) {
         $($seatNodes[i]).prepend(renderDelete());
       }
+      bindDeletes();
     }
   };
 
@@ -200,9 +201,17 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     return (`<a class="seating-chart__remove-student delete"></a>`);
   }
 
-  function removeDelete($el) {
-    $el.find("seating-chart__remove-student").remove();
+  function bindDeletes() {
+    $(".seating-chart__remove-student").on("click", function(e){
+      let student = $(this).next().attr("style","")
+      $($studentRoster).append(student);
+      $(this).remove();
+    });
   }
+
+  // function prepareDragAndDrop() {
+  //   $($seatingChart).find()
+  // }
 
   function handleDrop(e) {
     studentId = e.dataTransfer.originalEvent.getData("text")

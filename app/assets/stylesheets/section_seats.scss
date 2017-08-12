@@ -31,45 +31,11 @@
   }
 }
 
-
-
-// .seating-chart__container {
-//   .file {
-//     margin: 0 auto;
-//     width: 200px;
-//   }
-// }
-
-// .seating-chart__place {
-//   position: absolute; 
-//   border: solid 3px $grey-lighter;
-//   .seating-chart__seat {
-//     text-align: center;
-//     display: table;
-//   }
-//   .seating-chart__name {
-//     display: table-cell;
-//     color: white;
-//     background-color: $info;
-//     vertical-align: middle;
-//   }
-// }
-
-// .seating-chart__side-panel--edit-seating {
-//   .seating-chart__roster-student {
-//     display: inline-block;
-//     margin: 5px;
-//   }
-//   .seating-chart__roster-placeholder {
-//     user-select: none;
-//     cursor: default;
-//     z-index: 1;
-//   }
-//   .seating-chart__roster-name {
-//     background-color: $info;
-//     color: white;
-//   }
-// }
-
-
-
+.student-roster {
+  .seating-chart__student {
+    @extend .tag;
+    @extend .is-medium;
+    @extend .is-info;
+    margin: 5px;
+  }
+}
