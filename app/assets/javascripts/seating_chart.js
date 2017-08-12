@@ -44,9 +44,9 @@ $(document).on("turbolinks:load", function(){
 });
 
 
-var Section = function(seatingChart, studentRoster, assignmentList) {
+var Section = function($seatingChart, $studentRoster, $assignmentList) {
 
-    var section, students, seats, editButton, seatNodes, studentNodes, seatingChartWidth, seatSideLength, isEditable;
+    var section, students, seats, $editButton, $seatNodes, $studentNodes, seatingChartWidth, seatSideLength, isEditable;
     isEditable = false;
     fetchData();
     collectNodes();
@@ -68,9 +68,9 @@ var Section = function(seatingChart, studentRoster, assignmentList) {
   }
 
   function collectNodes() {
-    studentNodes = $(".seating-chart__student")
-    seatNodes = $(".seating-chart__seat")
-    editButton = seatingChart.find(".seating-chart__edit-button");
+    $studentNodes = $(".seating-chart__student");
+    $seatNodes = $(".seating-chart__seat");
+    $editButton = $seatingChart.parent().find(".seating-chart__edit-button");
   }
 
   function assignModels(response) {
@@ -80,36 +80,46 @@ var Section = function(seatingChart, studentRoster, assignmentList) {
   }
 
   function bindEvents() {
-    editButton.on("click", function(event){ toggleEditable(); });
+    $editButton.on("click", function(event){ toggleEditable(); });
+    console.log($editButton)
   }
 
   function updateSizing() {
-    seatingChartWidth = seatingChart.width();
+    seatingChartWidth = $seatingChart.width();
     seatSideLength = (seatingChartWidth / section.number_of_columns) - 10;
-    seatingChart.height(seatSideLength * section.number_of_rows + section.number_of_rows * 15);
+    $seatingChart.height(seatSideLength * section.number_of_rows + section.number_of_rows * 15);
   }
 
   function renderRoster() {
-  for (let i = 0; i < students.length; i++) {
-      studentRoster.append(renderRosterName(students[i]));
+    for (let i = 0; i < students.length; i++) {
+      $studentRoster.append(renderRosterName(students[i]));
     }
   }
 
   function toggleEditable() {
+    console.log('button!')
     if (isEditable) {
-      assignmentList.addClass("hide");
-      studentRoster.removeClass("hide");
+      isEditable = false;
+      $assignmentList.removeClass("hide");
+      $studentRoster.addClass("hide");
+      for (let i = 0; i < $seatNodes.length; i++) {
+        $($seatNodes[i]).find(".seating-chart__remove-student").remove();
+      }
     }
     else {
-      assignmentList.addClass("hide");
-      studentRoster.removeClass("hide");
+      isEditable = true;
+      $assignmentList.addClass("hide");
+      $studentRoster.removeClass("hide");
+      for (let i = 0; i < $seatNodes.length; i++) {
+        $($seatNodes[i]).prepend(renderDelete());
+      }
     }
   };
 
   function renderSeatingChart() {
     for (let i = 0; i < seats.length; i++) {
       let seat = seats[i];
-      seatingChart.append(renderSeat(seat));
+      $seatingChart.append(renderSeat(seat));
       translateSeat(seat, seatSideLength);
       findAndAppendStudent(seat);
     }
@@ -124,15 +134,17 @@ var Section = function(seatingChart, studentRoster, assignmentList) {
   function resizeChart() {
     updateSizing();
     collectNodes();
-    for (let i = 0; i < seatNodes.length; i++) {
-      let seatNode = $(seatNodes[i]);
+    for (let i = 0; i < $seatNodes.length; i++) {
+      let seatNode = $($seatNodes[i]);
       let seat = seats[seatNode.attr("id").replace("seat-","") - 1];
       resizeEl(seatNode,seatSideLength);
       translateSeat(seat,seatSideLength);
     }
-    for (let j = 0; j < studentNodes.length; j++) {
-      let studentNode = $(studentNodes[j]);
+    for (let j = 0; j < $studentNodes.length; j++) {
+      let studentNode = $($studentNodes[j]);
+      let student = students[studentNode.attr("id").replace("student-","") - 1];
       resizeEl(studentNode,seatSideLength);
+      studentNode.text(`${responsiveStudentName(student, seatingChartWidth)}`);
     }
   }
 
@@ -145,8 +157,6 @@ var Section = function(seatingChart, studentRoster, assignmentList) {
   function resizeEl(el,seatSideLength) {
    el.css("width",`${seatSideLength}px`).css("height",`${seatSideLength}px`);
   }
-
-  // Render methods
 
   function renderSeat(seat) {
     return (`
@@ -174,7 +184,7 @@ var Section = function(seatingChart, studentRoster, assignmentList) {
   }
 
   function responsiveStudentName(student, seatingChartWidth) {
-    if (seatingChartWidth < 550) { return ( student.first_name[0] ); }
+    if (seatingChartWidth < 550) { return ( student.first_name.substr(0,3) + '.' ); }
     else { return ( student.first_name ); }
   }
 
@@ -186,13 +196,12 @@ var Section = function(seatingChart, studentRoster, assignmentList) {
     el.attr("draggable","true").attr("ondragstart","handleDragstart(e)");
   }
 
-  function addDelete(el) {
-    el.append(`
-    <a class="seating-chart__remove-student delete"
-    style="position:absolute;
-    transform: translateX(${seatSide - 25}px) translateY(5px);">
-    </a>"
-    `);
+  function renderDelete() {
+    return (`<a class="seating-chart__remove-student delete"></a>`);
+  }
+
+  function removeDelete($el) {
+    $el.find("seating-chart__remove-student").remove();
   }
 
   function handleDrop(e) {

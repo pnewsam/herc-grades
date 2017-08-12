@@ -13,6 +13,12 @@
   position: absolute;
   display: table;
   text-align: center;
+  .seating-chart__remove-student {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+  }
   .seating-chart__student {
     background-color: $info;
     color: white;
