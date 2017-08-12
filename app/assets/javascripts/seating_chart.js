@@ -44,135 +44,129 @@ $(document).on("turbolinks:load", function(){
 });
 
 
+var Section = function($seatingChart, $studentRoster, $assignmentList) {
 
-class Section {
+    var section, students, seats, $editButton, $seatNodes, $studentNodes, seatingChartWidth, seatSideLength, isEditable;
+    isEditable = false;
+    fetchData();
+    collectNodes();
+    bindEvents();
 
-  constructor(seatingChart, studentRoster, assignmentList) {
-
-    // Data
-    this.section, this.students, this.seats;
-    this.fetchData();
-
-    // DOM Nodes
-    this.seatingChart = seatingChart;
-    this.editButton, this.seatNodes, this.studentNodes;
-    this.assignmentList = assignmentList;
-    this.studentRoster = studentRoster;
-    this.collectNodes();
-    this.bindEvents();
-
-    
-    
-    // State
-    this.isEditable = false;
-    this.seatingChartWidth, this.seatSideLength;
-
-  }
-
-  fetchData() {
+  function fetchData() {
     var action, that;
     action = window.location.pathname + '/seats';
-    that = this;
+    // that = this;
     $.ajax({
       url: action,
       method: 'GET',
       dataType: 'json'
     })
     .done(function(response) {
-      that.assignModels(response);
-      that.renderSeatingChart();
+      assignModels(response);
+      renderSeatingChart();
     });
   }
 
-  collectNodes() {
-    this.studentNodes = $(".seating-chart__student")
-    this.seatNodes = $(".seating-chart__seat")
-    this.editButton = this.seatingChart.find(".seating-chart__edit-button");
+  function collectNodes() {
+    $studentNodes = $(".seating-chart").find(".seating-chart__student");
+    $seatNodes = $(".seating-chart__seat");
+    $editButton = $seatingChart.parent().find(".seating-chart__edit-button");
   }
 
-  assignModels(response) {
-    this.section = response.section;
-    this.students = response.students;
-    this.seats = response.seats;
+  function assignModels(response) {
+    section = response.section;
+    students = response.students;
+    seats = response.seats;
   }
 
-  bindEvents() {
-    this.editButton.on("click", function(event){ toggleEditable(); });
+  function bindEvents() {
+    $editButton.on("click", function(event){ toggleEditable(); });
+    console.log($editButton)
   }
 
-  updateSizing() {
-    this.seatingChartWidth = this.seatingChart.width();
-    this.seatSideLength = (this.seatingChartWidth / this.section.number_of_columns) - 10;
-    this.seatingChart.height(this.seatSideLength * this.section.number_of_rows + this.section.number_of_rows * 15);
+  function updateSizing() {
+    seatingChartWidth = $seatingChart.width();
+    seatSideLength = (seatingChartWidth / section.number_of_columns) - 10;
+    $seatingChart.height(seatSideLength * section.number_of_rows + section.number_of_rows * 15);
   }
 
-  renderRoster() {
-    for (let i = 0; i < this.students.length; i++) {
-      this.studentRoster.append(this.renderRosterName(this.students[i]));
+  function renderRoster() {
+    for (let i = 0; i < students.length; i++) {
+      $studentRoster.append(renderRosterName(students[i]));
     }
   }
 
-  toggleEditable() {
-    if (this.isEditable) {
-      this.assignmentList.addClass("hide");
-      this.studentRoster.removeClass("hide");
+  function toggleEditable() {
+    console.log('button!')
+    if (isEditable) {
+      isEditable = false;
+      $assignmentList.removeClass("hide");
+      $studentRoster.addClass("hide");
+      for (let i = 0; i < $seatNodes.length; i++) {
+        $($seatNodes[i]).find(".seating-chart__remove-student").remove();
+      }
     }
     else {
-      this.assignmentList.addClass("hide");
-      this.studentRoster.removeClass("hide");
+      isEditable = true;
+      $assignmentList.addClass("hide");
+      $studentRoster.removeClass("hide");
+      for (let i = 0; i < $seatNodes.length; i++) {
+        $($seatNodes[i]).prepend(renderDelete());
+      }
+      bindDeletes();
     }
   };
 
-  renderSeatingChart() {
-    for (let i = 0; i < this.seats.length; i++) {
-      let seat = this.seats[i];
-      this.seatingChart.append(this.renderSeat(seat));
-      this.translateSeat(seat,this.seatSideLength);
-      this.findAndAppendStudent(seat);
+  function renderSeatingChart() {
+    for (let i = 0; i < seats.length; i++) {
+      let seat = seats[i];
+      $seatingChart.append(renderSeat(seat));
+      translateSeat(seat, seatSideLength);
+      findAndAppendStudent(seat);
     }
-    this.resizeChart();
+    resizeChart();
   }
 
-  findAndAppendStudent(seat,context) {
-    let student = this.students.filter(function(student) { return seat.student_id === student.id; })[0];
-    $(`#seat-${seat.id}`).append(this.renderStudent(student));
+  function findAndAppendStudent(seat,context) {
+    let student = students.filter(function(student) { return seat.student_id === student.id; })[0];
+    $(`#seat-${seat.id}`).append(renderStudent(student));
   }
 
-  resizeChart() {
-    this.updateSizing();
-    this.collectNodes();
-    for (let i = 0; i < this.seatNodes.length; i++) {
-      let seatNode = $(this.seatNodes[i]);
-      let seat = this.seats[seatNode.attr("id").replace("seat-","") - 1]
-      seatNode.css("width",`${this.seatSideLength}px`).css("height",`${this.seatSideLength}px`);
-      this.translateSeat(seat,this.seatSideLength);
+  function resizeChart() {
+    updateSizing();
+    collectNodes();
+    for (let i = 0; i < $seatNodes.length; i++) {
+      let seatNode = $($seatNodes[i]);
+      let seat = seats[seatNode.attr("id").replace("seat-","") - 1];
+      resizeEl(seatNode,seatSideLength);
+      translateSeat(seat,seatSideLength);
     }
-    for (let j = 0; j < this.studentNodes.length; j++) {
-      let studentNode = $(this.studentNodes[j]);
-      studentNode.css("width",`${this.seatSideLength}px`).css("height",`${this.seatSideLength}px`)
+    for (let j = 0; j < $studentNodes.length; j++) {
+      let studentNode = $($studentNodes[j]);
+      let student = students[studentNode.attr("id").replace("student-","") - 1];
+      resizeEl(studentNode,seatSideLength);
+      studentNode.text(`${responsiveStudentName(student, seatingChartWidth)}`);
     }
   }
 
-  translateSeat(seat, seatSideLength) {
+  function translateSeat(seat, seatSideLength) {
     let x = (seat.column_number * seatSideLength + seat.column_number * 10 + 5).toString() + 'px';
     let y = (seat.row_number * seatSideLength + seat.row_number * 10 + 5).toString() + 'px';
-    $(`#seat-${seat.id}`).css("transform",`translateX(${x}) translateY(${y})`)
+    $(`#seat-${seat.id}`).css("transform",`translateX(${x}) translateY(${y})`);
   }
 
-  resizeEl(student) {
-    $(`#student-${student.id}`).css("width",`${seatSideLength}px`).css("length",`${seatSideLength}px`)
+  function resizeEl(el,seatSideLength) {
+   el.css("width",`${seatSideLength}px`).css("height",`${seatSideLength}px`);
   }
 
-  // Render methods
-
-  renderSeat(seat) {
+  function renderSeat(seat) {
     return (`
       <div id="seat-${seat.id}" class="seating-chart__seat">
       </div>
     `);
-  };
+  }
 
-  renderStudent(student) {
+  function renderStudent(student) {
     return (`
       <p id="student-${student.id}" class="seating-chart__student">
         ${student.first_name}
@@ -180,50 +174,61 @@ class Section {
     `);
   }
 
-  renderStudentRosterRecord(student) {
+  function renderStudentRosterRecord(student) {
     return(`
       <div id="roster-${student.id}" class="student-roster__record">
         <p class="student-roster__placeholder tag is-medium">
-          ${this.responsiveStudentName(student,this.seatingChardWidth)}
+          ${responsiveStudentName(student,seatingChardWidth)}
         </p>
       </div>
-    `)
+    `);
   }
 
-  responsiveStudentName(student, seatingChartWidth) {
-    if (seatingChartWidth < 550) { return ( student.first_name[0] ); }
+  function responsiveStudentName(student, seatingChartWidth) {
+    if (seatingChartWidth < 550) { return ( student.first_name.substr(0,3) + '.' ); }
     else { return ( student.first_name ); }
   }
 
-  makeDroppable(el) {
+  function makeDroppable(el) {
     el.attr("ondrop","handleDrop(e)").attr("ondragover","handleDragover(e)");
   }
 
-  makeDraggable(el) {
+  function makeDraggable(el) {
     el.attr("draggable","true").attr("ondragstart","handleDragstart(e)");
   }
 
-  addDelete(el) {
-    el.append(`
-    <a class="seating-chart__remove-student delete"
-    style="position:absolute;
-    transform: translateX(${this.seatSide - 25}px) translateY(5px);">
-    </a>"
-    `)
+  function renderDelete() {
+    return (`<a class="seating-chart__remove-student delete"></a>`);
   }
 
-  handleDrop(e) {
+  function bindDeletes() {
+    $(".seating-chart__remove-student").on("click", function(e){
+      let student = $(this).next().attr("style","")
+      $($studentRoster).append(student);
+      $(this).remove();
+    });
+  }
+
+  // function prepareDragAndDrop() {
+  //   $($seatingChart).find()
+  // }
+
+  function handleDrop(e) {
     studentId = e.dataTransfer.originalEvent.getData("text")
     e.target.append($(`#${studentId}`));
   }
 
-  handleDragover(e) {
+  function handleDragover(e) {
     e.preventDefault();
   }
 
-  handleDragstart(e) {
+  function handleDragstart(e) {
     e.preventDefault();
     e.dataTransfer.setData("text",e.target.id);
   }
 
-}
+  return ({
+    resizeChart: resizeChart
+  });
+
+};
