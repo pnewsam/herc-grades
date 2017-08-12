@@ -17,7 +17,6 @@
 
 .seating-chart__place {
   position: absolute; 
-  // width: 100px;
   border: solid 3px $grey-lighter;
   .seating-chart__seat {
     text-align: center;
@@ -37,29 +36,19 @@
 
 .seating-chart__side-panel--edit-seating {
   .seating-chart__roster-student {
-    border-radius: 0px;
+    display: inline-block;
     margin: 5px;
   }
-  .seating-chart__placeholder {
+  .seating-chart__roster-placeholder {
     user-select: none;
-    // position: absolute;
     cursor: default;
     z-index: 1;
   }
-  .seating-chart__name {
-    display: block;
-    width: inherit;
+  .seating-chart__roster-name {
     background-color: $info;
     color: white;
-    position: absolute;
-    z-index: 2;
   }
 }
-
-.draggable {
-  cursor: pointer;
-}
-
 
 
 

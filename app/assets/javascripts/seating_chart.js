@@ -1,68 +1,77 @@
+// BEM
+// B .seating-chart
+// E .seating-chart__seat
+// E .seating-chart__student
+// E .seating-chart__remove-student
+// E .seating-chart__edit-button
+
+// B .student-roster
+// E .student-roster__placeholder
+// E .student-roster__student
+
+// B .assignment-list
+
+
+// fetchData()
+// assignComponents()
+// renderSeats()
+// bindEvents()
+
+// seatStudents()
+// resizeChart()
+// toggleEditable()
+// swapSidePanel()
+// addDeleteToSeatedStudents()
+
+// makeDroppable()
+// makeDraggable()
+// handleDrop()
+// handleDragover()
+
+
 $(document).on("turbolinks:load", function(){
 
   if (window.location.pathname.indexOf("sections") > 0) {
 
-    var section = new Section($(".seating-chart_container"), $(".seating-chart__roster"))
+    var section = new Section($(".seating-chart_container"), $("student-roster"))
     $(window).resize(function(){
       section.renderSeats();
     });
-
-    $(".seating-chart__edit-button").on("click",function(){
-      if ($(".seating-chart__side-panel--assignments").hasClass('hide')) {
-        $(".seating-chart__side-panel--assignments").removeClass('hide');
-        $(".seating-chart__side-panel--edit-seating").addClass('hide');
-        $(".seating-chart__delete").addClass('hide');
-      }
-      else {
-        $(".seating-chart__side-panel--assignments").addClass('hide');
-        $(".seating-chart__side-panel--edit-seating").removeClass('hide');
-        $(".seating-chart__delete").removeClass('hide');
-      }
-    });
     
     $(".seating-chart_container").on("click",".seating-chart__delete",function(event){
-      student = $(this).next(".seating-chart__name");
-      seat = $(this).parent();
-      sId = student.attr("id").replace("student-","");
-      $(`#rosterStudent-${sId}`).addClass("is-info draggable");
+      rosterStudent.find('student-roster-name').show().attr("draggable","true").attr("ondragstart","dragstartHandler(event)");
+      rosterStudent.find('student-roster-placeholder').hide();
       seat.empty();
     });
-
-    // $(".seating-chart__place").on("drop",function(event){ drop(event); });
-    // $(".seating-chart__place").on("dragover",function(event){ allowDrop(event); });
-    // $(".seating-chart__side-panel--edit-seating div").on("drop",function(event){ drop(event); });
-    // $(".seating-chart__side-panel--edit-seating div").on("dragover",function(event){ allowDrop(event); });
-    // $(".seating-chart__seat").on("dragstart",function(event){ drag(event); });
 
   }
 
 });
 
-document.addEventListener("dragstart",function(event){
-  event.preventDefault()
-  event.dataTransfer.setData("text/plain", event.target.id);
-  
-})
-
-document.addEventListener("drop",function(event){
-  event.preventDefault()
-  var data = event.dataTransfer.getData("text/plain");
-  event.target.append(document.getElementById(data));
-})
-
-document.addEventListener("dragover",function(event){
-  event.preventDefault();
-})
-
 class Section {
 
-  constructor(container, roster) {
+  constructor(seatingChart, studentRoster, assignmentList) {
+
+    // Data
     this.section, this.students, this.seats;
     this.fetchData();
 
+    // DOM Nodes
+    
+    this.seatingChart = seatingChart;
+    this.editButton;
+    this.assignComponents();
+    this.bindEvents();
+
+    this.assignmentList = assignmentList;
+    this.studentRoster = studentRoster;
+    
+    // Properties
     this.containerWidth, this.seatSide;
-    this.container = container;
-    this.roster = roster;
+    
+    // State
+    this.isEditable = false;
+  
   }
 
   fetchData() {
@@ -75,14 +84,27 @@ class Section {
       dataType: 'json'
     })
     .done(function(response) {
-      that.section = response.section;
-      that.students = response.students;
-      that.seats = response.seats;
+      assignModels(response);
       if (response.seats.length > 0) {
         that.renderSeats();
-        that.renderRoster();
+        that.renderStudentRoster();
       }
     });
+  }
+
+  assignModels(response) {
+    that.section = response.section;
+    that.students = response.students;
+    that.seats = response.seats;
+  }
+
+  assignComponents() {
+    this.editButton = this.seatingChart.find(".seating-chart__edit-button");
+
+  }
+
+  bindEvents() {
+    this.editButton.on("click", function(event){ toggleEditable(); });
   }
 
   updateSizing() {
@@ -90,74 +112,153 @@ class Section {
     let sS = (cW / this.section.number_of_columns) - 10;
     this.containerWidth = cW;
     this.seatSide = sS;
-    this.container.height(sS * this.section.number_of_rows + this.section.number_of_rows * 10 + 5);
+    this.seatingChart.height(sS * this.section.number_of_rows + this.section.number_of_rows * 10 + 5);
   }
 
   renderSeats() {
-    this.container.empty();
+    this.seatingChart.empty();
     this.updateSizing();
     for (let i = 0; i < this.seats.length; i++) {
       let seat = this.seats[i];
       let student;
       if (this.containerWidth < 550) {
-        student = this.students.filter(function(student){ return student.id === seat.student_id })[0];
+        findStudentBySeat(student.id).first_name[0];
       }
       else {
-        student = this.students.filter(function(student){ return student.id === seat.student_id })[0];
+        findStudentBySeat(student.id).first_name;
       }
-      this.container.append(this.renderSeat(seat, student));
+      this.seatingChart.append(this.renderSeat(seat, student));
     };
   }
 
-  renderSeat(seat,student) {
-    let x = (seat.column_number * this.seatSide + seat.column_number * 10 + 5).toString() + 'px';
-    let y = (seat.row_number * this.seatSide + seat.row_number * 10 + 5).toString() + 'px';
-    let studentName;
-    if (this.containerWidth < 550) { studentName = student.first_name[0] }
-    else { studentName = student.first_name };
-    return(`
-      <div class="seating-chart__place" style="transform: translateY(${y}) translateX(${x});">
-        <div id="seat-${seat.id}" class="seating-chart__seat is-info" style='width:${this.seatSide}px; height:${this.seatSide}px;' draggable='true'>
-          <a class="seating-chart__delete delete hide" style="position:absolute; transform: translateX(${this.seatSide - 25}px) translateY(5px);"></a>
-          <p id="student-${student.id}" class="seating-chart__name">${studentName}</p>
-        </div>
-      </div>
-    `);
+  findStudentBySeat(seat) {
+    return (this.students.filter(function(student) {
+      return seat.student_id === student.id;
+    })[0]);
   }
+
+  get
 
   renderRoster() {
     for (let i = 0; i < this.students.length; i++) {
-      this.roster.append(this.renderRosterName(this.students[i]));
+      this.studentRoster.append(this.renderRosterName(this.students[i]));
     }
   }
 
-  renderRosterName(student) {
+
+  toggleEditable() {
+    if (this.isEditable) {
+      this.assignmentList.addClass("hide");
+      this.studentRoster.removeClass("hide");
+    }
+    else {
+      this.assignmentList.addClass("hide");
+      this.studentRoster.removeClass("hide");
+    }
+  };
+
+
+  renderSeatingChart() {
+    loopElsWithCallback(this.seats,this.appendStudent)
+  }
+  
+  renderSeat(seat,student) {
+    let studentName;
+    if (this.containerWidth < 550) { }
+    else { studentName = student.first_name };
+  }
+
+  translateSeat(seat, seatSide) {
+    let x = (seat.column_number * seatSide + seat.column_number * 10 + 5).toString() + 'px';
+    let y = (seat.row_number * seatSide + seat.row_number * 10 + 5).toString() + 'px';
+    seat.css("transform",`translateX(${x}) translateY(${y})`)
+  }
+
+
+
+  // Render methods
+
+  renderSeatingChartSeat(seat) {
+    return (`
+      <div id="seat-${seat.id}" class="seating-chart__seat">
+      </div>
+    `);
+  };
+
+  renderSeatingChartStudent(student) {
+    return (`
+      <p id="student-${student.id}" class="seating-chart__student">
+      ${student.name}
+      </p>
+    `);
+  }
+
+  renderStudentRosterStudent(student) {
     return(`
-      <div id="rosterStudent-${student.id}" class="seating-chart__roster-student tag is-medium">
-        <span class="seating-chart__placeholder">${student.last_name}, ${student.first_name[0]}.</span>
-        <p id="student-${student.id}" class="seating-chart__name">${student.first_name}</p>
+      <div id="roster-${student.id}" class="student-roster__student">
+        <p class="student-roster__placeholder tag is-medium">${student.first_name}</p>
       </div>
     `)
   }
+
+  responsiveStudentName(student, seatingChartWidth) {
+    if (seatingChartWidth < 550) {
+      return ( student.first_name[0] )
+    }
+    else {
+      return ( student.first_name )
+    }
+  };
+
+
+  appendStudent(el, student) {
+    el.append(renderStudent(student));
+  }
+
+  resizeChart() {
+
+  }
+
+
+  makeDroppable(el) {
+    el.attr("ondrop","handleDrop(e)").attr("ondragover","handleDragover(e)");
+  }
+
+  makeDraggable(el) {
+    el.attr("draggable","true").attr("ondragstart","handleDragstart(e)");
+  }
+
+  addDelete(el) {
+    el.append(`
+    <a class="seating-chart__remove-student delete"
+    style="position:absolute;
+    transform: translateX(${this.seatSide - 25}px) translateY(5px);">
+    </a>"
+    `)
+  }
+
+  handleDrop(e) {
+    studentId = e.dataTransfer.originalEvent.getData("text")
+    e.target.append($(`#${studentId}`));
+  }
+
+  handleDragover(e) {
+    e.preventDefault();
+  }
+
+  handleDragstart(e) {
+    e.preventDefault();
+    e.dataTransfer.setData("text",e.target.id);
+  }
+
 }
 
+// Utility Functions
 
-  // function drag(ev) {
-  //   // console.log(ev)
-  //   ev.originalEvent.dataTransfer.setData("text/plain", ev.target.id);
-  // }
-
-  // function drop(ev) {
-  //   console.log(ev)
-  //   ev.preventDefault();
-  //   var data = ev.originalEvent.dataTransfer.getData("text/plain");
-  //   console.log(data.id)
-  //   // el = $(data.id)
-  //   // console.log(el)
-  //   ev.target.append($(`${data}`));
-  // }
-
-  // function allowDrop(ev) {
-  //   // console.log(ev)
-  //   ev.preventDefault();
-  // }
+var loopElsWithCallback = function(els, callbacks) {
+  for (let i = 0; i < els.length; i++) {
+    for (let j = 0; j < callbacks.length; j++) {
+      callbacks[j](els[i]);
+    }
+  }
+};
