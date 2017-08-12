@@ -8,25 +8,15 @@
   justify-content: space-between;
 }
 
-.seating-chart__container {
-  .file {
-    margin: 0 auto;
-    width: 200px;
-  }
-}
-
-.seating-chart__place {
-  position: absolute; 
-  // width: 100px;
+.seating-chart__seat {
   border: solid 3px $grey-lighter;
-  .seating-chart__seat {
-    text-align: center;
-    display: table;
-  }
-  .seating-chart__name {
-    display: table-cell;
-    color: white;
+  position: absolute;
+  display: table;
+  text-align: center;
+  .seating-chart__student {
     background-color: $info;
+    color: white;
+    display: table-cell;
     vertical-align: middle;
     font-size: .7em;
     @media screen and (min-width: 1200px) {
@@ -35,31 +25,45 @@
   }
 }
 
-.seating-chart__side-panel--edit-seating {
-  .seating-chart__roster-student {
-    border-radius: 0px;
-    margin: 5px;
-  }
-  .seating-chart__placeholder {
-    user-select: none;
-    // position: absolute;
-    cursor: default;
-    z-index: 1;
-  }
-  .seating-chart__name {
-    display: block;
-    width: inherit;
-    background-color: $info;
-    color: white;
-    position: absolute;
-    z-index: 2;
-  }
-}
 
-.draggable {
-  cursor: pointer;
-}
 
+// .seating-chart__container {
+//   .file {
+//     margin: 0 auto;
+//     width: 200px;
+//   }
+// }
+
+// .seating-chart__place {
+//   position: absolute; 
+//   border: solid 3px $grey-lighter;
+//   .seating-chart__seat {
+//     text-align: center;
+//     display: table;
+//   }
+//   .seating-chart__name {
+//     display: table-cell;
+//     color: white;
+//     background-color: $info;
+//     vertical-align: middle;
+//   }
+// }
+
+// .seating-chart__side-panel--edit-seating {
+//   .seating-chart__roster-student {
+//     display: inline-block;
+//     margin: 5px;
+//   }
+//   .seating-chart__roster-placeholder {
+//     user-select: none;
+//     cursor: default;
+//     z-index: 1;
+//   }
+//   .seating-chart__roster-name {
+//     background-color: $info;
+//     color: white;
+//   }
+// }
 
 
 

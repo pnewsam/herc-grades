@@ -22,7 +22,7 @@
           .level-right
             .level-item
               button.button.is-warning.seating-chart__edit-button Modify Seating Chart
-        .seating-chart_container
+        .seating-chart
         - if seats.none?
           p.notification.has-text-centered This section has no students.
           .box.has-text-centered
@@ -40,7 +40,7 @@
               = f.submit 'Upload', class: 'button is-info'
   .tile.is-parent.is-4
     .tile.is-child.card
-      .card-content.seating-chart__side-panel--assignments
+      .card-content.assignment-list
         h2.title.is-2 Assignments
         - if assignments.any?
           table.table.assignments
@@ -56,7 +56,7 @@
 
         .has-text-centered
           = link_to "Create an Assignment", new_section_assignment_path(section), class: 'button is-primary'
-      .card-content.seating-chart__side-panel--edit-seating.hide
+      .card-content.student-roster.hide
         h2.title.is-2 Change Seating
         .seating-chart__roster
         
