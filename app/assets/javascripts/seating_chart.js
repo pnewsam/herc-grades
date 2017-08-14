@@ -47,10 +47,6 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
 
   function bindEvents() {
     $editButton.on("click", function(event){ toggleEditable(); });
-    // $(".student-roster").find(".seating-chart__student").on("dragstart",function(event){
-    //   event.dataTransfer.originalEvent.setData("text",e.target.id);
-    // }
-    // $()
   }
 
   function updateSizing() {
