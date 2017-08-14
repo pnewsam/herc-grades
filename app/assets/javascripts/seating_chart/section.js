@@ -2,17 +2,14 @@ $(document).on("turbolinks:load", function(){
 
   if (window.location.pathname.indexOf("sections") > 0) {
     var section = new Section($(".seating-chart"), $(".student-roster"), $(".assignment-list"))
-    $(window).resize(function(){
-      section.resizeChart();
-    });    
+    
   }
 
 });
 
-
 var Section = function($seatingChart, $studentRoster, $assignmentList) {
 
-    var section, students, seats, $editButton, $seatNodes, $studentNodes, seatingChartWidth, seatSideLength, isEditable;
+    var section, students, seats, $editButton, seatingChartWidth, seatSideLength, isEditable;
     isEditable = false;
     fetchData();
     collectNodes();
@@ -21,17 +18,34 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
   function fetchData() {
     var action, that;
     action = window.location.pathname + '/seats';
-    // that = this;
+    that = this;
     $.ajax({
       url: action,
       method: 'GET',
       dataType: 'json'
     })
-    .done(function(response) {
-      parseData(response);
-      renderSeatingChart();
+    .done(function(r) {
+      that.students = init(r.students, iStudent);
+      that.seats = init(r.seats, iSeat);
     });
   }
+
+  function init(data, callback) {
+    let a = [];
+    for (let i = 0; i < data.length; i++) {
+      obj = callback(data[i]);
+      a.push(obj);
+    }
+    return a;
+  }
+
+  function iStudent(args) { return new Person(args); };
+  function iSeat(args) { return new Seat(args); };
+  function iSeatingChart(args) { return new SeatingChart(args); };
+
+
+
+
 
   function collectNodes() {
     $studentNodes = $(".seating-chart").find(".seating-chart__student");
@@ -39,27 +53,15 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     $editButton = $seatingChart.parent().find(".seating-chart__edit-button");
   }
 
-  function parseData(response) {
-    section = response.section;
-    students = response.students;
-    seats = response.seats;
-  }
-
   function bindEvents() {
     $editButton.on("click", function(event){ toggleEditable(); });
+
+    // On resize, re-render Seating Chart
+    $(window).resize(function(){
+      renderSeatingChart();
+    });
   }
 
-  function updateSizing() {
-    seatingChartWidth = $seatingChart.width();
-    seatSideLength = (seatingChartWidth / section.number_of_columns) - 10;
-    $seatingChart.height(seatSideLength * section.number_of_rows + section.number_of_rows * 15);
-  }
-
-  function renderRoster() {
-    for (let i = 0; i < students.length; i++) {
-      $studentRoster.append(renderRosterName(students[i]));
-    }
-  }
 
   function toggleEditable() {
     if (isEditable && confirm("Are you sure? Your edits won't be saved.")) {
@@ -82,35 +84,6 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     }
   };
 
-  function renderSeatingChart() {
-    for (let i = 0; i < seats.length; i++) {
-      let seat = seats[i];
-      $seatingChart.append(renderSeat(seat));
-      findAndAppendStudent(seat);
-    }
-    resizeChart();
-  }
-
-  function findAndAppendStudent(seat,context) {
-    let student = students.filter(function(student) { return seat.student_id === student.id; })[0];
-    $(`#seat-${seat.id}`).append(renderStudent(student));
-  }
-
-  function resizeChart() {
-    updateSizing();
-    collectNodes();
-    for (let i = 0; i < $seatNodes.length; i++) {
-      let seatNode = $($seatNodes[i]);
-      let seat = findSeatByNode(seatNode);
-      resizeEl(seatNode,seatSideLength);
-      translateSeat(seat,seatSideLength);
-    }
-    for (let j = 0; j < $studentNodes.length; j++) {
-      let studentNode = $($studentNodes[j]);
-      let student = findStudentByNode(studentNode)
-      studentNode.text(`${responsiveStudentName(student, seatingChartWidth)}`);
-    }
-  }
 
   function findSeatByNode(seatNode) {
     let seatId = Number(seatNode.attr("id").replace("seat-",""));
@@ -124,44 +97,8 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
     return student;
   }
 
-  function translateSeat(seat, seatSideLength) {
-    let x = (seat.column_number * seatSideLength + seat.column_number * 10 + 5).toString() + 'px';
-    let y = (seat.row_number * seatSideLength + seat.row_number * 10 + 5).toString() + 'px';
-    $(`#seat-${seat.id}`).css("transform",`translateX(${x}) translateY(${y})`);
-  }
-
   function resizeEl(el,seatSideLength) {
    el.css("width",`${seatSideLength}px`).css("height",`${seatSideLength}px`);
-  }
-
-  function renderSeat(seat) {
-    return (`
-      <div id="seat-${seat.id}" class="seating-chart__seat">
-      </div>
-    `);
-  }
-
-  function renderStudent(student) {
-    return (`
-      <p id="student-${student.id}" class="seating-chart__student">
-        ${student.first_name}
-      </p>
-    `);
-  }
-
-  function renderStudentRosterRecord(student) {
-    return(`
-      <div id="roster-${student.id}" class="student-roster__record">
-        <p class="student-roster__placeholder tag is-medium">
-          ${responsiveStudentName(student,seatingChardWidth)}
-        </p>
-      </div>
-    `);
-  }
-
-  function responsiveStudentName(student, seatingChartWidth) {
-    if (seatingChartWidth < 550) { return ( student.first_name.substr(0,3) + '.' ); }
-    else { return ( student.first_name ); }
   }
 
   function renderDelete() {
@@ -215,11 +152,10 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
   function handleDrop(e) {
     student = e.originalEvent.dataTransfer.getData("text")
     $(e.target).append($(`#${student}`)).prepend(`<a class="seating-chart__remove-student delete"></a>`);
-
   }
 
   return ({
-    resizeChart: resizeChart
+    renderSeatingChart: renderSeatingChart
   });
 
 };
@@ -227,3 +163,32 @@ var Section = function($seatingChart, $studentRoster, $assignmentList) {
 
 
 
+
+  // function Person(args){
+  //   // console.log(args);
+  //   this.name = args.name;
+  // }
+
+  // function initPerson(args) {
+  //   return new Person(args);
+  // }
+
+  // function initialize(data,callback) {
+  //   let a = []
+  //   for (let i = 0; i < data.length; i++) {
+  //     obj = callback(data[i]);
+  //     a.push(obj);
+  //   }
+  //   return a;
+  // }
+
+  // var data = [
+  //   {
+  //     name: 'Bob'
+  //   },
+  //   {
+  //     name: 'Caroline'
+  //   }
+  // ];
+
+  // initialize(data,initPerson);
