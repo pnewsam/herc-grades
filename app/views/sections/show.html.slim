@@ -40,10 +40,10 @@
               = f.submit 'Upload', class: 'button is-info'
   .tile.is-parent.is-4
     .tile.is-child.card
-      .card-content.assignment-list
+      .card-content
         h2.title.is-2 Assignments
         - if assignments.any?
-          table.table.assignments
+          table.table.assignment-list
             col
             col[width='50']
             - assignments.each do |assignment|

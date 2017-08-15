@@ -7,7 +7,7 @@ var Section = function() {
   var seatingChartContainer, studentRosterContainer, assignmentListContainer, editButton;
   seatingChartContainer = $(".seating-chart");
   studentRosterContainer = $(".student-roster");
-  assignmentListContainer = $(".assignment-list");
+  assignmentListContainer = $(".assignment-list").closest(".card-content");
   editButton = $(seatingChartContainer.find(".seating-chart__edit-button"));
   
   isEditable = false;

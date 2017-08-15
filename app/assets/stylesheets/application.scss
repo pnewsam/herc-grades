@@ -6,32 +6,7 @@
 @import "jquery-ui/datepicker";
 @import "jquery-ui/theme";
 
-@import "components/_seating-chart";
-@import "components/_assignment-grader";
-@import "vendors/_bulma-file";
-
-// Devise Flash Messages
-.notice, .alert {
-  @extend .has-text-centered;
-  color: white;
-  line-height: 2.5em;
-}
-.notice { background-color: $info; }
-.alert { background-color: $danger; }
-
-.table.assignments {
-  tr:hover {
-    background-color: #fff;
-  }
-  .status {
-    text-align: right;
-  }
-}
-
-.mw-500 {
-  max-width: 500px;
-}
-
-.hide {
-  display: none;
-}
+@import "abstracts/*";
+@import "components/*";
+@import "layouts/*";
+@import "vendors/*";
