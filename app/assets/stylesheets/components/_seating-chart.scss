@@ -25,11 +25,12 @@
 }
 
 .student-roster {
-  .seating-chart__student {
-    @extend .tag;
-    @extend .is-medium;
-    @extend .is-info;
+  .student-roster__record {
+    @extend .is-small;
     margin: 5px;
     border-radius: 0px;
+  }
+  .student-roster__student {
+    @extend .is-info;
   }
 }
