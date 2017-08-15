@@ -1,53 +1,72 @@
-var SeatingChart = function(data) {
+var SeatingChart = function(props) {
   
-  this.seats = data.seats;
-  this.seatLength = data.seatLength;
+  var seats, numRows, numCols, isEditable, width, height, seatWidth;
 
-  function resizeChart() {
-    updateSizing();
-    collectNodes();
-    for (let i = 0; i < $seatNodes.length; i++) {
-      let seatNode = $($seatNodes[i]);
-      let seat = findSeatByNode(seatNode);
-      resizeEl(seatNode,seatSideLength);
-      translateSeat(seat,seatSideLength);
-    }
-    for (let j = 0; j < $studentNodes.length; j++) {
-      let studentNode = $($studentNodes[j]);
-      let student = findStudentByNode(studentNode)
-      studentNode.text(`${responsiveStudentName(student, seatingChartWidth)}`);
-    }
-  }
-
-  function findAndAppendStudent(seat,context) {
-    let student = students.filter(function(student) { return seat.student_id === student.id; })[0];
-    $(`#seat-${seat.id}`).append(renderStudent(student));
-  }
-
-  function translateSeat(seat, seatSideLength) {
-    let x = (seat.column_number * seatSideLength + seat.column_number * 10 + 5).toString() + 'px';
-    let y = (seat.row_number * seatSideLength + seat.row_number * 10 + 5).toString() + 'px';
-    $(`#seat-${seat.id}`).css("transform",`translateX(${x}) translateY(${y})`);
-  }
-
-  function updateSizing() {
-    seatingChartWidth = $seatingChart.width();
-    seatSideLength = (seatingChartWidth / section.number_of_columns) - 10;
-    $seatingChart.height(seatSideLength * section.number_of_rows + section.number_of_rows * 15);
-  }
-
+  seats = props.seats;  
+  numRows = props.numRows;
+  numCols = props.numCols;
+  isEditable = props.isEditable;
+  
+  container = props.container;
+  width = props.width;
+  seatWidth = (width / numCols) - 10;
+  height = seatWidth * numRows + numRows * 10;
+  
   function render() {
     for (let i = 0; i < seats.length; i++) {
-      let seat = seats[i];
-      $seatingChart.append(renderSeat(seat));
-      findAndAppendStudent(seat);
+      $(container).append(seats[i].render(seatWidth));
     }
-    resizeChart();
   }
 
 
+  // function renderDelete() {
+  //   return (`<a class="seating-chart__remove-student delete"></a>`);
+  // }
+
+  // function bindDeletes() {
+  //   $(".seating-chart").on("click", ".seating-chart__remove-student", function(e){
+  //     let student = $(this).next().attr("style","");
+  //     let seat = $(this).parent(".seating-chart__seat");
+  //     makeDraggable(student);
+  //     makeDroppable(seat);
+  //     $($studentRoster).append(student);
+  //     $(this).remove();
+  //   });
+  // }
+
+
+  function makeDroppable(els) {
+    els.on("drop",function(event){
+      handleDrop(event);
+    });
+    els.on("dragover",function(event){
+      handleDragover(event);
+    })
+  }
+
+  function makeDraggable(els) {
+    els.attr("draggable","true")
+    els.on("dragstart",function(event){
+      console.log(event)
+      handleDragstart(event);
+    });
+  }
+  
+  function handleDragover(e) {
+    e.preventDefault();
+  }
+
+  function handleDragstart(e) {
+    e.originalEvent.dataTransfer.setData("text",e.target.id);
+  }
+
+  function handleDrop(e) {
+    student = e.originalEvent.dataTransfer.getData("text")
+    $(e.target).append($(`#${student}`)).prepend(`<a class="seating-chart__remove-student delete"></a>`);
+  }
 
   return({
+    height: height,
     render: render
   })
 

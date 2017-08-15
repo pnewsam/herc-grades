@@ -1,194 +1,134 @@
 $(document).on("turbolinks:load", function(){
 
   if (window.location.pathname.indexOf("sections") > 0) {
-    var section = new Section($(".seating-chart"), $(".student-roster"), $(".assignment-list"))
-    
+    var section = new Section() 
   }
 
 });
 
-var Section = function($seatingChart, $studentRoster, $assignmentList) {
+var Section = function() {
 
-    var section, students, seats, $editButton, seatingChartWidth, seatSideLength, isEditable;
-    isEditable = false;
-    fetchData();
-    collectNodes();
-    bindEvents();
+  var seats, students, numRows, numCols, numSeats, seatingChart;
+  seats = [];
+  students = [];
 
-  function fetchData() {
+  var seatingChartContainer, studentRosterContainer, assignmentListContainer, editButton;
+  seatingChartContainer = $(".seating-chart");
+  studentRosterContainer = $(".student-roster");
+  assignmentListContainer = $(".assignment-list");
+  editButton = $(seatingChartContainer.find(".seating-chart__edit-button"));
+  
+  isEditable = false;
+  fetch();
+
+  function fetch() {
     var action, that;
     action = window.location.pathname + '/seats';
-    that = this;
     $.ajax({
       url: action,
       method: 'GET',
       dataType: 'json'
     })
     .done(function(r) {
-      that.students = init(r.students, iStudent);
-      that.seats = init(r.seats, iSeat);
+      initSection(r.section);
+      initStudents(r.students);
+      initSeats(r.seats);
+      bindEvents();
     });
   }
 
-  function init(data, callback) {
-    let a = [];
-    for (let i = 0; i < data.length; i++) {
-      obj = callback(data[i]);
-      a.push(obj);
-    }
-    return a;
+  function initSection(data) {
+    numRows = data.number_of_rows;
+    numCols = data.number_of_columns;
+    numSeats = numRows * numCols;
   }
 
-  function iStudent(args) { return new Person(args); };
-  function iSeat(args) { return new Seat(args); };
-  function iSeatingChart(args) { return new SeatingChart(args); };
+  function initStudents(data) { 
+    for (let i = 0; i < data.length; i++) {
+      s = new Student(data[i]);
+      students.push(s);
+    }
+  }
 
+  function initSeats(data) {
+    var sNum, s;
+    sNum = 0;
+    for (let r = 0; r < numRows; r++) {
+      for (let c = 0; c < numCols; c++) {
+        if (findSeat(data, sNum)) {
+          let props = findSeat(data, sNum);
+          props.student = findStudent(Number(props.student_id));
+          s = new Seat(props);
+        }
+        else {
+          let props = {id: null, student: new Student(), seat_number: sNum, row_number: r, column_number: c};
+          s = new Seat(props);
+        }
+        seats.push(s)
+        if (c !== numCols - 1) {
+          sNum += 1;
+        }
+      }
+      sNum += 1;
+    }
+  }
 
+  function findStudent(id) {
+    return(students.filter(function(s){ return s.id === id; })[0]);
+  }
 
+  function findSeat(seatsData, seatNum) {
+    return(seatsData.filter(function(s){ return s.seat_number === seatNum; })[0]);
+  }
 
-
-  function collectNodes() {
-    $studentNodes = $(".seating-chart").find(".seating-chart__student");
-    $seatNodes = $(".seating-chart__seat");
-    $editButton = $seatingChart.parent().find(".seating-chart__edit-button");
+  function renderSeatingChart(isEditable = false) {
+    let props = {
+      width: seatingChartContainer.width(),
+      isEditable: isEditable,
+      seats: seats,
+      numRows: numRows,
+      numCols: numCols,
+      container: seatingChartContainer
+    };
+    seatingChart = new SeatingChart(props);
+    seatingChart.render();
+    console.log(seatingChart.height);
+    seatingChartContainer.height(seatingChart.height);
   }
 
   function bindEvents() {
-    $editButton.on("click", function(event){ toggleEditable(); });
+    editButton.on("click",function(){
+      if (isEditable) { isEditable = false; }
+      else { isEditable = true; }
+      renderSeatingChart(isEditable);
+    });
 
-    // On resize, re-render Seating Chart
     $(window).resize(function(){
-      renderSeatingChart();
+      seatingChartContainer.html("");
+      renderSeatingChart(isEditable);
     });
   }
-
-
-  function toggleEditable() {
-    if (isEditable && confirm("Are you sure? Your edits won't be saved.")) {
-      isEditable = false;
-      $assignmentList.removeClass("hide");
-      $studentRoster.addClass("hide");
-      for (let i = 0; i < $seatNodes.length; i++) {
-        $($seatNodes[i]).find(".seating-chart__remove-student").remove();
-      }
-      reseatStudents();
-    }
-    else {
-      isEditable = true;
-      $assignmentList.addClass("hide");
-      $studentRoster.removeClass("hide");
-      for (let i = 0; i < $seatNodes.length; i++) {
-        $($seatNodes[i]).prepend(renderDelete());
-      }
-      bindDeletes();
-    }
-  };
-
-
-  function findSeatByNode(seatNode) {
-    let seatId = Number(seatNode.attr("id").replace("seat-",""));
-    let seat = seats.filter(function(seat){ return seat.id == seatId; })[0];
-    return seat;
-  }
-
-  function findStudentByNode(studentNode) {
-    let studentId = Number(studentNode.attr("id").replace("student-",""));
-    let student = students.filter(function(student){ return student.id === studentId; })[0];
-    return student;
-  }
-
-  function resizeEl(el,seatSideLength) {
-   el.css("width",`${seatSideLength}px`).css("height",`${seatSideLength}px`);
-  }
-
-  function renderDelete() {
-    return (`<a class="seating-chart__remove-student delete"></a>`);
-  }
-
-  function bindDeletes() {
-    $(".seating-chart").on("click", ".seating-chart__remove-student", function(e){
-      let student = $(this).next().attr("style","");
-      let seat = $(this).parent(".seating-chart__seat");
-      makeDraggable(student);
-      makeDroppable(seat);
-      $($studentRoster).append(student);
-      $(this).remove();
-    });
-  }
-
-  function reseatStudents() {
-    let unseatedStudents = $($studentRoster).find(".seating-chart__student");
-    for (let i = 0; i < unseatedStudents.length; i++) {
-      seatId = seats.filter(function(seat){ return seat.student_id == $(unseatedStudents[i]).attr("id").replace("student-",""); })[0].id;
-      $(`#seat-${seatId}`).append($(unseatedStudents[i]));
-    }
-  }
-
-  function makeDroppable(els) {
-    els.on("drop",function(event){
-      handleDrop(event);
-    });
-    els.on("dragover",function(event){
-      handleDragover(event);
-    })
-  }
-
-  function makeDraggable(els) {
-    els.attr("draggable","true")
-    els.on("dragstart",function(event){
-      console.log(event)
-      handleDragstart(event);
-    });
-  }
-  
-  function handleDragover(e) {
-    e.preventDefault();
-  }
-
-  function handleDragstart(e) {
-    e.originalEvent.dataTransfer.setData("text",e.target.id);
-  }
-
-  function handleDrop(e) {
-    student = e.originalEvent.dataTransfer.getData("text")
-    $(e.target).append($(`#${student}`)).prepend(`<a class="seating-chart__remove-student delete"></a>`);
-  }
-
-  return ({
-    renderSeatingChart: renderSeatingChart
-  });
 
 };
 
-
-
-
-
-  // function Person(args){
-  //   // console.log(args);
-  //   this.name = args.name;
-  // }
-
-  // function initPerson(args) {
-  //   return new Person(args);
-  // }
-
-  // function initialize(data,callback) {
-  //   let a = []
-  //   for (let i = 0; i < data.length; i++) {
-  //     obj = callback(data[i]);
-  //     a.push(obj);
+  // function toggleEditable() {
+  //   if (isEditable && confirm("Are you sure? Your edits won't be saved.")) {
+  //     isEditable = false;
+  //     $assignmentList.removeClass("hide");
+  //     studentRoster.aassignmentListhide");
+  //     for (let i = 0; i < $seatNodes.length; i++) {
+  //       $($seatNodes[i]).find(".seating-chart__remove-student").remove();
+  //     }
+  //     reseatStudents();
   //   }
-  //   return a;
-  // }
-
-  // var data = [
-  //   {
-  //     name: 'Bob'
-  //   },
-  //   {
-  //     name: 'Caroline'
+  //   else {
+  //     isEditable = true;
+  //     $assignmentList.addClass("hide");
+  //     studentRoster.rassignmentListhide");
+  //     for (let i = 0; i < $seatNodes.length; i++) {
+  //       $($seatNodes[i]).prepend(renderDelete());
+  //     }
+  //     bindDeletes();
   //   }
-  // ];
 
-  // initialize(data,initPerson);
+
