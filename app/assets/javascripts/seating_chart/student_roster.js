@@ -1,13 +1,13 @@
 var StudentRoster = function() {
 
   this.students;
+  this.isEditable;
 
   function renderRoster() {
     for (let i = 0; i < students.length; i++) {
       $studentRoster.append(renderRosterName(students[i]));
     }
   }
-
 
   function render(student) {
     return(`
