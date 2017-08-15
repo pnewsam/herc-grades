@@ -6,10 +6,9 @@
 @import "jquery-ui/datepicker";
 @import "jquery-ui/theme";
 
-@import "csv_upload";
-@import "section_seats";
-@import "assignment_grades";
-@import "bulma_file.scss";
+@import "components/_seating-chart";
+@import "components/_assignment-grader";
+@import "vendors/_bulma-file";
 
 // Devise Flash Messages
 .notice, .alert {
