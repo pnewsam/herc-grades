@@ -9,7 +9,7 @@ var Seat = function(props) {
 
   function render(seatWidth) {
     let x = (colNum * seatWidth + colNum * 10 + 5).toString() + 'px';
-    let y = (rowNum * seatWidth + rowNum * 10 + 5).toString() + 'px';
+    let y = (((rowNum ) * seatWidth + (rowNum) * 10 + 30) * -1).toString() + 'px';
     let s;
     if (student.id) { s = student.render(); }
     else { s = `<p class="seating-chart__placeholder">Empty</p>` }
