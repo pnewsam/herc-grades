@@ -11,13 +11,12 @@ var SeatingChart = function(props) {
   width = props.width;
   seatWidth = (width / numCols) - 10;
   height = seatWidth * numRows + numRows * 10;
-  
+
   function render() {
     for (let i = 0; i < seats.length; i++) {
       $(container).append(seats[i].render(seatWidth));
     }
   }
-
 
   // function renderDelete() {
   //   return (`<a class="seating-chart__remove-student delete"></a>`);

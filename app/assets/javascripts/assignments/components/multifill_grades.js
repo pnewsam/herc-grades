@@ -1,11 +1,3 @@
-$(document).on('turbolinks:load', function() {
-
-  $('#grade-multifill button').on('click',function(){
-    multifillGrades();
-  });
-
-})
-
 var multifillGrades = function() {
 
   var $select, $selectFields, value

@@ -19,15 +19,17 @@
     right: 5px;
     z-index: 2;
   }
-  .seating-chart__student {
-    background-color: $info;
-    color: white;
+  .seating-chart__student, .seating-chart__placeholder {
     display: table-cell;
     vertical-align: middle;
     font-size: .7em;
     @media screen and (min-width: 1200px) {
       font-size: 1em
     }
+  }
+  .seating-chart__student {
+    background-color: $info;
+    color: white;
   }
 }
 
