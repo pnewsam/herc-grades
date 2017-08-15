@@ -26,9 +26,8 @@ An app that makes it easy for teachers to assign grades to their students!
 
 
 ## Code Guide
-* Custom class names follow BEM methodology
-
-
+* Class Naming Scheme: [BEM](http://getbem.com/)
+* Sass Directory Structure: [7-1 Pattern](https://sass-guidelin.es/#architecture)
 
 
 <!-- This README would normally document whatever steps are necessary to get the

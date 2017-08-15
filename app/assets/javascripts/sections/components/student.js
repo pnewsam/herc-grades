@@ -9,9 +9,7 @@ var Student = function(props) {
 
   function render() {
     var name;
-    if (firstName) {
-      name = firstName;
-    }
+    if (firstName) { name = firstName; }
     else { name = 'Empty' }
       return (`
         <p id="student-${id}" class="seating-chart__student">
@@ -20,10 +18,10 @@ var Student = function(props) {
       `);
     }
 
-  function responsiveName() {
-    if (seatingChartWidth < 550) { return ( first_name.substr(0,3) + '.' ); }
-    else { return ( first_name ); }
-  }
+  // function responsiveName() {
+  //   if (seatingChartWidth < 550) { return ( first_name.substr(0,3) + '.' ); }
+  //   else { return ( first_name ); }
+  // }
 
   return({
     id: id,

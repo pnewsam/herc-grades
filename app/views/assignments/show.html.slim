@@ -2,7 +2,6 @@
 .level
   .level-left
     .level-item
-      / hr.is-fullwidth
       ul
         li
           h1.title.is-1 = assignment.name
@@ -46,7 +45,7 @@ br
             button.button.is-primary Set Default Grade
 
   = form_for assignment, url: assignment_grade_path(assignment.id) do |f|
-    table.table.is-bordered.is-fullwidth.grades
+    table.table.is-bordered.is-fullwidth.assignment-grader
       thead
         tr
           th: strong Student

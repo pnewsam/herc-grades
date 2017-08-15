@@ -1,11 +1,3 @@
-$(document).on("turbolinks:load", function(){
-
-  if (window.location.pathname.indexOf("sections") > 0) {
-    var section = new Section() 
-  }
-
-});
-
 var Section = function() {
 
   var seats, students, numRows, numCols, numSeats, seatingChart;
@@ -34,6 +26,7 @@ var Section = function() {
       initStudents(r.students);
       initSeats(r.seats);
       bindEvents();
+      renderSeatingChart();
     });
   }
 
@@ -91,9 +84,8 @@ var Section = function() {
       container: seatingChartContainer
     };
     seatingChart = new SeatingChart(props);
-    seatingChart.render();
-    console.log(seatingChart.height);
     seatingChartContainer.height(seatingChart.height);
+    seatingChart.render();
   }
 
   function bindEvents() {
@@ -110,25 +102,3 @@ var Section = function() {
   }
 
 };
-
-  // function toggleEditable() {
-  //   if (isEditable && confirm("Are you sure? Your edits won't be saved.")) {
-  //     isEditable = false;
-  //     $assignmentList.removeClass("hide");
-  //     studentRoster.aassignmentListhide");
-  //     for (let i = 0; i < $seatNodes.length; i++) {
-  //       $($seatNodes[i]).find(".seating-chart__remove-student").remove();
-  //     }
-  //     reseatStudents();
-  //   }
-  //   else {
-  //     isEditable = true;
-  //     $assignmentList.addClass("hide");
-  //     studentRoster.rassignmentListhide");
-  //     for (let i = 0; i < $seatNodes.length; i++) {
-  //       $($seatNodes[i]).prepend(renderDelete());
-  //     }
-  //     bindDeletes();
-  //   }
-
-

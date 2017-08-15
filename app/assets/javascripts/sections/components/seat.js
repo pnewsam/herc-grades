@@ -10,9 +10,12 @@ var Seat = function(props) {
   function render(seatWidth) {
     let x = (colNum * seatWidth + colNum * 10 + 5).toString() + 'px';
     let y = (rowNum * seatWidth + rowNum * 10 + 5).toString() + 'px';
+    let s;
+    if (student.id) { s = student.render(); }
+    else { s = `<p class="seating-chart__placeholder">Empty</p>` }
     return (`
       <div id="seat-${id}" class="seating-chart__seat" style="height: ${seatWidth}px; width: ${seatWidth}px; transform: translateX(${x}) translateY(${y});">
-        ${student.render()}
+        ${s}
       </div>
     `);
   }
