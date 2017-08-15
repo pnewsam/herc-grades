@@ -5,18 +5,11 @@ var SeatingChart = function(props) {
   seats = props.seats;  
   numRows = props.numRows;
   numCols = props.numCols;
-  isEditable = props.isEditable;
   
   container = props.container;
   width = props.width;
   seatWidth = (width / numCols) - 10;
   height = seatWidth * numRows + numRows * 10;
-
-  function render() {
-    for (let i = 0; i < seats.length; i++) {
-      $(container).append(seats[i].render(seatWidth));
-    }
-  }
 
   // function renderDelete() {
   //   return (`<a class="seating-chart__remove-student delete"></a>`);
@@ -33,35 +26,10 @@ var SeatingChart = function(props) {
   //   });
   // }
 
-
-  function makeDroppable(els) {
-    els.on("drop",function(event){
-      handleDrop(event);
-    });
-    els.on("dragover",function(event){
-      handleDragover(event);
-    })
-  }
-
-  function makeDraggable(els) {
-    els.attr("draggable","true")
-    els.on("dragstart",function(event){
-      console.log(event)
-      handleDragstart(event);
-    });
-  }
-  
-  function handleDragover(e) {
-    e.preventDefault();
-  }
-
-  function handleDragstart(e) {
-    e.originalEvent.dataTransfer.setData("text",e.target.id);
-  }
-
-  function handleDrop(e) {
-    student = e.originalEvent.dataTransfer.getData("text")
-    $(e.target).append($(`#${student}`)).prepend(`<a class="seating-chart__remove-student delete"></a>`);
+  function render(isEditable) {
+    for (let i = 0; i < seats.length; i++) {
+      $(container).append(seats[i].render(seatWidth, isEditable));
+    }
   }
 
   return({

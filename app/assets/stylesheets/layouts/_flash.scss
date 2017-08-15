@@ -1,0 +1,7 @@
+.notice, .alert {
+  @extend .has-text-centered;
+  color: white;
+  line-height: 2.5em;
+}
+.notice { background-color: $info; }
+.alert { background-color: $danger; }

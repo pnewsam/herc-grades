@@ -23,27 +23,28 @@
             .level-item
               button.button.is-warning.seating-chart__edit-button Modify Seating Chart
         .seating-chart
-        - if seats.none?
-          p.notification.has-text-centered This section has no students.
-          .box.has-text-centered
-            h4.title.is-4 Upload your Class List
-            = form_for section, method: "patch" do |f|
-              .file.is-boxed.has-name
-                = f.label :file, 'Choose File', class: 'file-label'
-                  = f.file_field :file, class: 'file-input'
-                  span.file-cta
-                    span.file-icon
-                      i.fa.fa-upload
-                    span.file-label Choose a file…  
-                  span.file-name.has-text-centered#section_filename Your filename here
-              br
-              = f.submit 'Upload', class: 'button is-info'
+          - if seats.none?
+            p.notification.has-text-centered This section has no students.
+            .box.has-text-centered
+              h4.title.is-4 Upload your Class List
+              = form_for section, method: "patch" do |f|
+                .file.is-boxed.has-name
+                  = f.label :file, 'Choose File', class: 'file-label'
+                    = f.file_field :file, class: 'file-input'
+                    span.file-cta
+                      span.file-icon
+                        i.fa.fa-upload
+                      span.file-label Choose a file…  
+                    span.file-name.has-text-centered#section_filename Your filename here
+                br
+                = f.submit 'Upload', class: 'button is-info'
+
   .tile.is-parent.is-4
     .tile.is-child.card
-      .card-content.assignment-list
+      .card-content
         h2.title.is-2 Assignments
         - if assignments.any?
-          table.table.assignments
+          table.table.assignment-list
             col
             col[width='50']
             - assignments.each do |assignment|
@@ -57,6 +58,5 @@
         .has-text-centered
           = link_to "Create an Assignment", new_section_assignment_path(section), class: 'button is-primary'
       .card-content.student-roster.hide
-        h2.title.is-2 Change Seating        
 
 = link_to 'Back to Dashboard', root_path, class: 'button is-primary'

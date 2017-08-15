@@ -1,0 +1,10 @@
+.assignment-list {
+  &.table {
+    tr:hover {
+      background-color: #fff;
+    }
+    .status {
+      text-align: right;
+    }
+  }
+}
