@@ -13,20 +13,11 @@ var Seat = function(props) {
     let s;
     if (student.id) { s = student.render(isEditable); }
     else { s = `<p class="seating-chart__placeholder">Empty</p>` }
-    if (isEditable) {
-      return(`
-        <div id="seat-${id}" class="seating-chart__seat" style="height: ${seatWidth}px; width: ${seatWidth}px; transform: translateX(${x}) translateY(${y});" ondrop="dragAndDrop.handleDrop(event)" ondragover="dragAndDrop.handleDragover(event)">
-          ${s}
-        </div>
-      `);
-    }
-    else {
-      return (`
-        <div id="seat-${id}" class="seating-chart__seat" style="height: ${seatWidth}px; width: ${seatWidth}px; transform: translateX(${x}) translateY(${y});">
-          ${s}
-        </div>
-      `);
-    }
+    return(`
+      <div id="seat-${id}" class="seating-chart__seat" style="height: ${seatWidth}px; width: ${seatWidth}px; transform: translateX(${x}) translateY(${y});">
+        ${s}
+      </div>
+    `);
   }
 
   return({

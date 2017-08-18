@@ -8,8 +8,8 @@ var Placeholder = function(props) {
 
   function render() {
     return(`
-      <div id="roster-${id}" class="student-roster__record tag">
-        <p class="student-roster__placeholder">
+      <div id="roster-${id}" class="student-roster__record">
+        <p class="student-roster__placeholder tag is-medium">
           ${firstName}
         </p>
       </div>
@@ -17,6 +17,7 @@ var Placeholder = function(props) {
   }
 
   return({
+    id: id,
     render: render
   });
 

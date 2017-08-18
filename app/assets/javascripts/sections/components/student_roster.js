@@ -1,8 +1,9 @@
 var StudentRoster = function(props) {
 
-  var placeholders, container, students;
+  var placeholders, container, students, filter;
   placeholders = [];
   container = props.container;
+  filter = $(container).find(".student-roster__filter");
 
   init(props.placeholders);
 
@@ -11,31 +12,42 @@ var StudentRoster = function(props) {
       ph = new Placeholder(phs[i]);
       placeholders.push(ph);
     }
+    makeDroppable();
+  }
+
+  function makeDroppable() {
+    $(container).on("drop", handleDrop);
+    $(container).on("dragover", handleDragover);
+  }
+  
+  function handleDragover(e) {
+    e.preventDefault();
   }
 
   function handleDrop(e) {
-    student = e.originalEvent.dataTransfer.getData("text")
-    $(e.target).append($(`#`)).prepend(`<a class="seating-chart__remove-student delete"></a>`);
-  }
-
-  function makeDroppable(els) {
-    els.on("drop",function(event){
-      handleDrop(event);
-    });
-    els.on("dragover",function(event){
-      handleDragover(event);
-    });
-  }
-
-  function findPlaceholder(id) {
-    placeholders.filter(function(ph){ return ph.id === id })[0];
+    e.preventDefault();
+    $(".student-roster__filter").addClass("hide");
+    $(".student-roster__notice").addClass("hide");
+    let sId = e.originalEvent.dataTransfer.getData("text").replace("student-","");
+    let s = $(`#student-${sId}`);
+    $(`#roster-${sId}`).append($(s));
   }
 
   function render() {
-    $(container).html("").prepend(`<h2 class="title is-2">Change Seating</h2>`);
     for (let i = 0; i < placeholders.length; i++) {
       $(container).append(placeholders[i].render());
     }
+    $(container).append(renderFilter());
+  }
+
+  function renderFilter() {
+    return(
+      `
+      <p class="student-roster__notice title is-3 has-text-centered">Drag students here</p>
+      <div class="student-roster__filter">
+      </div>
+      `
+    );
   }
 
   return({
