@@ -1,0 +1,39 @@
+.student-roster {
+  position: relative;
+  .student-roster__record {
+    display: inline-block;
+    margin: 5px;
+    position: relative;
+  }
+  .student-roster__placeholder, .seating-chart__student {
+    border-radius: 0px;
+  }
+  .seating-chart__student {
+    @extend .tag;
+    @extend .is-medium;
+    @extend .is-info;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .student-roster__filter {
+    position: absolute;
+    left: -2%;
+    top: -2%;
+    width: 104%;
+    height: 104%;
+    background-color: darken(whitesmoke,5%);
+    z-index: 2;
+    opacity: .9;
+    filter: blur(5px);
+  }
+  .student-roster__notice {
+    color: $danger;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-100%);
+    z-index: 3;
+  }
+}

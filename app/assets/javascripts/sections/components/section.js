@@ -90,31 +90,29 @@ var Section = function() {
     seatingChart.render(isEditable);
   }
 
-  function initiateEdit() {
-    if (typeof studentRoster !== "object") {
-      let props = {container: studentRosterContainer, placeholders: students};
-      studentRoster = new StudentRoster(props);
-    }
-    $(studentRosterContainer).removeClass("hide");
-    $(assignmentListContainer).addClass("hide");
+  function renderStudentRoster(isEditable = false) {
+    studentRosterContainer.html("");
+    let props = {container: studentRosterContainer, placeholders: students};
+    studentRoster = new StudentRoster(props);
     studentRoster.render();
   }
 
-  function terminateEdit() {
-    $(studentRosterContainer).addClass("hide")
-    $(assignmentListContainer).removeClass("hide");
+
+  function toggleEditable() {
+    if (isEditable) { isEditable = false; }
+    else { isEditable = true; }
+    toggleSidePanel();
+    renderStudentRoster(isEditable);
+  }
+
+  function toggleSidePanel() {
+    $(studentRosterContainer).toggleClass("hide");
+    $(assignmentListContainer).toggleClass("hide");
   }
 
   function bindEvents() {
     editButton.on("click", function(){
-      if (isEditable) {
-        isEditable = false;
-        terminateEdit();
-      }
-      else {
-        isEditable = true;
-        initiateEdit();
-      }
+      toggleEditable();
       renderSeatingChart(isEditable);
     });
 

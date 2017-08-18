@@ -8,26 +8,28 @@ var Student = function(props) {
   }
 
   function render(isEditable) {
-    console.log(isEditable)
     var name;
     if (firstName) { name = firstName; }
     else { name = 'Empty' }
     if (isEditable) {
-      console.log('if!')
-      return (`
-        <p id="student-${id}" class="seating-chart__student" draggable="true" ondragstart="dragAndDrop.handleDragstart(event)">
-          ${firstName}
-        </p>
-      `);
-    }
-    else {
-      console.log('else!')
       return (`
         <p id="student-${id}" class="seating-chart__student">
           ${firstName}
         </p>
       `);
     }
+    else {
+      return (`
+        <p id="student-${id}" class="seating-chart__student">
+          ${firstName}
+        </p>
+      `);
+    }
+  }
+
+  function draggable(isEditable) {
+    if (isEditable) { return "true"; }
+    else { return "false"; }
   }
 
   // function responsiveName() {
