@@ -23,14 +23,3 @@
     color: white;
   }
 }
-
-.student-roster {
-  .student-roster__record {
-    @extend .is-small;
-    margin: 5px;
-    border-radius: 0px;
-  }
-  .student-roster__student {
-    @extend .is-info;
-  }
-}
