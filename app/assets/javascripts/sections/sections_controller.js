@@ -1,5 +1,3 @@
-var dragAndDrop = new DragAndDrop();
-
 $(document).on("turbolinks:load", function(){
 
   if (window.location.pathname.indexOf("sections") > 0) {
