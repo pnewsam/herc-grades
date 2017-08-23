@@ -12,7 +12,6 @@ var SeatingChart = function(props) {
   height = seatWidth * numRows + numRows * 10;
 
   function render(isEditable, seatNumsOnly) {
-    console.log(seatNumsOnly)
     for (let i = 0; i < seats.length; i++) {
       $(container).append(seats[i].render(seatWidth, isEditable, numRows, seatNumsOnly));
       let sN = $(container).children().last().find(".seating-chart__student");

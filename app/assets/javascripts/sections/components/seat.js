@@ -11,7 +11,6 @@ var Seat = function(props) {
     let x = (colNum * seatWidth + colNum * 10 + 5).toString() + 'px';
     let y = ((numRows - 1 - rowNum) * seatWidth + (numRows - 1 - rowNum) * 10 + 5).toString() + 'px';
     let s;
-    // console.log(seatNumsOnly)
     if (student.id && !seatNumsOnly) { s = student.render(isEditable); }
     else if (seatNumsOnly) { s = `<p class="seating-chart__placeholder">${num}</p>` }
     else { s = `<p class="seating-chart__placeholder">Empty</p>` }
