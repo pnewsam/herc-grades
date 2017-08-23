@@ -1,7 +1,6 @@
 .seating-chart__seat {
   border: solid 3px $grey-lighter;
   position: absolute;
-  bottom: 0;
   display: table;
   text-align: center;
   .seating-chart__remove-student {
