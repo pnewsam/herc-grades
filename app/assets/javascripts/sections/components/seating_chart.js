@@ -11,24 +11,9 @@ var SeatingChart = function(props) {
   seatWidth = (width / numCols) - 10;
   height = seatWidth * numRows + numRows * 10;
 
-  // function renderDelete() {
-  //   return (`<a class="seating-chart__remove-student delete"></a>`);
-  // }
-
-  // function bindDeletes() {
-  //   $(".seating-chart").on("click", ".seating-chart__remove-student", function(e){
-  //     let student = $(this).next().attr("style","");
-  //     let seat = $(this).parent(".seating-chart__seat");
-  //     makeDraggable(student);
-  //     makeDroppable(seat);
-  //     $($studentRoster).append(student);
-  //     $(this).remove();
-  //   });
-  // }
-
   function render(isEditable) {
     for (let i = 0; i < seats.length; i++) {
-      $(container).append(seats[i].render(seatWidth, isEditable));
+      $(container).append(seats[i].render(seatWidth, isEditable, numRows));
       let sN = $(container).children().last().find(".seating-chart__student");
       toggleDraggable(sN, isEditable);
     }

@@ -7,9 +7,9 @@ var Seat = function(props) {
   rowNum = props.row_number;
   colNum = props.column_number;
 
-  function render(seatWidth, isEditable) {
+  function render(seatWidth, isEditable, numRows) {
     let x = (colNum * seatWidth + colNum * 10 + 5).toString() + 'px';
-    let y = ((rowNum * seatWidth + rowNum * 10 + 30) * -1).toString() + 'px';
+    let y = ((numRows - 1 - rowNum) * seatWidth + (numRows - 1 - rowNum) * 10 + 5).toString() + 'px';
     let s;
     if (student.id) { s = student.render(isEditable); }
     else { s = `<p class="seating-chart__placeholder">Empty</p>` }
