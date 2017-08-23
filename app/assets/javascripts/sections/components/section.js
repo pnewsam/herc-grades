@@ -27,6 +27,7 @@ var Section = function(props) {
       dataType: 'json'
     })
     .done(function(r) {
+      console.log(r)
       initSection(r.section);
       initStudents(r.students);
       initSeats(r.seats);
