@@ -1,8 +1,14 @@
 $(document).on("turbolinks:load", function(){
 
-  if (window.location.pathname.indexOf("sections") > 0) {
-    
-    var section = new Section();
+  var path = window.location.pathname;
+
+  if (path.indexOf("sections") > 0) {
+
+    props = { seatNumsOnly: false };
+    if (path.indexOf("seating_chart/edit") > 0) {
+      props.seatNumsOnly = true;
+    }
+    var section = new Section(props);
   
     var csvFile = document.getElementById("section_file");
     if (csvFile) {

@@ -1,10 +1,11 @@
-var Section = function() {
+var Section = function(props) {
 
   // Declare state variables
-  var sectionPath, seats, students, numRows, numCols, numSeats, seatingChart, studentRoster, seatingChartEditor, isEditable;
+  var sectionPath, seats, students, numRows, numCols, numSeats, seatingChart, studentRoster, seatingChartEditor, isEditable, seatNumsOnly;
   seats = [];
   students = [];
   isEditable = false;
+  seatNumsOnly = props.seatNumsOnly;
   sectionPath = (window.location.pathname).match(/\/sections\/(\d+)/gm)[0];
 
   // Collect nodes
@@ -30,7 +31,7 @@ var Section = function() {
       initStudents(r.students);
       initSeats(r.seats);
       bindEvents();
-      renderSeatingChart();
+      renderSeatingChart(seatNumsOnly, isEditable);
     });
   }
 
@@ -76,7 +77,7 @@ var Section = function() {
     return(seatsData.filter(function(s){ return s.seat_number === seatNum; })[0]);
   }
 
-  function renderSeatingChart(isEditable = false) {
+  function renderSeatingChart(seatNumsOnly, isEditable = false) {
     seatingChartContainer.html("")
     let props = {
       width: seatingChartContainer.width(),
@@ -84,11 +85,12 @@ var Section = function() {
       seats: seats,
       numRows: numRows,
       numCols: numCols,
-      container: seatingChartContainer
+      container: seatingChartContainer,
+      seatNumsOnly: seatNumsOnly
     };
     seatingChart = new SeatingChart(props);
     seatingChartContainer.height(seatingChart.height);
-    seatingChart.render(isEditable);
+    seatingChart.render(isEditable, seatNumsOnly);
   }
 
   function renderStudentRoster(isEditable = false) {
@@ -114,12 +116,12 @@ var Section = function() {
   function bindEvents() {
     editButton.on("click", function(){
       toggleEditable();
-      renderSeatingChart(isEditable);
+      renderSeatingChart(seatNumsOnly, isEditable);
     });
 
     $(window).resize(function(){
       seatingChartContainer.html("");
-      renderSeatingChart(isEditable);
+      renderSeatingChart(seatNumsOnly, isEditable);
     });
   }
 
