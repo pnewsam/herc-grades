@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :sections do
+    resource :seating_chart, only: [:show, :edit, :update]
     resources :seats, only: [:index, :new, :create]
     resources :assignments, only: [:new, :create]
   end
