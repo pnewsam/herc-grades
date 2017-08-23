@@ -9,6 +9,8 @@ class Section < ApplicationRecord
 
   validates :period, :term_id, :course_id, :academic_year_start, :academic_year_end, presence: true
 
+  accepts_nested_attributes_for :seats
+
   def course_name
     self.course.name
   end

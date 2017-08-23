@@ -37,7 +37,7 @@ h1.title.is-1 Edit this Section
       .control
         .select
           = f.select :course_id, options_from_collection_for_select(courses, :id, :name, section.course_id)
-  
+
   = f.submit 'Edit Section', class: 'button is-info'
 
 br

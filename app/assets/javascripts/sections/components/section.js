@@ -1,10 +1,11 @@
 var Section = function() {
 
   // Declare state variables
-  var seats, students, numRows, numCols, numSeats, seatingChart, studentRoster, seatingChartEditor, isEditable;
+  var sectionPath, seats, students, numRows, numCols, numSeats, seatingChart, studentRoster, seatingChartEditor, isEditable;
   seats = [];
   students = [];
   isEditable = false;
+  sectionPath = (window.location.pathname).match(/\/sections\/(\d+)/gm)[0];
 
   // Collect nodes
   var seatingChartContainer, studentRosterContainer, assignmentListContainer, editButton;
@@ -18,7 +19,7 @@ var Section = function() {
 
   function fetch() {
     var action, that;
-    action = window.location.pathname + '/seats';
+    action = sectionPath + '/seats';
     $.ajax({
       url: action,
       method: 'GET',
