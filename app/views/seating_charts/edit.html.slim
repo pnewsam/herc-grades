@@ -1,0 +1,21 @@
+h1.title.is-1 Edit Seating Chart
+
+.columns
+  .column
+    = form_for section do |f|
+      table.table.is-bordered.is-fullwidth.assignment-grader.is-narrow
+        thead
+          tr
+            th: strong Student
+            th: strong Seat Number
+        tbody
+          = f.fields_for :seats, section.seats do |s|
+            tr
+              td = s.object.student.first_name
+              td.control
+                .select.is-fullwidth
+                  = s.select :student, options_from_collection_for_select(section.seats, :id, :seat_number, s.object.id)
+          tr
+            td[colspan='2' class='form-submit'] = f.submit 'Update Seating chart', class: 'button is-primary is-large'
+  .column
+    .seating-chart

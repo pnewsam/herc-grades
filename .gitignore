@@ -21,3 +21,4 @@
 # Keep the seed data local:
 
 /db/*.csv
+.env
