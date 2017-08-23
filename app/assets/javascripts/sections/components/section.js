@@ -27,7 +27,11 @@ var Section = function(props) {
       dataType: 'json'
     })
     .done(function(r) {
+<<<<<<< Updated upstream
       console.log(r)
+=======
+      console.log(r);
+>>>>>>> Stashed changes
       initSection(r.section);
       initStudents(r.students);
       initSeats(r.seats);
