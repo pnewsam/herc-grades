@@ -7,8 +7,8 @@ class Student < ApplicationRecord
   belongs_to :school
   has_many :grades
   has_many :assignments, through: :grades
-  has_many :seats
-  has_many :sections, through: :seats
+  has_many :enrollments
+  has_many :sections, through: :enrollments
   has_many :teachers, through: :sections
   has_many :grade_values, through: :grades
   

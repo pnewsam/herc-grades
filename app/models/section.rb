@@ -2,14 +2,13 @@ class Section < ApplicationRecord
   belongs_to :course
   belongs_to :teacher
   belongs_to :term
-  has_many :seats, -> { order(:id) }
+  has_one :seating_chart
+  has_many :enrollments
+  has_many :students, through: :enrollments
   has_many :assignments
-  has_many :students, through: :seats
   has_one :school, through: :teacher
 
   validates :period, :term_id, :course_id, :academic_year_start, :academic_year_end, presence: true
-
-  accepts_nested_attributes_for :seats
 
   def course_name
     self.course.name

@@ -11,9 +11,9 @@ var SeatingChart = function(props) {
   seatWidth = (width / numCols) - 10;
   height = seatWidth * numRows + numRows * 10;
 
-  function render(isEditable) {
+  function render(isEditable, seatNumsOnly) {
     for (let i = 0; i < seats.length; i++) {
-      $(container).append(seats[i].render(seatWidth, isEditable, numRows));
+      $(container).append(seats[i].render(seatWidth, isEditable, numRows, seatNumsOnly));
       let sN = $(container).children().last().find(".seating-chart__student");
       toggleDraggable(sN, isEditable);
     }

@@ -1,6 +1,6 @@
 class Seat < ApplicationRecord
   belongs_to :student
-  belongs_to :section
+  belongs_to :seating_chart
 
   def render
     seat = "<div class='seat box is-paddingless has-text-centered'><p class='name'>#{self.student.first_name}<p></div>"
