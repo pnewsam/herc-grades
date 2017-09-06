@@ -28,7 +28,11 @@ var Section = function(props) {
     })
     .done(function(r) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       console.log(r)
+=======
+      console.log(r);
+>>>>>>> Stashed changes
 =======
       console.log(r);
 >>>>>>> Stashed changes
