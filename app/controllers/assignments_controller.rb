@@ -1,4 +1,4 @@
-class AssignmentsController < ApplicationController  
+class AssignmentsController < ApplicationController
   before_action :authenticate_teacher!
 
   def index
@@ -15,7 +15,7 @@ class AssignmentsController < ApplicationController
       render :new
     end
   end
-  
+
   def new
     @assignment = Assignment.new
   end
@@ -37,12 +37,18 @@ class AssignmentsController < ApplicationController
       redirect_to root_path
     end
   end
-  
+
   def grade
-    assignment_params[:grades_attributes].values.each do |grade|
-      assignment.grades.find(grade[:id]).update(grade_value_id: grade[:grade_value_id])
+    grades = assignment.grades
+    if (grades && grades.first != nil)
+      assignment_params[:grades_attributes].values.each do |grade|
+        assignment.grades.find(grade[:id]).update(grade_value_id: grade[:grade_value_id])
+      end
+      redirect_to root_path
+    else
+      redirect_to root_path # This could be changed.
     end
-    redirect_to root_path
+
   end
 
 private
