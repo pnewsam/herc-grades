@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804212531) do
+ActiveRecord::Schema.define(version: 20170911232800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 20170804212531) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "section_id"
   end
 
   create_table "grade_values", force: :cascade do |t|
@@ -67,14 +72,20 @@ ActiveRecord::Schema.define(version: 20170804212531) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "seating_charts", force: :cascade do |t|
+    t.integer "number_of_rows", default: 5
+    t.integer "number_of_columns", default: 6
+    t.integer "section_id", null: false
+  end
+
   create_table "seats", force: :cascade do |t|
     t.integer "seat_number", null: false
-    t.integer "section_id", null: false
     t.integer "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "row_number"
     t.integer "column_number"
+    t.integer "seating_chart_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -86,9 +97,7 @@ ActiveRecord::Schema.define(version: 20170804212531) do
     t.integer "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "number_of_seats", default: 30
-    t.integer "number_of_rows", default: 5
-    t.integer "number_of_columns", default: 6
+    t.integer "seating_chart_id"
   end
 
   create_table "students", force: :cascade do |t|

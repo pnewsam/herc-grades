@@ -3,6 +3,8 @@ class Section < ApplicationRecord
   belongs_to :teacher
   belongs_to :term
   has_one :seating_chart
+  has_many :seats, through: :seating_chart
+  has_many :seated_students, through: :seats
   has_many :enrollments
   has_many :students, through: :enrollments
   has_many :assignments
