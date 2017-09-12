@@ -17,7 +17,7 @@ class Section < ApplicationRecord
   end
 
   def empty?
-    !self.seats.any?
+    !self.enrollments.any?
   end
 
   def ungraded_assignments

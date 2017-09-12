@@ -215,7 +215,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="410" y="507" name="catalogs">
+<table x="392" y="504" name="course_listings">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
