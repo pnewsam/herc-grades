@@ -1,14 +1,10 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class SectionsContainer extends Component {
   componentDidMount(){
-    fetch("/api/sections", {
-    headers : { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-     }})
-    .then(response => response.json())
-    .then(json => console.log(json))
+    axios.get("/api/sections")
+    .then(response => console.log(response.data))
     .catch(error => console.log(error));
   }
   render(){
